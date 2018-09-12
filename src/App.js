@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { getMe } from './api';
-import Projects from './Projects';
 import Project from './Project';
 import Login from './Login';
-import Profile from './Profile';
+import Navbar from './Navbar';
 
-class App2 extends Component {
+class App extends Component {
   state = {
     token: null,
     projects: [],
@@ -49,12 +48,15 @@ class App2 extends Component {
     return (
       <Router>
         <div>
-          <Profile name={name} onLogout={this.handleLogout} />
-          <Projects projects={projects} />
+          <Navbar
+            name={name}
+            projects={projects}
+            onLogout={this.handleLogout}
+          />
 
           <Route
             path="/projects/:id"
-            render={props => <Project {...props} projects={projects} />}
+            render={props => <Project {...props} />}
           />
         </div>
       </Router>
@@ -62,4 +64,4 @@ class App2 extends Component {
   }
 }
 
-export default App2;
+export default App;

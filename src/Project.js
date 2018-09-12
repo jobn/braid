@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
-import { getStories } from './api';
+import { getCurrentIteration } from './api';
+import Story from './Story';
 
-const Story = ({ name }) => <li>{name}</li>;
+const Column = ({ title, state, stories }) => (
+  <div className="column">
+    <h3 className="title is-4 has-text-centered">{title}</h3>
+    {stories
+      .filter(
+        story =>
+          state.includes(story.current_state) && story.story_type !== 'release'
+      )
+      .map(story => (
+        <Story key={story.id} {...story} />
+      ))}
+  </div>
+);
 
 class Project extends Component {
   state = {
     isLoading: false,
     error: null,
-    response: []
+    iteration: {},
+    stories: []
   };
 
   componentDidMount() {
@@ -26,18 +40,20 @@ class Project extends Component {
       isLoading: true,
       error: null
     });
-    getStories(id)
-      .then(response => this.setState({ response, isLoading: false }))
+    getCurrentIteration(id)
+      .then(response => {
+        const iteration = { ...response[0], stories: null };
+        this.setState({
+          iteration,
+          stories: response[0].stories,
+          isLoading: false
+        });
+      })
       .catch(error => this.setState({ error, isLoading: false }));
   };
 
   render() {
-    const { projects } = this.props;
-    const { isLoading, error, response } = this.state;
-
-    const { project_name } = projects.find(
-      prj => prj.project_id === this.props.location.state.id
-    );
+    const { isLoading, error, stories } = this.state;
 
     if (isLoading) {
       return <div>Loading ...</div>;
@@ -47,14 +63,18 @@ class Project extends Component {
     }
 
     return (
-      <div>
-        <h2>{project_name}</h2>
-        <ul>
-          {response.map(story => (
-            <Story key={story.id} {...story} />
-          ))}
-        </ul>
-      </div>
+      <section className="section">
+        <div className="columns">
+          <Column title="Pending" state={['planned']} stories={stories} />
+          <Column title="Started" state={['started']} stories={stories} />
+          <Column title="Review" state={['finished']} stories={stories} />
+          <Column
+            title="Accept | Done"
+            state={['delivered', 'accepted']}
+            stories={stories}
+          />
+        </div>
+      </section>
     );
   }
 }

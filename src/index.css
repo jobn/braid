@@ -1,5 +1,7 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+.ml--2 {
+  margin-left: 0.3rem;
+}
+
+.ml-1 {
+  margin-left: 1.5rem;
 }

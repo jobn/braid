@@ -10,6 +10,11 @@ export const getStories = id =>
     .get(`projects/${id}/stories`, options())
     .then(response => response.data);
 
+export const getCurrentIteration = projectId =>
+  axios
+    .get(`/projects/${projectId}/iterations?scope=current`, options())
+    .then(response => response.data);
+
 const options = token => ({
   baseURL: 'https://www.pivotaltracker.com/services/v5/',
   headers: { 'X-TrackerToken': token || window.localStorage.getItem('token') }
