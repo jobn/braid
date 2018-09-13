@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import { getCurrentIteration } from './api';
+import React, { Component, createContext } from 'react';
+import { getCurrentIteration, getMemberships } from './api';
 import Story from './Story';
+
+const { Consumer, Provider } = createContext();
 
 const Column = ({ title, state, stories }) => (
   <div className="column">
@@ -21,7 +23,8 @@ class Project extends Component {
     isLoading: false,
     error: null,
     iteration: {},
-    stories: []
+    stories: [],
+    people: []
   };
 
   componentDidMount() {
@@ -37,15 +40,20 @@ class Project extends Component {
   fetchData = id => {
     this.setState({
       response: [],
+      stories: [],
       isLoading: true,
-      error: null
+      error: null,
+      people: []
     });
-    getCurrentIteration(id)
-      .then(response => {
-        const iteration = { ...response[0], stories: null };
+    Promise.all([getCurrentIteration(id), getMemberships(id)])
+      .then(([iterationResponse, membershipsResponse]) => {
+        const iteration = { ...iterationResponse[0], stories: null };
+        const people = membershipsResponse.map(item => item.person);
+
         this.setState({
           iteration,
-          stories: response[0].stories,
+          people,
+          stories: iterationResponse[0].stories,
           isLoading: false
         });
       })
@@ -53,7 +61,7 @@ class Project extends Component {
   };
 
   render() {
-    const { isLoading, error, stories } = this.state;
+    const { isLoading, error, stories, people } = this.state;
 
     if (isLoading) {
       return <div>Loading ...</div>;
@@ -63,20 +71,23 @@ class Project extends Component {
     }
 
     return (
-      <section className="section">
-        <div className="columns">
-          <Column title="Pending" state={['planned']} stories={stories} />
-          <Column title="Started" state={['started']} stories={stories} />
-          <Column title="Review" state={['finished']} stories={stories} />
-          <Column
-            title="Accept | Done"
-            state={['delivered', 'accepted']}
-            stories={stories}
-          />
-        </div>
-      </section>
+      <Provider value={people}>
+        <section className="section">
+          <div className="columns">
+            <Column title="Pending" state={['planned']} stories={stories} />
+            <Column title="Started" state={['started']} stories={stories} />
+            <Column title="Review" state={['finished']} stories={stories} />
+            <Column
+              title="Accept | Done"
+              state={['delivered', 'accepted']}
+              stories={stories}
+            />
+          </div>
+        </section>
+      </Provider>
     );
   }
 }
 
 export default Project;
+export { Consumer };
