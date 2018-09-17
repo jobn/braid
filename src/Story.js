@@ -22,7 +22,7 @@ const Story = ({ name, labels, story_type, estimate, owner_ids }) => (
                 {people
                   .filter(person => owner_ids.includes(person.id))
                   .map(owner => (
-                    <div className="tag is-rounded" key={owner.id}>
+                    <div className="tag is-rounded uppercase" key={owner.id}>
                       {owner.initials}
                     </div>
                   ))}
