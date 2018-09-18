@@ -9,3 +9,23 @@
 .uppercase {
   text-transform: uppercase;
 }
+
+.is--1 {
+  font-size: 4rem;
+}
+
+.logo {
+  display: flex;
+}
+
+.logo__img {
+  flex: 0 0 auto;
+}
+
+.logo__title {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 1rem;
+}

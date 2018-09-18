@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import icon from './icon.svg';
 
 class Login extends Component {
   state = {
@@ -15,15 +16,82 @@ class Login extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          value={this.state.token}
-          onChange={this.handleChange}
-          name="token"
-        />
-        <input type="submit" value="set token" />
-      </form>
+      <section className="hero is-white is-fullheight">
+        <div className="hero-body">
+          <div className="container">
+            <div className="columns">
+              <div className="column is-three-fifths">
+                <section className="section">
+                  <div className="logo">
+                    <img
+                      height="128px"
+                      width="128px"
+                      src={icon}
+                      alt="Braid logo"
+                      className="logo__img"
+                    />
+
+                    <div className="logo__title">
+                      <h1 className="title is--1">Braid</h1>
+                      <h3 className="subtitle is-5">
+                        Kanban like board for PivotalTracker
+                      </h3>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="section">
+                  <form onSubmit={this.handleSubmit}>
+                    <label for="token" className="label">
+                      PivotalTracker API token
+                    </label>
+
+                    <div className="field is-grouped">
+                      <div className="control is-expanded">
+                        <input
+                          type="text"
+                          value={this.state.token}
+                          onChange={this.handleChange}
+                          id="token"
+                          name="token"
+                          className="input is-medium"
+                          placeholder="Paste token here"
+                        />
+                      </div>
+
+                      <div class="control">
+                        <button
+                          type="submit"
+                          className="button is-primary is-medium"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+
+                    <p className="help">
+                      Your personal token can be found near the bottom of your{' '}
+                      <a
+                        className="has-text-info"
+                        href="https://www.pivotaltracker.com/profile"
+                      >
+                        PivotalTracker profile page
+                      </a>
+                    </p>
+
+                    <p class="help">
+                      Your token is used for fetching information from
+                      PivotalTracker. It is stored here in your browser. Neither
+                      your token or any of your PivotalTracker information is
+                      sent to Braid.
+                    </p>
+                  </form>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     );
   }
 }
