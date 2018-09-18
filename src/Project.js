@@ -1,6 +1,7 @@
 import React, { Component, createContext } from 'react';
 import { getCurrentIteration, getMemberships } from './api';
 import Story from './Story';
+import Spinner from './Spinner';
 
 const { Consumer, Provider } = createContext();
 
@@ -64,7 +65,7 @@ class Project extends Component {
     const { isLoading, error, stories, people } = this.state;
 
     if (isLoading) {
-      return <div>Loading ...</div>;
+      return <Spinner />;
     }
     if (error) {
       return <div>Error</div>;

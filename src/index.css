@@ -29,3 +29,10 @@
   justify-content: center;
   margin-left: 1rem;
 }
+
+.is-viewport-centered {
+  position: absolute;
+  left: 50vw;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+}
