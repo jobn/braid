@@ -42,7 +42,7 @@ class Login extends Component {
 
                 <section className="section">
                   <form onSubmit={this.handleSubmit}>
-                    <label for="token" className="label">
+                    <label htmlFor="token" className="label">
                       PivotalTracker API token
                     </label>
 
@@ -59,7 +59,7 @@ class Login extends Component {
                         />
                       </div>
 
-                      <div class="control">
+                      <div className="control">
                         <button
                           type="submit"
                           className="button is-primary is-medium"
@@ -79,7 +79,7 @@ class Login extends Component {
                       </a>
                     </p>
 
-                    <p class="help">
+                    <p className="help">
                       Your token is used for fetching information from
                       PivotalTracker. It is stored here in your browser. Neither
                       your token or any of your PivotalTracker information is
