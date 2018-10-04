@@ -15,6 +15,8 @@ class Login extends Component {
   };
 
   render() {
+    const error = this.props.error;
+
     return (
       <section className="hero is-white is-fullheight">
         <div className="hero-body">
@@ -68,6 +70,8 @@ class Login extends Component {
                         </button>
                       </div>
                     </div>
+
+                    {error && <p className="help is-danger">{error}</p>}
 
                     <p className="help">
                       Your personal token can be found near the bottom of your{' '}
