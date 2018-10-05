@@ -9,6 +9,7 @@ class App extends Component {
   state = {
     token: null,
     projects: [],
+    error: null,
     name: null
   };
 
@@ -35,15 +36,21 @@ class App extends Component {
         const { name, projects } = response;
 
         window.localStorage.setItem('token', token);
-        this.setState({ token, projects, name });
+        this.setState({ token, projects, name, error: null });
       })
-      .catch(() => this.clearToken());
+      .catch(error => {
+        this.clearToken();
+
+        if (error.response && error.response.status === 403) {
+          this.setState({ ...this.state, error: 'Invalid API token' });
+        }
+      });
   };
 
   render() {
-    const { token, name, projects } = this.state;
+    const { token, name, projects, error } = this.state;
     if (!token) {
-      return <Login onSubmit={this.handleLogin} />;
+      return <Login onSubmit={this.handleLogin} error={error} />;
     }
     return (
       <Router>
