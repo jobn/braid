@@ -5,9 +5,9 @@ const Owners = ({ ownerIds }) => (
   <Consumer>
     {people => (
       <div className="tags is-marginless">
-        {people.filter(person => ownerIds.includes(person.id)).map(owner => (
-          <div className="tag is-rounded uppercase" key={owner.id}>
-            {owner.initials}
+        {ownerIds.map(ownerId => (
+          <div className="tag is-rounded uppercase" key={ownerId}>
+            {people[ownerId].initials}
           </div>
         ))}
       </div>

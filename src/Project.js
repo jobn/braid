@@ -2,6 +2,7 @@ import React, { Component, createContext } from 'react';
 import { getCurrentIteration, getMemberships } from './api';
 import Story from './Story';
 import Spinner from './Spinner';
+import normalize from './normalize';
 
 const { Consumer, Provider } = createContext();
 
@@ -48,13 +49,8 @@ class Project extends Component {
     });
     Promise.all([getCurrentIteration(id), getMemberships(id)])
       .then(([iterationResponse, membershipsResponse]) => {
-        const iteration = { ...iterationResponse[0], stories: null };
-        const people = membershipsResponse.map(item => item.person);
-
         this.setState({
-          iteration,
-          people,
-          stories: iterationResponse[0].stories,
+          ...normalize({ iterationResponse, membershipsResponse }),
           isLoading: false
         });
       })
