@@ -88,7 +88,10 @@ class Project extends Component {
             <div className="media-content">
               <div className="buttons">
                 {uniqueOwnerIds.map(id => (
-                  <button className="button is-link is-outlined is-rounded uppercase">
+                  <button
+                    key={id}
+                    className="button is-link is-outlined is-rounded uppercase"
+                  >
                     {people[id].initials}
                   </button>
                 ))}
