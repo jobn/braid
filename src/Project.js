@@ -1,24 +1,15 @@
 import React, { Component, createContext } from 'react';
 import { getCurrentIteration, getMemberships } from './api';
-import Story from './Story';
+import {
+  PendingColumn,
+  StartedColumn,
+  ReviewColumn,
+  DoneColumn
+} from './Columns';
 import Spinner from './Spinner';
 import normalize from './normalize';
 
 const { Consumer, Provider } = createContext();
-
-const Column = ({ title, state, stories }) => (
-  <div className="column">
-    <h4 className="title is-4 has-text-centered">{title}</h4>
-    {stories
-      .filter(
-        story =>
-          state.includes(story.current_state) && story.story_type !== 'release'
-      )
-      .map(story => (
-        <Story key={story.id} {...story} />
-      ))}
-  </div>
-);
 
 const initialState = {
   isLoading: false,
@@ -26,7 +17,10 @@ const initialState = {
   iteration: {},
   stories: [],
   people: [],
-  uniqueOwnerIds: []
+  uniqueOwnerIds: [],
+  filters: {
+    notRelease: story => story.story_type !== 'release'
+  }
 };
 
 class Project extends Component {
@@ -62,7 +56,14 @@ class Project extends Component {
   };
 
   render() {
-    const { isLoading, error, stories, people, uniqueOwnerIds } = this.state;
+    const {
+      isLoading,
+      error,
+      stories,
+      people,
+      uniqueOwnerIds,
+      filters
+    } = this.state;
 
     if (isLoading) {
       return <Spinner />;
@@ -70,6 +71,11 @@ class Project extends Component {
     if (error) {
       return <div>Error</div>;
     }
+
+    const filteredStories = Object.values(filters).reduce(
+      (storiesLeft, filter) => storiesLeft.filter(filter),
+      stories
+    );
 
     return (
       <Provider value={people}>
@@ -93,14 +99,10 @@ class Project extends Component {
 
         <section className="section">
           <div className="columns">
-            <Column title="Pending" state={['planned']} stories={stories} />
-            <Column title="Started" state={['started']} stories={stories} />
-            <Column title="Review" state={['finished']} stories={stories} />
-            <Column
-              title="Accept | Done"
-              state={['delivered', 'accepted']}
-              stories={stories}
-            />
+            <PendingColumn stories={filteredStories} />
+            <StartedColumn stories={filteredStories} />
+            <ReviewColumn stories={filteredStories} />
+            <DoneColumn stories={filteredStories} />
           </div>
         </section>
       </Provider>
