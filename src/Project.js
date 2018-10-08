@@ -8,7 +8,7 @@ const { Consumer, Provider } = createContext();
 
 const Column = ({ title, state, stories }) => (
   <div className="column">
-    <h3 className="title is-4 has-text-centered">{title}</h3>
+    <h4 className="title is-4 has-text-centered">{title}</h4>
     {stories
       .filter(
         story =>
