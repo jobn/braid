@@ -26,7 +26,8 @@ class Project extends Component {
     error: null,
     iteration: {},
     stories: [],
-    people: []
+    people: [],
+    uniqueOwnerIds: []
   };
 
   componentDidMount() {
@@ -58,7 +59,7 @@ class Project extends Component {
   };
 
   render() {
-    const { isLoading, error, stories, people } = this.state;
+    const { isLoading, error, stories, people, uniqueOwnerIds } = this.state;
 
     if (isLoading) {
       return <Spinner />;
@@ -69,6 +70,24 @@ class Project extends Component {
 
     return (
       <Provider value={people}>
+        <section className="section">
+          <h4 className="title is-4 is-marginless">Filter</h4>
+          <div className="media">
+            <div className="media-left">
+              <h5 className="subtitle is-5 line-height__18">By owner</h5>
+            </div>
+            <div className="media-content">
+              <div className="buttons">
+                {uniqueOwnerIds.map(id => (
+                  <button className="button is-link is-outlined is-rounded uppercase">
+                    {people[id].initials}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="section">
           <div className="columns">
             <Column title="Pending" state={['planned']} stories={stories} />

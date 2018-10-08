@@ -6,6 +6,10 @@
   margin-left: 1.5rem;
 }
 
+.line-height__18 {
+  line-height: 1.8;
+}
+
 .uppercase {
   text-transform: uppercase;
 }
