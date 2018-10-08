@@ -20,14 +20,18 @@ const Column = ({ title, state, stories }) => (
   </div>
 );
 
+const initialState = {
+  isLoading: false,
+  error: null,
+  iteration: {},
+  stories: [],
+  people: [],
+  uniqueOwnerIds: []
+};
+
 class Project extends Component {
   state = {
-    isLoading: false,
-    error: null,
-    iteration: {},
-    stories: [],
-    people: [],
-    uniqueOwnerIds: []
+    ...initialState
   };
 
   componentDidMount() {
@@ -42,11 +46,8 @@ class Project extends Component {
 
   fetchData = id => {
     this.setState({
-      response: [],
-      stories: [],
-      isLoading: true,
-      error: null,
-      people: []
+      ...initialState,
+      isLoading: true
     });
     Promise.all([getCurrentIteration(id), getMemberships(id)])
       .then(([iterationResponse, membershipsResponse]) => {
@@ -55,7 +56,9 @@ class Project extends Component {
           isLoading: false
         });
       })
-      .catch(error => this.setState({ error, isLoading: false }));
+      .catch(error =>
+        this.setState({ ...initialState, error, isLoading: false })
+      );
   };
 
   render() {
