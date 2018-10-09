@@ -18,9 +18,16 @@ const initialState = {
   stories: [],
   people: [],
   uniqueOwnerIds: [],
-  filters: {
-    notRelease: story => story.story_type !== 'release'
+  selectedOwners: new Set([])
+};
+
+const removeReleaseStories = story => story.story_type !== 'release';
+const filterByOwner = ownerIds => story => {
+  if (ownerIds.length === 0) {
+    return true;
   }
+
+  return story.owner_ids.some(id => ownerIds.indexOf(id) !== -1);
 };
 
 class Project extends Component {
@@ -55,6 +62,18 @@ class Project extends Component {
       );
   };
 
+  toggleOwner = id => {
+    const { selectedOwners } = this.state;
+
+    if (selectedOwners.has(id)) {
+      selectedOwners.delete(id);
+    } else {
+      selectedOwners.add(id);
+    }
+
+    this.setState({ selectedOwners: new Set([...selectedOwners]) });
+  };
+
   render() {
     const {
       isLoading,
@@ -62,7 +81,7 @@ class Project extends Component {
       stories,
       people,
       uniqueOwnerIds,
-      filters
+      selectedOwners
     } = this.state;
 
     if (isLoading) {
@@ -72,10 +91,9 @@ class Project extends Component {
       return <div>Error</div>;
     }
 
-    const filteredStories = Object.values(filters).reduce(
-      (storiesLeft, filter) => storiesLeft.filter(filter),
-      stories
-    );
+    const filteredStories = stories
+      .filter(removeReleaseStories)
+      .filter(filterByOwner([...selectedOwners]));
 
     return (
       <Provider value={people}>
@@ -90,7 +108,10 @@ class Project extends Component {
                 {uniqueOwnerIds.map(id => (
                   <button
                     key={id}
-                    className="button is-link is-outlined is-rounded uppercase"
+                    className={`button is-rounded uppercase ${
+                      selectedOwners.has(id) ? 'is-primary' : ''
+                    }`}
+                    onClick={() => this.toggleOwner(id)}
                   >
                     {people[id].initials}
                   </button>
