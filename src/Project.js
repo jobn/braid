@@ -6,6 +6,7 @@ import {
   ReviewColumn,
   DoneColumn
 } from './Columns';
+import Filters from './Filters';
 import Spinner from './Spinner';
 import normalize from './normalize';
 
@@ -18,7 +19,9 @@ const initialState = {
   stories: [],
   people: [],
   uniqueOwnerIds: [],
-  selectedOwners: new Set([])
+  selectedOwners: [],
+  selectedTypes: [],
+  displayFilters: false
 };
 
 const removeReleaseStories = story => story.story_type !== 'release';
@@ -29,11 +32,29 @@ const filterByOwner = ownerIds => story => {
 
   return story.owner_ids.some(id => ownerIds.indexOf(id) !== -1);
 };
+const filterByType = typeNames => story => {
+  if (typeNames.length === 0) {
+    return true;
+  }
+
+  return typeNames.includes(story.story_type);
+};
+
+const arrayToggle = (array, item) => {
+  const clone = [...array];
+  const index = clone.indexOf(item);
+
+  if (index === -1) {
+    clone.push(item);
+  } else {
+    clone.splice(index, 1);
+  }
+
+  return clone;
+};
 
 class Project extends Component {
-  state = {
-    ...initialState
-  };
+  state = { ...initialState };
 
   componentDidMount() {
     this.fetchData(this.props.location.state.id);
@@ -47,12 +68,13 @@ class Project extends Component {
 
   fetchData = id => {
     this.setState({
-      ...initialState,
       isLoading: true
     });
+
     Promise.all([getCurrentIteration(id), getMemberships(id)])
       .then(([iterationResponse, membershipsResponse]) => {
         this.setState({
+          ...initialState,
           ...normalize({ iterationResponse, membershipsResponse }),
           isLoading: false
         });
@@ -63,15 +85,17 @@ class Project extends Component {
   };
 
   toggleOwner = id => {
-    const { selectedOwners } = this.state;
+    this.setState({
+      selectedOwners: arrayToggle(this.state.selectedOwners, id)
+    });
+  };
 
-    if (selectedOwners.has(id)) {
-      selectedOwners.delete(id);
-    } else {
-      selectedOwners.add(id);
-    }
+  toggleType = id => {
+    this.setState({ selectedTypes: arrayToggle(this.state.selectedTypes, id) });
+  };
 
-    this.setState({ selectedOwners: new Set([...selectedOwners]) });
+  toggleDisplayFilters = () => {
+    this.setState(state => ({ displayFilters: !state.displayFilters }));
   };
 
   render() {
@@ -81,7 +105,9 @@ class Project extends Component {
       stories,
       people,
       uniqueOwnerIds,
-      selectedOwners
+      selectedOwners,
+      selectedTypes,
+      displayFilters
     } = this.state;
 
     if (isLoading) {
@@ -93,34 +119,11 @@ class Project extends Component {
 
     const filteredStories = stories
       .filter(removeReleaseStories)
-      .filter(filterByOwner([...selectedOwners]));
+      .filter(filterByOwner(selectedOwners))
+      .filter(filterByType(selectedTypes));
 
     return (
       <Provider value={people}>
-        <section className="section">
-          <h4 className="title is-4 is-marginless">Filter</h4>
-          <div className="media">
-            <div className="media-left">
-              <h5 className="subtitle is-5 line-height__18">By owner</h5>
-            </div>
-            <div className="media-content">
-              <div className="buttons">
-                {uniqueOwnerIds.map(id => (
-                  <button
-                    key={id}
-                    className={`button is-rounded uppercase ${
-                      selectedOwners.has(id) ? 'is-primary' : ''
-                    }`}
-                    onClick={() => this.toggleOwner(id)}
-                  >
-                    {people[id].initials}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
         <section className="section">
           <div className="columns">
             <PendingColumn stories={filteredStories} />
@@ -128,6 +131,19 @@ class Project extends Component {
             <ReviewColumn stories={filteredStories} />
             <DoneColumn stories={filteredStories} />
           </div>
+        </section>
+
+        <section className="filters">
+          <Filters
+            displayFilters={displayFilters}
+            people={people}
+            selectedOwners={selectedOwners}
+            selectedTypes={selectedTypes}
+            toggleDisplayFilters={this.toggleDisplayFilters}
+            toggleOwner={this.toggleOwner}
+            toggleType={this.toggleType}
+            uniqueOwnerIds={uniqueOwnerIds}
+          />
         </section>
       </Provider>
     );
