@@ -15,14 +15,16 @@ const Filters = ({
       <div className="card-content">
         <div className="media">
           <div className="media-left">
-            <h5 className="subtitle is-5 line-height__18">By owner</h5>
+            <h5 className="subtitle is-5" style={{ lineHeight: '1.8' }}>
+              By owner
+            </h5>
           </div>
           <div className="media-content">
             <div className="buttons">
               {uniqueOwnerIds.map(id => (
                 <button
                   key={id}
-                  className={`button is-rounded uppercase ${
+                  className={`button is-rounded is-uppercase ${
                     selectedOwners.indexOf(id) !== -1 ? 'is-primary' : ''
                   }`}
                   onClick={() => toggleOwner(id)}
@@ -34,16 +36,18 @@ const Filters = ({
           </div>
         </div>
 
-        <div className="media is-marginless is-borderless">
+        <div className="media is-marginless" style={{ border: '0' }}>
           <div className="media-left">
-            <h5 className="subtitle is-5 line-height__18">By type</h5>
+            <h5 className="subtitle is-5" style={{ lineHeight: '1.8' }}>
+              By type
+            </h5>
           </div>
           <div className="media-content">
             <div className="buttons">
               {['feature', 'bug', 'chore'].map(id => (
                 <button
                   key={id}
-                  className={`button is-rounded uppercase ${
+                  className={`button is-rounded is-uppercase ${
                     selectedTypes.indexOf(id) !== -1 ? 'is-primary' : ''
                   }`}
                   onClick={() => toggleType(id)}

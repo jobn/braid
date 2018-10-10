@@ -7,7 +7,12 @@ const Navbar = ({ name, projects, onLogout }) => (
     <div className="navbar-brand">
       <a className="navbar-item" href="/">
         <img height="28px" width="28px" src={icon} alt="Braid logo" />
-        <h1 className="title has-text-weight-semibold ml--2">Braid</h1>
+        <h1
+          className="title has-text-weight-semibold"
+          style={{ marginLeft: '.3rem' }}
+        >
+          Braid
+        </h1>
       </a>
 
       <a

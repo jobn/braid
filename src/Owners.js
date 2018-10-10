@@ -6,7 +6,7 @@ const Owners = ({ ownerIds }) => (
     {people => (
       <div className="tags is-marginless">
         {ownerIds.map(ownerId => (
-          <div className="tag is-rounded uppercase" key={ownerId}>
+          <div className="tag is-rounded is-uppercase" key={ownerId}>
             {people[ownerId].initials}
           </div>
         ))}

@@ -1,37 +1,9 @@
-.ml--2 {
-  margin-left: 0.3rem;
-}
-
-.ml-1 {
-  margin-left: 1.5rem;
-}
-
-.line-height__18 {
-  line-height: 1.8;
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-.is--1 {
-  font-size: 4rem;
-}
-
-.is-borderless {
-  border: 0 !important;
-}
-
 .logo {
   display: flex;
 }
 
 .logo__img {
   flex: 0 0 auto;
-}
-
-.is-translate-down {
-  transform: translateY(100%);
 }
 
 .logo__title {

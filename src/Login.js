@@ -34,7 +34,9 @@ class Login extends Component {
                     />
 
                     <div className="logo__title">
-                      <h1 className="title is--1">Braid</h1>
+                      <h1 className="title" style={{ fontSize: '4rem' }}>
+                        Braid
+                      </h1>
                       <h3 className="subtitle is-5">
                         Kanban like board for PivotalTracker
                       </h3>
