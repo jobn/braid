@@ -64,6 +64,7 @@ const Filters = ({
     <a
       className="card-header has-background-grey-dark"
       onClick={toggleDisplayFilters}
+      style={{ userSelect: 'none' }}
     >
       <p className="card-header-title has-text-white-bis">Filter</p>
       <p className="card-header-icon has-text-white-bis">
