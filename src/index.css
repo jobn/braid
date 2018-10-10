@@ -18,12 +18,20 @@
   font-size: 4rem;
 }
 
+.is-borderless {
+  border: 0 !important;
+}
+
 .logo {
   display: flex;
 }
 
 .logo__img {
   flex: 0 0 auto;
+}
+
+.is-translate-down {
+  transform: translateY(100%);
 }
 
 .logo__title {
