@@ -24,16 +24,24 @@ class Login extends Component {
             <div className="columns">
               <div className="column is-three-fifths">
                 <section className="section">
-                  <div className="logo">
+                  <div style={{ display: 'flex' }}>
                     <img
                       height="128px"
                       width="128px"
                       src={icon}
                       alt="Braid logo"
-                      className="logo__img"
+                      style={{ flex: '0 0 auto' }}
                     />
 
-                    <div className="logo__title">
+                    <div
+                      style={{
+                        flex: '1',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        marginLeft: '1rem'
+                      }}
+                    >
                       <h1 className="title" style={{ fontSize: '4rem' }}>
                         Braid
                       </h1>

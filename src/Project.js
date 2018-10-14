@@ -133,7 +133,13 @@ class Project extends Component {
           </div>
         </section>
 
-        <section className="filters">
+        <section
+          style={{
+            position: 'fixed',
+            bottom: '0',
+            width: '100vw'
+          }}
+        >
           <Filters
             displayFilters={displayFilters}
             people={people}
