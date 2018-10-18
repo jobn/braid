@@ -6,9 +6,12 @@ import {
   ReviewColumn,
   DoneColumn
 } from './Columns';
-import Filters from './Filters';
+
+import Footer from './Footer';
+import Tray from './Tray';
 import Spinner from './Spinner';
 import normalize from './normalize';
+import Filters from './Filters';
 
 const { Consumer, Provider } = createContext();
 
@@ -20,8 +23,7 @@ const initialState = {
   people: [],
   uniqueOwnerIds: [],
   selectedOwners: [],
-  selectedTypes: [],
-  displayFilters: false
+  selectedTypes: []
 };
 
 const removeReleaseStories = story => story.story_type !== 'release';
@@ -94,10 +96,6 @@ class Project extends Component {
     this.setState({ selectedTypes: arrayToggle(this.state.selectedTypes, id) });
   };
 
-  toggleDisplayFilters = () => {
-    this.setState(state => ({ displayFilters: !state.displayFilters }));
-  };
-
   render() {
     const {
       isLoading,
@@ -106,8 +104,7 @@ class Project extends Component {
       people,
       uniqueOwnerIds,
       selectedOwners,
-      selectedTypes,
-      displayFilters
+      selectedTypes
     } = this.state;
 
     if (isLoading) {
@@ -124,7 +121,7 @@ class Project extends Component {
 
     return (
       <Provider value={people}>
-        <section className="section">
+        <section className="section" style={{ paddingBottom: '4rem' }}>
           <div className="columns">
             <PendingColumn stories={filteredStories} />
             <StartedColumn stories={filteredStories} />
@@ -133,24 +130,18 @@ class Project extends Component {
           </div>
         </section>
 
-        <section
-          style={{
-            position: 'fixed',
-            bottom: '0',
-            width: '100vw'
-          }}
-        >
-          <Filters
-            displayFilters={displayFilters}
-            people={people}
-            selectedOwners={selectedOwners}
-            selectedTypes={selectedTypes}
-            toggleDisplayFilters={this.toggleDisplayFilters}
-            toggleOwner={this.toggleOwner}
-            toggleType={this.toggleType}
-            uniqueOwnerIds={uniqueOwnerIds}
-          />
-        </section>
+        <Footer>
+          <Tray title="Filters">
+            <Filters
+              uniqueOwnerIds={uniqueOwnerIds}
+              selectedOwners={selectedOwners}
+              people={people}
+              selectedTypes={selectedTypes}
+              toggleType={this.toggleType}
+              toggleOwner={this.toggleOwner}
+            />
+          </Tray>
+        </Footer>
       </Provider>
     );
   }
