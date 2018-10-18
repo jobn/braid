@@ -1,4 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 const trayStyle = {
   position: 'absolute',
@@ -43,7 +45,7 @@ class Tray extends Component {
           <span>{title}</span>
 
           <span className="icon is-small">
-            <i className="fas fa-angle-up" />
+            <FontAwesomeIcon icon={open ? faAngleDown : faAngleUp} />
           </span>
         </a>
       </div>

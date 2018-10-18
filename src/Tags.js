@@ -1,9 +1,11 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faBug, faCog } from '@fortawesome/free-solid-svg-icons';
 
 const FeatureIcon = () => (
   <div className="tag is-primary">
     <span className="icon">
-      <i className="fas fa-star" />
+      <FontAwesomeIcon icon={faStar} />
     </span>
   </div>
 );
@@ -11,7 +13,7 @@ const FeatureIcon = () => (
 const BugIcon = () => (
   <div className="tag is-danger">
     <span className="icon">
-      <i className="fas fa-bug" />
+      <FontAwesomeIcon icon={faBug} />
     </span>
   </div>
 );
@@ -19,7 +21,7 @@ const BugIcon = () => (
 const ChoreIcon = () => (
   <div className="tag is-info">
     <span className="icon">
-      <i className="fas fa-cog" />
+      <FontAwesomeIcon icon={faCog} />
     </span>
   </div>
 );
