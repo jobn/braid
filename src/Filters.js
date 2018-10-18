@@ -6,7 +6,8 @@ const Filters = ({
   people,
   selectedTypes,
   toggleType,
-  toggleOwner
+  toggleOwner,
+  selectNextOwner
 }) => (
   <Fragment>
     <div className="media">
@@ -28,6 +29,15 @@ const Filters = ({
               {people[id].initials}
             </button>
           ))}
+
+          <button
+            key="next"
+            style={{ marginLeft: '2rem' }}
+            className="button"
+            onClick={selectNextOwner}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>

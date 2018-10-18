@@ -55,6 +55,15 @@ const arrayToggle = (array, item) => {
   return clone;
 };
 
+const arrayRotate = (subjects, current) => {
+  const position = subjects.indexOf(current);
+
+  if (position === -1 || position === subjects.length - 1) {
+    return subjects[0];
+  }
+  return subjects[position + 1];
+};
+
 class Project extends Component {
   state = { ...initialState };
 
@@ -89,6 +98,14 @@ class Project extends Component {
   toggleOwner = id => {
     this.setState({
       selectedOwners: arrayToggle(this.state.selectedOwners, id)
+    });
+  };
+
+  selectNextOwner = () => {
+    this.setState({
+      selectedOwners: [
+        arrayRotate(this.state.uniqueOwnerIds, this.state.selectedOwners[0])
+      ]
     });
   };
 
@@ -139,6 +156,7 @@ class Project extends Component {
               selectedTypes={selectedTypes}
               toggleType={this.toggleType}
               toggleOwner={this.toggleOwner}
+              selectNextOwner={this.selectNextOwner}
             />
           </Tray>
         </Footer>
