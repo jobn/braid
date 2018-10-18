@@ -109,6 +109,10 @@ class Project extends Component {
     });
   };
 
+  clearOwners = () => {
+    this.setState({ selectedOwners: [] });
+  };
+
   toggleType = id => {
     this.setState({ selectedTypes: arrayToggle(this.state.selectedTypes, id) });
   };
@@ -157,6 +161,7 @@ class Project extends Component {
               toggleType={this.toggleType}
               toggleOwner={this.toggleOwner}
               selectNextOwner={this.selectNextOwner}
+              clearOwners={this.clearOwners}
             />
           </Tray>
         </Footer>
