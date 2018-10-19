@@ -152,7 +152,7 @@ class Project extends Component {
         </section>
 
         <Footer>
-          <Tray title="Filters">
+          <Tray selectedOwners={selectedOwners} people={people} selectedTypes={selectedTypes} title="Filters">
             <Filters
               uniqueOwnerIds={uniqueOwnerIds}
               selectedOwners={selectedOwners}
