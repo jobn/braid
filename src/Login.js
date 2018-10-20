@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
+import { func, string } from 'prop-types';
 import icon from './icon.svg';
 
 class Login extends Component {
+  static propTypes = {
+    onSubmit: func.isRequired,
+    error: string,
+    onClearError: func,
+  };
+  static defaultProps = {
+    error: '',
+    onClearError: () => {},
+  };
+
   state = {
     token: ''
   };
 
-  handleChange = event => this.setState({ token: event.target.value });
+  handleChange = event => {
+    this.setState({ token: event.target.value });
+    const { onClearError } = this.props;
+    onClearError();
+  }
 
   handleSubmit = event => {
     event.preventDefault();
