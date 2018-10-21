@@ -21,8 +21,8 @@ const Filters = ({
       </div>
       <div className="media-content">
         <div className="field is-grouped is-grouped-multiline">
-          {uniqueOwnerIds.map(id => (
-            <p className="control">
+          {uniqueOwnerIds.map((id, index) => (
+            <p className="control" key={index}>
               <button
                 key={id}
                 className={`button is-rounded is-uppercase ${
