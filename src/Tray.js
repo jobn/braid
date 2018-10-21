@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -21,11 +20,15 @@ class Tray extends Component {
     this.setState(state => ({ open: !state.open }));
   };
 
+  isEmpty = (array) => {
+    return array && array.length === 0
+  }
+
   render() {
     const { title, children, rightAlign, selectedOwners, people, selectedTypes } = this.props;
 
-    const selectedOwnersObjects = _.map(selectedOwners, (selectedOwner) => people[selectedOwner])
-    const getSelectedOwnersInitials = _.map(selectedOwnersObjects, selectedOwner => selectedOwner.initials)
+    const selectedOwnersObjects = selectedOwners.map(selectedOwner => people[selectedOwner])
+    const getSelectedOwnersInitials = selectedOwnersObjects.map(selectedOwner => selectedOwner.initials)
 
     const { open } = this.state;
 
@@ -54,10 +57,10 @@ class Tray extends Component {
             </span>
           </span>
 
-          { (!_.isEmpty(selectedOwners) || !_.isEmpty(selectedTypes)) &&
+          { (!this.isEmpty(selectedOwners) || !this.isEmpty(selectedTypes)) &&
             <span>Applied Filters:&nbsp;
-              <span>{!_.isEmpty(selectedOwners) ? `Owners: ${getSelectedOwnersInitials.join(', ').toUpperCase()} ` : ''}</span>
-              <span>{!_.isEmpty(selectedTypes) ? `${!_.isEmpty(selectedOwners) ? ' - ' : ''} Types: ${selectedTypes.join(', ').toUpperCase()}` : ''}</span>
+              <span>{!this.isEmpty(selectedOwners) ? `Owners: ${getSelectedOwnersInitials.join(', ').toUpperCase()} ` : ''}</span>
+              <span>{!this.isEmpty(selectedTypes) ? `${!this.isEmpty(selectedOwners) ? ' - ' : ''} Types: ${selectedTypes.join(', ').toUpperCase()}` : ''}</span>
             </span>
           }
         </a>
