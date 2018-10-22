@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { getMe } from './api';
 import Project from './Project';
 import Login from './Login';
+import PageNotFound from './PageNotFound';
 import Navbar from './Navbar';
 
 class App extends Component {
@@ -60,11 +61,19 @@ class App extends Component {
             projects={projects}
             onLogout={this.handleLogout}
           />
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={props => <h1>Please select a project</h1>}
+            />
 
-          <Route
-            path="/projects/:id"
-            render={props => <Project {...props} />}
-          />
+            <Route
+              path="/projects/:id"
+              render={props => <Project {...props} />}
+            />
+            <Route component={PageNotFound} />
+          </Switch>
         </div>
       </Router>
     );
