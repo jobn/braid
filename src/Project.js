@@ -68,12 +68,12 @@ class Project extends Component {
   state = { ...initialState };
 
   componentDidMount() {
-    this.fetchData(this.props.location.state.id);
+    this.fetchData(this.props.match.params.id);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.location.state.id !== prevProps.location.state.id) {
-      this.fetchData(this.props.location.state.id);
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.fetchData(this.props.match.params.id);
     }
   }
 

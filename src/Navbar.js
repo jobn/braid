@@ -37,9 +37,11 @@ const Navbar = ({ name, projects, onLogout }) => (
                 render={props => (
                   <span>
                     {
-                      projects.find(
-                        prj => prj.project_id === props.location.state.id
-                      ).project_name
+                      typeof props.location.state !== 'undefined'
+                      ? projects.find(
+                          prj => prj.project_id === props.location.state.id
+                        ).project_name
+                      : 'Select project'
                     }
                   </span>
                 )}
