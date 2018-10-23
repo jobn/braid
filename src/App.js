@@ -30,6 +30,8 @@ class App extends Component {
     this.setState({ token: null });
   };
 
+  clearError = () => this.setState({ error: null });
+
   fetch = token => {
     getMe(token)
       .then(response => {
@@ -50,7 +52,13 @@ class App extends Component {
   render() {
     const { token, name, projects, error } = this.state;
     if (!token) {
-      return <Login onSubmit={this.handleLogin} error={error} />;
+      return (
+        <Login
+          onSubmit={this.handleLogin}
+          error={error}
+          onClearError={this.clearError}
+        />
+      );
     }
     return (
       <Router>
