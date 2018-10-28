@@ -119,7 +119,7 @@ describe('normalize', () => {
         team_strength: 1
       },
       people: {
-        '100': {
+        100: {
           email: 'emperor@galacticrepublic.gov',
           id: 100,
           initials: 'EP',
@@ -127,7 +127,7 @@ describe('normalize', () => {
           name: 'Emperor Palpatine',
           username: 'palpatine'
         },
-        '101': {
+        101: {
           email: 'vader@deathstar.mil',
           id: 101,
           initials: 'DV',
@@ -135,7 +135,7 @@ describe('normalize', () => {
           name: 'Darth Vader',
           username: 'vader'
         },
-        '102': {
+        102: {
           email: 'governor@eriadu.gov',
           id: 102,
           initials: 'WT',

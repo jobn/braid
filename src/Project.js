@@ -171,4 +171,4 @@ class Project extends Component {
 }
 
 export default Project;
-export { Consumer };
+export { Provider, Consumer };

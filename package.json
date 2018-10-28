@@ -11,6 +11,13 @@
   "prettier": {
     "singleQuote": true
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions",
+    "last 2 Opera versions"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.6",
     "@fortawesome/free-solid-svg-icons": "^5.4.1",
@@ -22,11 +29,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.3"
   },
-  "browserslist": [
-    "last 2 Chrome versions",
-    "last 2 Firefox versions",
-    "last 2 Safari versions",
-    "last 2 Edge versions",
-    "last 2 Opera versions"
-  ]
+  "devDependencies": {
+    "jest-dom": "^2.1.0",
+    "react-testing-library": "^5.2.3"
+  }
 }
