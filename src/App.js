@@ -33,7 +33,11 @@ class App extends Component {
     this.setState({ token: null });
   };
 
-  clearError = () => this.setState({ error: null });
+  clearError = () => {
+    if (this.state.error) {
+      this.setState({ error: null });
+    }
+  };
 
   fetch = token => {
     this.setState({ isLoading: 'true' });

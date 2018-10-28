@@ -6,11 +6,12 @@ class Login extends Component {
   static propTypes = {
     onSubmit: func.isRequired,
     error: string,
-    onClearError: func,
+    onClearError: func
   };
+
   static defaultProps = {
     error: '',
-    onClearError: () => {},
+    onClearError: () => {}
   };
 
   state = {
@@ -19,9 +20,8 @@ class Login extends Component {
 
   handleChange = event => {
     this.setState({ token: event.target.value });
-    const { onClearError } = this.props;
-    onClearError();
-  }
+    this.props.onClearError();
+  };
 
   handleSubmit = event => {
     event.preventDefault();
