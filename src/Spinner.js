@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const Spinner = () => (
   <span
@@ -10,7 +12,7 @@ const Spinner = () => (
       transform: 'translate(-50%, -50%)'
     }}
   >
-    <i className="fas fa-spinner fa-pulse fa-3x" />
+    <FontAwesomeIcon icon={faSpinner} pulse={true} size="3x" />
   </span>
 );
 

@@ -6,11 +6,12 @@ class Login extends Component {
   static propTypes = {
     onSubmit: func.isRequired,
     error: string,
-    onClearError: func,
+    onClearError: func
   };
+
   static defaultProps = {
     error: '',
-    onClearError: () => {},
+    onClearError: () => {}
   };
 
   state = {
@@ -19,9 +20,8 @@ class Login extends Component {
 
   handleChange = event => {
     this.setState({ token: event.target.value });
-    const { onClearError } = this.props;
-    onClearError();
-  }
+    this.props.onClearError();
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -81,9 +81,13 @@ class Login extends Component {
                           onChange={this.handleChange}
                           id="token"
                           name="token"
-                          className="input is-medium"
+                          className={`input is-medium ${
+                            error ? 'is-danger' : ''
+                          }`}
                           placeholder="Paste token here"
                         />
+
+                        {error && <p className="help is-danger">{error}</p>}
                       </div>
 
                       <div className="control">
@@ -96,11 +100,11 @@ class Login extends Component {
                       </div>
                     </div>
 
-                    {error && <p className="help is-danger">{error}</p>}
-
                     <p className="help">
                       Your personal token can be found near the bottom of your{' '}
                       <a
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="has-text-info"
                         href="https://www.pivotaltracker.com/profile"
                       >
