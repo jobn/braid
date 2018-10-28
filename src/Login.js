@@ -103,6 +103,8 @@ class Login extends Component {
                     <p className="help">
                       Your personal token can be found near the bottom of your{' '}
                       <a
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="has-text-info"
                         href="https://www.pivotaltracker.com/profile"
                       >
