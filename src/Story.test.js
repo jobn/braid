@@ -30,6 +30,7 @@ describe('Story', () => {
     updated_at: '2018-09-25T12:24:00Z',
     accepted_at: '2018-09-26T12:00:05Z',
     estimate: 3,
+    blockers: [],
     story_type: 'feature',
     name: 'Test the Expeditionary Battle Planetoid',
     description: 'Blow upp some stuff',
@@ -154,7 +155,7 @@ describe('Story', () => {
   });
 
   it('renders owners', () => {
-    const { queryByTestId, getByTestId, getByText } = render(
+    const { queryByTestId, getByTestId } = render(
       <Provider value={people}>
         <Story {...story} />
       </Provider>
@@ -163,5 +164,15 @@ describe('Story', () => {
     expect(queryByTestId('owners')).toBeInTheDocument();
     expect(within(getByTestId('owners')).getByText('DV')).toBeInTheDocument();
     expect(within(getByTestId('owners')).getByText('WT')).toBeInTheDocument();
+  });
+
+  it('renders blocked tag if blocked', () => {
+    const { queryByTestId } = render(
+      <Provider value={people}>
+        <Story {...story} blockers={[{ resolved: false }]} />
+      </Provider>
+    );
+
+    expect(queryByTestId('blocked-tag')).toBeInTheDocument();
   });
 });
