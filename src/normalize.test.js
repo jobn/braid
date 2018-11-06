@@ -149,6 +149,7 @@ describe('normalize', () => {
           accepted_at: '2018-09-25T12:00:05Z',
           created_at: '2018-09-25T12:01:00Z',
           current_state: 'accepted',
+          blockers: [],
           description:
             'Palpatine was impressed with the PoC, make this one bigger',
           estimate: 3,
@@ -182,6 +183,7 @@ describe('normalize', () => {
           updated_at: '2018-09-25T12:24:00Z',
           accepted_at: '2018-09-26T12:00:05Z',
           estimate: 3,
+          blockers: [],
           story_type: 'feature',
           name: 'Test the Expeditionary Battle Planetoid',
           description: 'Blow upp some stuff',
