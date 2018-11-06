@@ -16,6 +16,10 @@ const normalize = ({ iterationResponse, membershipsResponse }) => {
 
   const { stories, ...iteration } = currentIteration;
 
+  stories.forEach(story => {
+    story.blockers = [];
+  });
+
   const people = normalizeArray(membershipsResponse.map(item => item.person));
 
   const uniqueOwnerIds = uniqueArray(

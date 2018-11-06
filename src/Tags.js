@@ -43,3 +43,13 @@ export const LabelTag = ({ name }) => (
     {name}
   </div>
 );
+
+export const BlockedTag = () => (
+  <span
+    style={{ marginBottom: '8px' }}
+    className="tag is-warning"
+    data-testid="blocked-tag"
+  >
+    Blocked
+  </span>
+);

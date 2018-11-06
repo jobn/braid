@@ -1,6 +1,13 @@
 import React from 'react';
 import Owners from './Owners';
-import { FeatureTag, BugTag, ChoreTag, LabelTag, EstimateTag } from './Tags';
+import {
+  BlockedTag,
+  BugTag,
+  ChoreTag,
+  EstimateTag,
+  FeatureTag,
+  LabelTag
+} from './Tags';
 
 const renderTypeTag = type => {
   switch (type) {
@@ -15,10 +22,15 @@ const renderTypeTag = type => {
   }
 };
 
-const Story = ({ name, labels, story_type, estimate, owner_ids }) => (
+const hasUnresolvedBlockers = blockers =>
+  blockers.some(blocker => !blocker.resolved);
+
+const Story = ({ name, labels, story_type, estimate, owner_ids, blockers }) => (
   <div className="card">
     <div className="card-content">
       <div className="subtitle is-4">{name}</div>
+
+      {hasUnresolvedBlockers(blockers) && <BlockedTag />}
 
       <div className="media">
         <div className="media-content">

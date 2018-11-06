@@ -1,5 +1,5 @@
 import React, { Component, createContext } from 'react';
-import { getCurrentIteration, getMemberships } from './api';
+import { getCurrentIteration, getMemberships, getBlockers } from './api';
 import {
   PendingColumn,
   StartedColumn,
@@ -77,22 +77,35 @@ class Project extends Component {
     }
   }
 
-  fetchData = id => {
+  fetchData = async id => {
     this.setState({
       isLoading: true
     });
 
-    Promise.all([getCurrentIteration(id), getMemberships(id)])
-      .then(([iterationResponse, membershipsResponse]) => {
-        this.setState({
-          ...initialState,
-          ...normalize({ iterationResponse, membershipsResponse }),
-          isLoading: false
-        });
-      })
-      .catch(error =>
-        this.setState({ ...initialState, error, isLoading: false })
-      );
+    try {
+      const [iterationResponse, membershipsResponse] = await Promise.all([
+        getCurrentIteration(id),
+        getMemberships(id)
+      ]);
+
+      this.setState({
+        ...initialState,
+        ...normalize({ iterationResponse, membershipsResponse }),
+        isLoading: false
+      });
+
+      const { stories } = this.state;
+      const blockers = await getBlockers(id, stories.map(story => story.id));
+
+      const storiesWithBlockers = stories.map(story => ({
+        ...story,
+        blockers: blockers.find(item => item.id === story.id).blockers
+      }));
+
+      this.setState({ stories: storiesWithBlockers });
+    } catch (error) {
+      this.setState({ ...initialState, error, isLoading: false });
+    }
   };
 
   toggleOwner = id => {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getMe = token =>
-  axios.get('me', options(token)).then(response => response.data);
+  axios.get('me', options({ token })).then(response => response.data);
 
 export const getProjects = () => axios.get('projects', options());
 
@@ -20,7 +20,16 @@ export const getMemberships = projectId =>
     .get(`/projects/${projectId}/memberships`, options())
     .then(response => response.data);
 
-const options = token => ({
+export const getBlockers = (projectId, storyIds) =>
+  axios
+    .get(
+      `/projects/${projectId}/stories/bulk`,
+      options({ params: { ids: storyIds.join(','), fields: 'blockers' } })
+    )
+    .then(response => response.data);
+
+const options = ({ token, params } = {}) => ({
   baseURL: 'https://www.pivotaltracker.com/services/v5/',
-  headers: { 'X-TrackerToken': token || window.localStorage.getItem('token') }
+  headers: { 'X-TrackerToken': token || window.localStorage.getItem('token') },
+  params
 });
