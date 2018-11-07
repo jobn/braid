@@ -4,6 +4,6 @@ cache:
 node_js:
   - '8.11.4'
 script:
-  - npm test
+  - yarn test
 env:
   - NODE_ENV: development
