@@ -4,11 +4,18 @@ import { faForward, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 class Filters extends Component {
   handleOwnerClick = event => {
+    event.currentTarget.focus();
     this.props.toggleOwner(Number(event.currentTarget.value));
   };
 
   handleTypeClick = event => {
+    event.currentTarget.focus();
     this.props.toggleType(event.currentTarget.value);
+  };
+
+  handleNextOwnerClick = event => {
+    event.currentTarget.focus();
+    this.props.selectNextOwner();
   };
 
   render() {
@@ -47,14 +54,14 @@ class Filters extends Component {
               ))}
 
               <div
-                className=" field has-addons"
+                className="field has-addons"
                 style={{ marginBottom: '.75rem' }}
               >
                 <p className="control">
                   <button
                     key="next"
                     className="button"
-                    onClick={selectNextOwner}
+                    onClick={this.handleNextOwnerClick}
                   >
                     <span className="icon">
                       <FontAwesomeIcon icon={faForward} />
