@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { getMe } from './api';
 import Project from './Project';
+import ProjectList from './ProjectList';
 import Login from './Login';
 import PageNotFound from './PageNotFound';
 import Navbar from './Navbar';
@@ -91,7 +92,7 @@ class App extends Component {
             <Route
               path="/"
               exact
-              render={props => <h1>Please select a project</h1>}
+              render={() => <ProjectList projects={projects} />}
             />
 
             <Route
