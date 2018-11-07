@@ -44,9 +44,19 @@ export const LabelTag = ({ name }) => (
   </div>
 );
 
-export const BlockedTag = () => (
+export const BlockedTag = ({ visible }) => (
   <span
-    style={{ marginBottom: '8px' }}
+    style={{
+      position: 'absolute',
+      top: '10px',
+      right: '0',
+      height: '1.75em',
+      fontSize: '.65rem',
+      opacity: visible ? '1' : '0',
+      transition: 'opacity 1s',
+      borderTopRightRadius: '0',
+      borderBottomRightRadius: '0'
+    }}
     className="tag is-warning"
     data-testid="blocked-tag"
   >

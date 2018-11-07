@@ -30,8 +30,6 @@ const Story = ({ name, labels, story_type, estimate, owner_ids, blockers }) => (
     <div className="card-content">
       <div className="subtitle is-4">{name}</div>
 
-      {hasUnresolvedBlockers(blockers) && <BlockedTag />}
-
       <div className="media">
         <div className="media-content">
           <div className="tags has-addons is-marginless">
@@ -50,6 +48,8 @@ const Story = ({ name, labels, story_type, estimate, owner_ids, blockers }) => (
         </div>
       </div>
     </div>
+
+    <BlockedTag visible={hasUnresolvedBlockers(blockers)} />
   </div>
 );
 
