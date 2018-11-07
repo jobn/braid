@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectList renders single project according to snapshot 1`] = `
+<div
+  class="section"
+>
+  <h1
+    class="title is-3"
+  >
+    Select project
+  </h1>
+  <div
+    style="display: grid;"
+  >
+    <a
+      class="notification is-primary is-marginless"
+      href="/projects/1"
+    >
+      <p
+        class="title"
+      >
+        Dominate the tri-state-area
+      </p>
+      <p
+        class="subtitle"
+      />
+    </a>
+  </div>
+</div>
+`;
