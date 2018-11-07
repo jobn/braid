@@ -5,7 +5,7 @@ import icon from './icon.svg';
 const Navbar = ({ name, projects, onLogout }) => (
   <nav className="navbar is-transparent" aria-label="main navigation">
     <div className="navbar-brand">
-      <a className="navbar-item" href="/">
+      <Link className="navbar-item" to="/projects">
         <img height="28px" width="28px" src={icon} alt="Braid logo" />
         <h1
           className="title has-text-weight-semibold"
@@ -13,7 +13,7 @@ const Navbar = ({ name, projects, onLogout }) => (
         >
           Braid
         </h1>
-      </a>
+      </Link>
 
       <a
         role="button"
@@ -36,14 +36,13 @@ const Navbar = ({ name, projects, onLogout }) => (
                 path="/projects/:id"
                 render={props => (
                   <span>
-                    {
-                      projects.reduce(
-                        (acc, prj) =>
-                          prj.project_id === Number(props.match.params.id)
-                            ? prj.project_name
-                            : acc
-                        , 'Select project')
-                    }
+                    {projects.reduce(
+                      (acc, prj) =>
+                        prj.project_id === Number(props.match.params.id)
+                          ? prj.project_name
+                          : acc,
+                      'Select project'
+                    )}
                   </span>
                 )}
               />
