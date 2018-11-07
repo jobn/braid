@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 import { getMe } from './api';
 import Project from './Project';
 import ProjectList from './ProjectList';
@@ -89,8 +94,10 @@ class App extends Component {
             onLogout={this.handleLogout}
           />
           <Switch>
+            <Route path="/" exact render={() => <Redirect to="/projects" />} />
+
             <Route
-              path="/"
+              path="/projects"
               exact
               render={() => <ProjectList projects={projects} />}
             />

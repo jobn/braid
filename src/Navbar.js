@@ -5,7 +5,7 @@ import icon from './icon.svg';
 const Navbar = ({ name, projects, onLogout }) => (
   <nav className="navbar is-transparent" aria-label="main navigation">
     <div className="navbar-brand">
-      <Link className="navbar-item" to="/">
+      <Link className="navbar-item" to="/projects">
         <img height="28px" width="28px" src={icon} alt="Braid logo" />
         <h1
           className="title has-text-weight-semibold"
