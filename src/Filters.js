@@ -2,6 +2,21 @@ import React, { Component, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForward, faTimes } from '@fortawesome/free-solid-svg-icons';
 
+const storyTypes = [
+  {
+    key: 'feature',
+    activeClass: 'is-primary'
+  },
+  {
+    key: 'bug',
+    activeClass: 'is-danger'
+  },
+  {
+    key: 'chore',
+    activeClass: 'is-info'
+  }
+];
+
 class Filters extends Component {
   handleOwnerClick = event => {
     event.currentTarget.focus();
@@ -95,16 +110,16 @@ class Filters extends Component {
           </div>
           <div className="media-content">
             <div className="buttons">
-              {['feature', 'bug', 'chore'].map(id => (
+              {storyTypes.map(({ key, activeClass }) => (
                 <button
-                  key={id}
-                  value={id}
+                  value={key}
+                  key={key}
                   className={`button is-rounded is-uppercase ${
-                    selectedTypes.indexOf(id) !== -1 ? 'is-primary' : ''
+                    selectedTypes.includes(key) ? activeClass : ''
                   }`}
                   onClick={this.handleTypeClick}
                 >
-                  {id}
+                  {key}
                 </button>
               ))}
             </div>
