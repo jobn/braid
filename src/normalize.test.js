@@ -1,5 +1,7 @@
 import normalize from './normalize';
 
+jest.mock('./utils/getDayOfYear');
+
 describe('normalize', () => {
   it('normalizes response', () => {
     const iterationResponse = [

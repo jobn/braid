@@ -1,3 +1,5 @@
+import { arrayShuffle, getDayOfYear } from './utils';
+
 const normalizeArray = array => {
   const obj = {};
 
@@ -22,8 +24,14 @@ const normalize = ({ iterationResponse, membershipsResponse }) => {
 
   const people = normalizeArray(membershipsResponse.map(item => item.person));
 
-  const uniqueOwnerIds = uniqueArray(
-    [].concat.apply([], currentIteration.stories.map(story => story.owner_ids))
+  const uniqueOwnerIds = arrayShuffle(
+    uniqueArray(
+      [].concat.apply(
+        [],
+        currentIteration.stories.map(story => story.owner_ids)
+      )
+    ),
+    getDayOfYear(new Date())
   );
 
   return {
