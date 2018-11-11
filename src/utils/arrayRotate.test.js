@@ -1,17 +1,31 @@
-import arrayRotate from './arrayRotate';
+import { arrayRotateForward, arrayRotateBackward } from './arrayRotate';
 
-describe('arrayRotate', () => {
-  const array = ['a', 'b', 'c', 'd'];
+const array = ['a', 'b', 'c', 'd'];
 
+describe('arrayRotateForward', () => {
   it('returns next item in array', () => {
-    expect(arrayRotate(array, 'b')).toEqual('c');
+    expect(arrayRotateForward(array, 'b')).toEqual('c');
   });
 
   it('returns first item if last given', () => {
-    expect(arrayRotate(array, 'd')).toEqual('a');
+    expect(arrayRotateForward(array, 'd')).toEqual('a');
   });
 
   it('first item if given item is not found', () => {
-    expect(arrayRotate(array, 'not there')).toEqual('a');
+    expect(arrayRotateForward(array, 'not there')).toEqual('a');
+  });
+});
+
+describe('arrayRotateBackward', () => {
+  it('returns previous item in array', () => {
+    expect(arrayRotateBackward(array, 'b')).toEqual('a');
+  });
+
+  it('returns last item if first given', () => {
+    expect(arrayRotateBackward(array, 'a')).toEqual('d');
+  });
+
+  it('first last if given item is not found', () => {
+    expect(arrayRotateBackward(array, 'not there')).toEqual('d');
   });
 });
