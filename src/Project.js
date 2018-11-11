@@ -13,7 +13,7 @@ import Spinner from './Spinner';
 import normalize from './normalize';
 import Filters from './Filters';
 
-import { arrayRotate, arrayToggle } from './utils';
+import { arrayRotateBackward, arrayRotateForward, arrayToggle } from './utils';
 
 const { Consumer, Provider } = createContext();
 
@@ -97,7 +97,21 @@ class Project extends Component {
   selectNextOwner = () => {
     this.setState({
       selectedOwners: [
-        arrayRotate(this.state.uniqueOwnerIds, this.state.selectedOwners[0])
+        arrayRotateForward(
+          this.state.uniqueOwnerIds,
+          this.state.selectedOwners[0]
+        )
+      ]
+    });
+  };
+
+  selectPrevOwner = () => {
+    this.setState({
+      selectedOwners: [
+        arrayRotateBackward(
+          this.state.uniqueOwnerIds,
+          this.state.selectedOwners[0]
+        )
       ]
     });
   };
@@ -154,6 +168,7 @@ class Project extends Component {
               toggleType={this.toggleType}
               toggleOwner={this.toggleOwner}
               selectNextOwner={this.selectNextOwner}
+              selectPrevOwner={this.selectPrevOwner}
               clearOwners={this.clearOwners}
             />
           </Tray>
