@@ -13,6 +13,8 @@ import Spinner from './Spinner';
 import normalize from './normalize';
 import Filters from './Filters';
 
+import { arrayRotate, arrayToggle } from './utils';
+
 const { Consumer, Provider } = createContext();
 
 const initialState = {
@@ -40,28 +42,6 @@ const filterByType = typeNames => story => {
   }
 
   return typeNames.includes(story.story_type);
-};
-
-const arrayToggle = (array, item) => {
-  const clone = [...array];
-  const index = clone.indexOf(item);
-
-  if (index === -1) {
-    clone.push(item);
-  } else {
-    clone.splice(index, 1);
-  }
-
-  return clone;
-};
-
-const arrayRotate = (subjects, current) => {
-  const position = subjects.indexOf(current);
-
-  if (position === -1 || position === subjects.length - 1) {
-    return subjects[0];
-  }
-  return subjects[position + 1];
 };
 
 class Project extends Component {
