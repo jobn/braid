@@ -1,6 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faForward, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBackward,
+  faForward,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons';
 
 const storyTypes = [
   {
@@ -31,6 +35,11 @@ class Filters extends Component {
   handleNextOwnerClick = event => {
     event.currentTarget.focus();
     this.props.selectNextOwner();
+  };
+
+  handlePrevOwnerClick = event => {
+    event.currentTarget.focus();
+    this.props.selectPrevOwner();
   };
 
   render() {
@@ -71,6 +80,18 @@ class Filters extends Component {
                 className="field has-addons"
                 style={{ marginBottom: '.75rem' }}
               >
+                <p className="control">
+                  <button
+                    key="next"
+                    className="button"
+                    onClick={this.handlePrevOwnerClick}
+                  >
+                    <span className="icon">
+                      <FontAwesomeIcon icon={faBackward} />
+                    </span>
+                    <span>Prev</span>
+                  </button>
+                </p>
                 <p className="control">
                   <button
                     key="next"

@@ -15,6 +15,7 @@ describe('Filters', () => {
   const toggleOwner = jest.fn();
   const toggleType = jest.fn();
   const selectNextOwner = jest.fn();
+  const selectPrevOwner = jest.fn();
 
   const props = {
     uniqueOwnerIds,
@@ -24,7 +25,8 @@ describe('Filters', () => {
     clearOwners,
     toggleOwner,
     toggleType,
-    selectNextOwner
+    selectNextOwner,
+    selectPrevOwner
   };
 
   const renderSubject = (extraProps = {}) =>
@@ -59,6 +61,16 @@ describe('Filters', () => {
       fireEvent.click(getByText('Next'));
 
       expect(selectNextOwner).toHaveBeenCalled();
+    });
+  });
+
+  describe('previous owner', () => {
+    it('triggers selectPrevOwner on click', () => {
+      const { getByText } = renderSubject();
+
+      fireEvent.click(getByText('Prev'));
+
+      expect(selectPrevOwner).toHaveBeenCalled();
     });
   });
 
