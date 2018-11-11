@@ -1,4 +1,4 @@
-const arrayRotate = (subjects, current) => {
+const arrayRotateForward = (subjects, current) => {
   const position = subjects.indexOf(current);
 
   if (position === -1 || position === subjects.length - 1) {
@@ -7,4 +7,13 @@ const arrayRotate = (subjects, current) => {
   return subjects[position + 1];
 };
 
-export default arrayRotate;
+const arrayRotateBackward = (subjects, current) => {
+  const position = subjects.indexOf(current);
+
+  if (position === -1 || position === 0) {
+    return subjects[subjects.length - 1];
+  }
+  return subjects[position - 1];
+};
+
+export { arrayRotateForward, arrayRotateBackward };
