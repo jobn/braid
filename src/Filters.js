@@ -39,7 +39,6 @@ class Filters extends Component {
       selectedOwners,
       people,
       selectedTypes,
-      selectNextOwner,
       clearOwners
     } = this.props;
 
@@ -89,6 +88,7 @@ class Filters extends Component {
                   <button
                     key="clear"
                     className="button"
+                    data-testid="clear-button"
                     onClick={clearOwners}
                     disabled={selectedOwners.length === 0 ? true : false}
                   >

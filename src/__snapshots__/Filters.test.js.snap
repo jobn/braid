@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filters renders as per snapthot 1`] = `
+<div
+  class="media"
+>
+  <div
+    class="media-left"
+  >
+    <h5
+      class="subtitle is-5"
+      style="line-height: 1.8;"
+    >
+      By owner
+    </h5>
+  </div>
+  <div
+    class="media-content"
+  >
+    <div
+      class="field is-grouped is-grouped-multiline"
+    >
+      <p
+        class="control"
+      >
+        <button
+          class="button is-rounded is-uppercase "
+          value="1"
+        >
+          AA
+        </button>
+      </p>
+      <p
+        class="control"
+      >
+        <button
+          class="button is-rounded is-uppercase "
+          value="2"
+        >
+          BB
+        </button>
+      </p>
+      <p
+        class="control"
+      >
+        <button
+          class="button is-rounded is-uppercase "
+          value="3"
+        >
+          CC
+        </button>
+      </p>
+      <div
+        class="field has-addons"
+        style="margin-bottom: .75rem;"
+      >
+        <p
+          class="control"
+        >
+          <button
+            class="button"
+          >
+            <span
+              class="icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="svg-inline--fa fa-forward fa-w-16 "
+                data-icon="forward"
+                data-prefix="fas"
+                role="img"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M500.5 231.4l-192-160C287.9 54.3 256 68.6 256 96v320c0 27.4 31.9 41.8 52.5 24.6l192-160c15.3-12.8 15.3-36.4 0-49.2zm-256 0l-192-160C31.9 54.3 0 68.6 0 96v320c0 27.4 31.9 41.8 52.5 24.6l192-160c15.3-12.8 15.3-36.4 0-49.2z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            <span>
+              Next
+            </span>
+          </button>
+        </p>
+        <p
+          class="control"
+        >
+          <button
+            class="button"
+            data-testid="clear-button"
+            disabled=""
+          >
+            <span
+              class="icon"
+            >
+              <svg
+                aria-hidden="true"
+                class="svg-inline--fa fa-times fa-w-11 "
+                data-icon="times"
+                data-prefix="fas"
+                role="img"
+                viewBox="0 0 352 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            <span>
+              Clear
+            </span>
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

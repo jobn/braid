@@ -27,6 +27,7 @@ class Tray extends Component {
     return (
       <div style={{ flex: '1 1 0%' }}>
         <div
+          data-testid="tray"
           style={{
             ...trayStyle,
             transform: open ? 'translateY(-100%)' : 'translateY(0)'
