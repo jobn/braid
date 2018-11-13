@@ -8,11 +8,11 @@ const random = seed => {
 const arrayShuffle = (origArray, origSeed) => {
   let seed = origSeed || 1;
   let array = origArray.slice();
-  let currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
+  let currentIndex = array.length;
+  let temporaryValue;
+  let randomIndex;
 
-  while (0 !== currentIndex) {
+  while (currentIndex !== 0) {
     seed++;
     randomIndex = Math.floor(random(seed) * currentIndex);
     currentIndex -= 1;
