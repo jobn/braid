@@ -1,7 +1,7 @@
 <h1 align="center">
   <br>
   <a href="https://braid.netlify.com">
-    <img src="https://raw.githubusercontent.com/jobn/braid/feature/readme/src/icon.png" alt="Braid" width="120">
+    <img src="https://raw.githubusercontent.com/jobn/braid/master/src/icon.png" alt="Braid" width="120">
   </a>
   <br>
   Braid
