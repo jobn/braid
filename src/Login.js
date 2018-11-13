@@ -61,7 +61,7 @@ class Login extends Component {
                         Braid
                       </h1>
                       <h3 className="subtitle is-5">
-                        Kanban like board for PivotalTracker
+                        Standup board for PivotalTracker
                       </h3>
                     </div>
                   </div>
