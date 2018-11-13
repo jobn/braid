@@ -111,7 +111,7 @@ class Filters extends Component {
                     className="button"
                     data-testid="clear-button"
                     onClick={clearOwners}
-                    disabled={selectedOwners.length === 0 ? true : false}
+                    disabled={selectedOwners.length === 0}
                   >
                     <span className="icon">
                       <FontAwesomeIcon icon={faTimes} />

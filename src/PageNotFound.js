@@ -1,7 +1,7 @@
 import React from 'react';
 import icon from './icon.svg';
 
-const PageNotFound = () => (  
+const PageNotFound = () => (
   <section className="hero is-white is-fullheight">
     <div className="hero-body">
       <div className="container">
@@ -37,10 +37,17 @@ const PageNotFound = () => (
             </section>
 
             <section className="section">
-              <h2 className="is-size-2 has-text-grey-dark">404 Page Not Found</h2>
-                <p>
-                  The page you were looking for appears to have been moved, deleted or does not exist. You could go back to our <a className="has-text-info" href="/">home page</a>.
-                </p>              
+              <h2 className="is-size-2 has-text-grey-dark">
+                404 Page Not Found
+              </h2>
+              <p>
+                The page you were looking for appears to have been moved,
+                deleted or does not exist. You could go back to our{' '}
+                <a className="has-text-info" href="/">
+                  home page
+                </a>
+                .
+              </p>
             </section>
           </div>
         </div>
