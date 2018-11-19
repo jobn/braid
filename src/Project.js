@@ -185,3 +185,4 @@ class Project extends Component {
 
 export default Project;
 export { Provider, Consumer };
+export { filterByType };
