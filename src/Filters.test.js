@@ -102,16 +102,20 @@ describe('Filters', () => {
 
       fireEvent.click(getByText('chore'));
       expect(toggleType).toHaveBeenLastCalledWith('chore');
+
+      fireEvent.click(getByText('blocked'));
+      expect(toggleType).toHaveBeenLastCalledWith('blocked');
     });
 
     it('renders active activeClass when enabled', () => {
       const { getByText } = renderSubject({
-        selectedTypes: ['feature', 'chore', 'bug']
+        selectedTypes: ['feature', 'chore', 'bug', 'blocked']
       });
 
       expect(getByText('feature')).toHaveClass('is-primary');
       expect(getByText('chore')).toHaveClass('is-info');
       expect(getByText('bug')).toHaveClass('is-danger');
+      expect(getByText('blocked')).toHaveClass('is-warning');
     });
   });
 });

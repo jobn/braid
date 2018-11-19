@@ -54,3 +54,4 @@ const Story = ({ name, labels, story_type, estimate, owner_ids, blockers }) => (
 );
 
 export default Story;
+export { hasUnresolvedBlockers };

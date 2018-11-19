@@ -14,6 +14,7 @@ import normalize from './normalize';
 import Filters from './Filters';
 
 import { arrayRotateBackward, arrayRotateForward, arrayToggle } from './utils';
+import { hasUnresolvedBlockers } from './Story';
 
 const { Consumer, Provider } = createContext();
 
@@ -28,6 +29,7 @@ const initialState = {
   selectedTypes: []
 };
 
+const isBlocked = story => hasUnresolvedBlockers(story.blockers);
 const removeReleaseStories = story => story.story_type !== 'release';
 const filterByOwner = ownerIds => story => {
   if (ownerIds.length === 0) {
@@ -41,7 +43,10 @@ const filterByType = typeNames => story => {
     return true;
   }
 
-  return typeNames.includes(story.story_type);
+  return (
+    typeNames.includes(story.story_type) ||
+    (typeNames.includes('blocked') && isBlocked(story))
+  );
 };
 
 class Project extends Component {

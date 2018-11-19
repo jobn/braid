@@ -18,6 +18,10 @@ const storyTypes = [
   {
     key: 'chore',
     activeClass: 'is-info'
+  },
+  {
+    key: 'blocked',
+    activeClass: 'is-warning'
   }
 ];
 
