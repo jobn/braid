@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, within } from 'react-testing-library';
-import Story from './Story';
+import Story, { hasUnresolvedBlockers } from './Story';
 import { Provider } from './Project';
 
 describe('Story', () => {
@@ -187,5 +187,27 @@ describe('Story', () => {
       expect(queryByTestId('blocked-tag')).toBeInTheDocument();
       expect(queryByTestId('blocked-tag')).not.toBeVisible();
     });
+  });
+});
+
+describe('hasUnresolvedBlockers', () => {
+  it('returns true when array has a single item that is not resolved', () => {
+    const blockers = [
+      { resolved: true },
+      { resolved: true },
+      { resolved: false }
+    ];
+
+    expect(hasUnresolvedBlockers(blockers)).toBe(true);
+  });
+
+  it('returns false when all items are resolved', () => {
+    const blockers = [
+      { resolved: true },
+      { resolved: true },
+      { resolved: true }
+    ];
+
+    expect(hasUnresolvedBlockers(blockers)).toBe(false);
   });
 });
