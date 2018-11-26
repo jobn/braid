@@ -14,7 +14,11 @@ const Column = ({ title, stories, storyStates }) => (
 );
 
 const PendingColumn = ({ stories }) => (
-  <Column title="Pending" stories={stories} storyStates={['planned']} />
+  <Column
+    title="Pending"
+    stories={stories}
+    storyStates={['planned', 'unstarted']}
+  />
 );
 
 const StartedColumn = ({ stories }) => (
