@@ -62,7 +62,7 @@ describe('Story', () => {
     owned_by_id: 102
   };
 
-  it('renders title', () => {
+  it('renders title as link', () => {
     const { container } = render(
       <Provider value={people}>
         <Story {...story} story_type="feature" />
@@ -71,6 +71,11 @@ describe('Story', () => {
 
     expect(container).toHaveTextContent(
       'Test the Expeditionary Battle Planetoid'
+    );
+
+    expect(container.querySelector('.subtitle > a')).toHaveAttribute(
+      'href',
+      'http://localhost/story/show/564'
     );
   });
 
