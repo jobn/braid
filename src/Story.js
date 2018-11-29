@@ -25,10 +25,27 @@ const renderTypeTag = type => {
 const hasUnresolvedBlockers = blockers =>
   blockers.some(blocker => !blocker.resolved);
 
-const Story = ({ name, labels, story_type, estimate, owner_ids, blockers }) => (
+const Story = ({
+  name,
+  labels,
+  story_type,
+  estimate,
+  owner_ids,
+  blockers,
+  url
+}) => (
   <div className="card">
     <div className="card-content">
-      <div className="subtitle is-4">{name}</div>
+      <div className="subtitle is-4">
+        <a
+          href={url}
+          className="has-text-grey-dark has-hover-underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {name}
+        </a>
+      </div>
 
       <div className="media">
         <div className="media-content">
