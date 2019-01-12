@@ -1,32 +1,29 @@
 import axios from 'axios';
+import { camelCaseKeys } from './utils';
 
-export const getMe = token =>
-  axios.get('me', options({ token })).then(response => response.data);
-
-export const getProjects = () => axios.get('projects', options());
+export const getMe = token => request(axios.get('me', options({ token })));
 
 export const getStories = id =>
-  axios
-    .get(`projects/${id}/stories`, options())
-    .then(response => response.data);
+  request(axios.get(`projects/${id}/stories`, options()));
 
 export const getCurrentIteration = projectId =>
-  axios
-    .get(`/projects/${projectId}/iterations?scope=current`, options())
-    .then(response => response.data);
+  request(
+    axios.get(`/projects/${projectId}/iterations?scope=current`, options())
+  );
 
 export const getMemberships = projectId =>
-  axios
-    .get(`/projects/${projectId}/memberships`, options())
-    .then(response => response.data);
+  request(axios.get(`/projects/${projectId}/memberships`, options()));
 
 export const getBlockers = (projectId, storyIds) =>
-  axios
-    .get(
+  request(
+    axios.get(
       `/projects/${projectId}/stories/bulk`,
       options({ params: { ids: storyIds.join(','), fields: 'blockers' } })
     )
-    .then(response => response.data);
+  );
+
+const request = promise =>
+  promise.then(response => camelCaseKeys(response.data, { deep: true }));
 
 const options = ({ token, params } = {}) => ({
   baseURL: 'https://www.pivotaltracker.com/services/v5/',
