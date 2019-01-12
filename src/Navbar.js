@@ -38,8 +38,8 @@ const Navbar = ({ name, projects, onLogout }) => (
                   <span>
                     {projects.reduce(
                       (acc, prj) =>
-                        prj.project_id === Number(props.match.params.id)
-                          ? prj.project_name
+                        prj.projectId === Number(props.match.params.id)
+                          ? prj.projectName
                           : acc,
                       'Select project'
                     )}
@@ -51,16 +51,16 @@ const Navbar = ({ name, projects, onLogout }) => (
           </a>
 
           <div className="navbar-dropdown is-boxed">
-            {projects.map(({ project_id, project_name }) => (
+            {projects.map(({ projectId, projectName }) => (
               <Link
-                key={project_id}
+                key={projectId}
                 className="navbar-item"
                 to={{
-                  pathname: `/projects/${project_id}`,
-                  state: { id: project_id }
+                  pathname: `/projects/${projectId}`,
+                  state: { id: projectId }
                 }}
               >
-                {project_name}
+                {projectName}
               </Link>
             ))}
           </div>

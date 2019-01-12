@@ -26,46 +26,46 @@ describe('Story', () => {
   const story = {
     kind: 'chore',
     id: 564,
-    created_at: '2018-09-25T12:24:00Z',
-    updated_at: '2018-09-25T12:24:00Z',
-    accepted_at: '2018-09-26T12:00:05Z',
+    createdAt: '2018-09-25T12:24:00Z',
+    updatedAt: '2018-09-25T12:24:00Z',
+    acceptedAt: '2018-09-26T12:00:05Z',
     estimate: 3,
     blockers: [],
-    story_type: 'feature',
+    storyType: 'feature',
     name: 'Test the Expeditionary Battle Planetoid',
     description: 'Blow upp some stuff',
     current_state: 'accepted',
-    requested_by_id: 102,
-    external_id: 'abc123',
-    integration_id: 30,
+    requestedById: 102,
+    externalId: 'abc123',
+    integrationId: 30,
     url: 'http://localhost/story/show/564',
-    project_id: 99,
-    owner_ids: [101, 102],
+    projectId: 99,
+    ownerIds: [101, 102],
     labels: [
       {
         id: 1,
-        project_id: 99,
+        projectId: 99,
         kind: 'label',
         name: 'first label',
-        created_at: '2018-09-25T12:01:00Z',
-        updated_at: '2018-09-25T12:01:00Z'
+        createdAt: '2018-09-25T12:01:00Z',
+        updatedAt: '2018-09-25T12:01:00Z'
       },
       {
         id: 2,
-        project_id: 99,
+        projectId: 99,
         kind: 'label',
         name: 'second label',
-        created_at: '2018-09-25T12:01:00Z',
-        updated_at: '2018-09-25T12:01:00Z'
+        createdAt: '2018-09-25T12:01:00Z',
+        updatedAt: '2018-09-25T12:01:00Z'
       }
     ],
-    owned_by_id: 102
+    ownedById: 102
   };
 
   it('renders title as link', () => {
     const { container } = render(
       <Provider value={people}>
-        <Story {...story} story_type="feature" />
+        <Story {...story} storyType="feature" />
       </Provider>
     );
 
@@ -114,7 +114,7 @@ describe('Story', () => {
   it('renders feature tag for feature story', () => {
     const { queryByTestId } = render(
       <Provider value={people}>
-        <Story {...story} story_type="feature" />
+        <Story {...story} storyType="feature" />
       </Provider>
     );
 
@@ -126,7 +126,7 @@ describe('Story', () => {
   it('renders bug tag for bug story', () => {
     const { queryByTestId } = render(
       <Provider value={people}>
-        <Story {...story} story_type="bug" />
+        <Story {...story} storyType="bug" />
       </Provider>
     );
 
@@ -138,7 +138,7 @@ describe('Story', () => {
   it('renders chore tag for chore story', () => {
     const { queryByTestId } = render(
       <Provider value={people}>
-        <Story {...story} story_type="chore" />
+        <Story {...story} storyType="chore" />
       </Provider>
     );
 

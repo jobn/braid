@@ -6,29 +6,29 @@ import ProjectList from './ProjectList';
 describe('ProjectList', () => {
   const projects = [
     {
-      project_name: 'Dominate the tri-state-area',
-      project_id: 1,
-      project_role: 'Supreme leader'
+      projectName: 'Dominate the tri-state-area',
+      projectId: 1,
+      projectRole: 'Supreme leader'
     },
     {
-      project_name: 'Next level grocery shopping',
-      project_id: 2,
-      project_role: 'Bystander'
+      projectName: 'Next level grocery shopping',
+      projectId: 2,
+      projectRole: 'Bystander'
     },
     {
-      project_name: 'Afternoon nap',
-      project_id: 3,
-      project_role: 'Member'
+      projectName: 'Afternoon nap',
+      projectId: 3,
+      projectRole: 'Member'
     },
     {
-      project_name: 'Side-project',
-      project_id: 4,
-      project_role: 'Owner'
+      projectName: 'Side-project',
+      projectId: 4,
+      projectRole: 'Owner'
     },
     {
-      project_name: 'Death star construction',
-      project_id: 5,
-      project_role: 'Janitor'
+      projectName: 'Death star construction',
+      projectId: 5,
+      projectRole: 'Janitor'
     }
   ];
 

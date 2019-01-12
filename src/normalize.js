@@ -13,10 +13,13 @@ const normalizeArray = array => {
 const uniqueArray = array =>
   array.filter((value, index, self) => self.indexOf(value) === index);
 
+const removeReleaseStories = story => story.storyType !== 'release';
+
 const normalize = ({ iterationResponse, membershipsResponse }) => {
   const currentIteration = iterationResponse[0];
 
-  const { stories, ...iteration } = currentIteration;
+  const { stories: allStories, ...iteration } = currentIteration;
+  const stories = allStories.filter(removeReleaseStories);
 
   stories.forEach(story => {
     story.blockers = [];
@@ -26,10 +29,7 @@ const normalize = ({ iterationResponse, membershipsResponse }) => {
 
   const uniqueOwnerIds = arrayShuffle(
     uniqueArray(
-      [].concat.apply(
-        [],
-        currentIteration.stories.map(story => story.owner_ids)
-      )
+      [].concat.apply([], currentIteration.stories.map(story => story.ownerIds))
     ),
     getDayOfYear(new Date())
   );

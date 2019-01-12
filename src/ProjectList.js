@@ -18,11 +18,11 @@ const ProjectList = ({ projects }) => (
     >
       {projects.map((project, index) => (
         <Link
-          to={`/projects/${project.project_id}`}
+          to={`/projects/${project.projectId}`}
           className={`notification ${projectColor(index)} is-marginless`}
-          key={project.project_id}
+          key={project.projectId}
         >
-          <p className="title">{project.project_name}</p>
+          <p className="title">{project.projectName}</p>
           <p className="subtitle">{project.role}</p>
         </Link>
       ))}
