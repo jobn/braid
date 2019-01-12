@@ -12,9 +12,7 @@ import Tray from './Tray';
 import Spinner from './Spinner';
 import normalize from './normalize';
 import Filters from './Filters';
-
-import { arrayRotateBackward, arrayRotateForward, arrayToggle } from './utils';
-import { hasUnresolvedBlockers } from './Story';
+import FilterContext, { FilterConsumer } from './FilterContext';
 
 const { Consumer, Provider } = createContext();
 
@@ -24,29 +22,7 @@ const initialState = {
   iteration: {},
   stories: [],
   people: [],
-  uniqueOwnerIds: [],
-  selectedOwners: [],
-  selectedTypes: []
-};
-
-const isBlocked = story => hasUnresolvedBlockers(story.blockers);
-const removeReleaseStories = story => story.story_type !== 'release';
-const filterByOwner = ownerIds => story => {
-  if (ownerIds.length === 0) {
-    return true;
-  }
-
-  return story.owner_ids.some(id => ownerIds.indexOf(id) !== -1);
-};
-const filterByType = typeNames => story => {
-  if (typeNames.length === 0) {
-    return true;
-  }
-
-  return (
-    typeNames.includes(story.story_type) ||
-    (typeNames.includes('blocked') && isBlocked(story))
-  );
+  uniqueOwnerIds: []
 };
 
 class Project extends Component {
@@ -93,52 +69,8 @@ class Project extends Component {
     }
   };
 
-  toggleOwner = id => {
-    this.setState({
-      selectedOwners: arrayToggle(this.state.selectedOwners, id)
-    });
-  };
-
-  selectNextOwner = () => {
-    this.setState({
-      selectedOwners: [
-        arrayRotateForward(
-          this.state.uniqueOwnerIds,
-          this.state.selectedOwners[0]
-        )
-      ]
-    });
-  };
-
-  selectPrevOwner = () => {
-    this.setState({
-      selectedOwners: [
-        arrayRotateBackward(
-          this.state.uniqueOwnerIds,
-          this.state.selectedOwners[0]
-        )
-      ]
-    });
-  };
-
-  clearOwners = () => {
-    this.setState({ selectedOwners: [] });
-  };
-
-  toggleType = id => {
-    this.setState({ selectedTypes: arrayToggle(this.state.selectedTypes, id) });
-  };
-
   render() {
-    const {
-      isLoading,
-      error,
-      stories,
-      people,
-      uniqueOwnerIds,
-      selectedOwners,
-      selectedTypes
-    } = this.state;
+    const { isLoading, error, stories, people, uniqueOwnerIds } = this.state;
 
     if (isLoading) {
       return <Spinner />;
@@ -147,42 +79,36 @@ class Project extends Component {
       return <div>Error</div>;
     }
 
-    const filteredStories = stories
-      .filter(removeReleaseStories)
-      .filter(filterByOwner(selectedOwners))
-      .filter(filterByType(selectedTypes));
-
     return (
-      <Provider value={people}>
-        <section className="section" style={{ paddingBottom: '4rem' }}>
-          <div className="columns">
-            <PendingColumn stories={filteredStories} />
-            <StartedColumn stories={filteredStories} />
-            <ReviewColumn stories={filteredStories} />
-            <DoneColumn stories={filteredStories} />
-          </div>
-        </section>
+      <FilterContext uniqueOwnerIds={uniqueOwnerIds}>
+        <Provider value={people}>
+          <section className="section" style={{ paddingBottom: '4rem' }}>
+            <div className="columns">
+              <PendingColumn stories={stories} />
+              <StartedColumn stories={stories} />
+              <ReviewColumn stories={stories} />
+              <DoneColumn stories={stories} />
+            </div>
+          </section>
 
-        <Footer>
-          <Tray title="Filters">
-            <Filters
-              uniqueOwnerIds={uniqueOwnerIds}
-              selectedOwners={selectedOwners}
-              people={people}
-              selectedTypes={selectedTypes}
-              toggleType={this.toggleType}
-              toggleOwner={this.toggleOwner}
-              selectNextOwner={this.selectNextOwner}
-              selectPrevOwner={this.selectPrevOwner}
-              clearOwners={this.clearOwners}
-            />
-          </Tray>
-        </Footer>
-      </Provider>
+          <Footer>
+            <Tray title="Filters">
+              <FilterConsumer>
+                {consumerValue => (
+                  <Filters
+                    uniqueOwnerIds={uniqueOwnerIds}
+                    people={people}
+                    {...consumerValue}
+                  />
+                )}
+              </FilterConsumer>
+            </Tray>
+          </Footer>
+        </Provider>
+      </FilterContext>
     );
   }
 }
 
 export default Project;
 export { Provider, Consumer };
-export { filterByType };

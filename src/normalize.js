@@ -13,10 +13,13 @@ const normalizeArray = array => {
 const uniqueArray = array =>
   array.filter((value, index, self) => self.indexOf(value) === index);
 
+const removeReleaseStories = story => story.story_type !== 'release';
+
 const normalize = ({ iterationResponse, membershipsResponse }) => {
   const currentIteration = iterationResponse[0];
 
-  const { stories, ...iteration } = currentIteration;
+  const { stories: allStories, ...iteration } = currentIteration;
+  const stories = allStories.filter(removeReleaseStories);
 
   stories.forEach(story => {
     story.blockers = [];

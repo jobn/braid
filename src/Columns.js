@@ -1,16 +1,18 @@
 import React from 'react';
 import Story from './Story';
-
-const filterByStoryStates = ({ stories, storyStates }) =>
-  stories.filter(story => storyStates.includes(story.current_state));
+import { FilterConsumer } from './FilterContext';
 
 const Column = ({ title, stories, storyStates }) => (
-  <div className="column">
-    <h4 className="title is-4 has-text-centered">{title}</h4>
-    {filterByStoryStates({ stories, storyStates }).map(story => (
-      <Story key={story.id} {...story} />
-    ))}
-  </div>
+  <FilterConsumer>
+    {({ filter }) => (
+      <div className="column">
+        <h4 className="title is-4 has-text-centered">{title}</h4>
+        {filter(stories, storyStates).map(story => (
+          <Story key={story.id} {...story} />
+        ))}
+      </div>
+    )}
+  </FilterConsumer>
 );
 
 const PendingColumn = ({ stories }) => (

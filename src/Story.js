@@ -8,6 +8,7 @@ import {
   FeatureTag,
   LabelTag
 } from './Tags';
+import { hasUnresolvedBlockers } from './FilterContext';
 
 const renderTypeTag = type => {
   switch (type) {
@@ -21,9 +22,6 @@ const renderTypeTag = type => {
       return null;
   }
 };
-
-const hasUnresolvedBlockers = blockers =>
-  blockers.some(blocker => !blocker.resolved);
 
 const Story = ({
   name,
