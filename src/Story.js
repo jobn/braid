@@ -26,9 +26,9 @@ const renderTypeTag = type => {
 const Story = ({
   name,
   labels,
-  story_type,
+  storyType,
   estimate,
-  owner_ids,
+  ownerIds,
   blockers,
   url
 }) => (
@@ -48,7 +48,7 @@ const Story = ({
       <div className="media">
         <div className="media-content">
           <div className="tags has-addons is-marginless">
-            {renderTypeTag(story_type)}
+            {renderTypeTag(storyType)}
 
             <EstimateTag estimate={estimate} />
 
@@ -59,7 +59,7 @@ const Story = ({
         </div>
 
         <div className="media-right">
-          <Owners ownerIds={owner_ids} />
+          <Owners ownerIds={ownerIds} />
         </div>
       </div>
     </div>

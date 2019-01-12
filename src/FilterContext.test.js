@@ -8,22 +8,22 @@ import FilterContainer, {
 } from './FilterContext';
 
 describe('filterByStoryStates', () => {
-  it('returns true if story.current_state is contained in selected story state', () => {
+  it('returns true if story.currentState is contained in selected story state', () => {
     expect(
       filterByStoryStates(
         {
-          current_state: 'started'
+          currentState: 'started'
         },
         ['planned', 'started']
       )
     ).toBe(true);
   });
 
-  it('returns false if story.current_state is not contained in selected story state', () => {
+  it('returns false if story.currentState is not contained in selected story state', () => {
     expect(
       filterByStoryStates(
         {
-          current_state: 'started'
+          currentState: 'started'
         },
         []
       )
@@ -32,22 +32,22 @@ describe('filterByStoryStates', () => {
 });
 
 describe('filterByOwner', () => {
-  it('returns true if story owner_ids contains a selected owner id', () => {
+  it('returns true if story ownerIds contains a selected owner id', () => {
     expect(
       filterByOwner(
         {
-          owner_ids: [1, 2, 3]
+          ownerIds: [1, 2, 3]
         },
         [3, 4, 5]
       )
     ).toBe(true);
   });
 
-  it('returns false if story owner_ids does not contain a selected owner id', () => {
+  it('returns false if story ownerIds does not contain a selected owner id', () => {
     expect(
       filterByOwner(
         {
-          owner_ids: [1, 2, 3]
+          ownerIds: [1, 2, 3]
         },
         [23, 11]
       )
@@ -56,9 +56,9 @@ describe('filterByOwner', () => {
 });
 
 describe('filterByType', () => {
-  it('filters by story_type attribute', () => {
-    expect(filterByType({ story_type: 'feature' }, ['chore'])).toBe(false);
-    expect(filterByType({ story_type: 'chore' }, ['chore'])).toBe(true);
+  it('filters by storyType attribute', () => {
+    expect(filterByType({ storyType: 'feature' }, ['chore'])).toBe(false);
+    expect(filterByType({ storyType: 'chore' }, ['chore'])).toBe(true);
   });
 
   it('filters by blockers if type is blocked', () => {
@@ -74,7 +74,7 @@ describe('filterByType', () => {
     expect(
       filterByType(
         {
-          story_type: 'chore',
+          storyType: 'chore',
           blockers: [{ resolved: true }]
         },
         ['blocked', 'chore']
@@ -84,7 +84,7 @@ describe('filterByType', () => {
     expect(
       filterByType(
         {
-          story_type: 'chore',
+          storyType: 'chore',
           blockers: [{ resolved: false }]
         },
         ['blocked', 'feature']
@@ -94,7 +94,7 @@ describe('filterByType', () => {
     expect(
       filterByType(
         {
-          story_type: 'chore',
+          storyType: 'chore',
           blockers: [{ resolved: true }]
         },
         ['chore', 'feature']
@@ -136,27 +136,27 @@ describe('FilterContext', () => {
   const stories = [
     {
       id: 0,
-      owner_ids: [0],
-      current_state: 'started',
-      story_type: 'feature'
+      ownerIds: [0],
+      currentState: 'started',
+      storyType: 'feature'
     },
     {
       id: 1,
-      owner_ids: [0],
-      current_state: 'started',
-      story_type: 'bug'
+      ownerIds: [0],
+      currentState: 'started',
+      storyType: 'bug'
     },
     {
       id: 2,
-      owner_ids: [0],
-      current_state: 'finished',
-      story_type: 'feature'
+      ownerIds: [0],
+      currentState: 'finished',
+      storyType: 'feature'
     },
     {
       id: 3,
-      owner_ids: [1],
-      current_state: 'started',
-      story_type: 'fakeType'
+      ownerIds: [1],
+      currentState: 'started',
+      storyType: 'fakeType'
     }
   ];
 
@@ -221,7 +221,7 @@ describe('FilterContext', () => {
   });
 
   describe('filters', () => {
-    it('filters by given story_types', () => {
+    it('filters by given storyTypes', () => {
       const { getByTestId } = renderSubject();
 
       expect(getByTestId('filtered')).toHaveTextContent('0,1,3');

@@ -14,7 +14,7 @@ export const filterByOwner = (story, ownerIds) => {
     return true;
   }
 
-  return story.owner_ids.some(id => ownerIds.includes(id));
+  return story.ownerIds.some(id => ownerIds.includes(id));
 };
 
 export const filterByType = (story, typeNames) => {
@@ -23,13 +23,13 @@ export const filterByType = (story, typeNames) => {
   }
 
   return (
-    typeNames.includes(story.story_type) ||
+    typeNames.includes(story.storyType) ||
     (typeNames.includes('blocked') && isBlocked(story))
   );
 };
 
 export const filterByStoryStates = (story, storyStates) =>
-  storyStates.includes(story.current_state);
+  storyStates.includes(story.currentState);
 
 class FilterContainer extends Component {
   constructor(props) {
