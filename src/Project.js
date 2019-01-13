@@ -94,11 +94,7 @@ class Project extends Component {
             <Tray title="Filters">
               <FilterConsumer>
                 {consumerValue => (
-                  <Filters
-                    uniqueOwnerIds={uniqueOwnerIds}
-                    people={people}
-                    {...consumerValue}
-                  />
+                  <Filters uniqueOwnerIds={uniqueOwnerIds} {...consumerValue} />
                 )}
               </FilterConsumer>
             </Tray>
