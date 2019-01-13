@@ -159,27 +159,14 @@ describe('Story', () => {
       expect(queryByTestId('blocked-tag')).toBeInTheDocument();
       expect(queryByTestId('blocked-tag')).not.toBeVisible();
     });
-  });
-});
 
-describe('hasUnresolvedBlockers', () => {
-  it('returns true when array has a single item that is not resolved', () => {
-    const blockers = [
-      { resolved: true },
-      { resolved: true },
-      { resolved: false }
-    ];
+    it('renders invisible blocked tag if no blockers', () => {
+      const { queryByTestId } = renderSubject({
+        blockers: []
+      });
 
-    expect(hasUnresolvedBlockers(blockers)).toBe(true);
-  });
-
-  it('returns false when all items are resolved', () => {
-    const blockers = [
-      { resolved: true },
-      { resolved: true },
-      { resolved: true }
-    ];
-
-    expect(hasUnresolvedBlockers(blockers)).toBe(false);
+      expect(queryByTestId('blocked-tag')).toBeInTheDocument();
+      expect(queryByTestId('blocked-tag')).not.toBeVisible();
+    });
   });
 });
