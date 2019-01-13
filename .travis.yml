@@ -2,7 +2,7 @@ language: node_js
 cache:
   yarn: true
 node_js:
-  - '8.11.4'
+  - '10.15.0'
 script:
   - yarn lint
   - yarn test
