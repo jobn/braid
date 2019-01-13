@@ -6,6 +6,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import { getMe } from './api';
+import ProjectContainer from './ProjectContainer';
 import Project from './Project';
 import ProjectList from './ProjectList';
 import Login from './Login';
@@ -104,7 +105,12 @@ class App extends Component {
 
             <Route
               path="/projects/:id"
-              render={props => <Project {...props} />}
+              render={props => (
+                <ProjectContainer
+                  {...props}
+                  render={projectData => <Project {...projectData} />}
+                />
+              )}
             />
             <Route component={PageNotFound} />
           </Switch>

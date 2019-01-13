@@ -4,6 +4,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const Spinner = () => (
   <span
+    data-testid="spinner"
     className="icon is-large has-text-primary"
     style={{
       position: 'absolute',
