@@ -1,4 +1,5 @@
-import React, { Component, createContext } from 'react';
+import React, { Component } from 'react';
+import { PeopleProvider } from './PeopleContext';
 import { getCurrentIteration, getMemberships, getBlockers } from './api';
 import {
   PendingColumn,
@@ -13,8 +14,6 @@ import Spinner from './Spinner';
 import normalize from './normalize';
 import Filters from './Filters';
 import FilterContext, { FilterConsumer } from './FilterContext';
-
-const { Consumer, Provider } = createContext();
 
 const initialState = {
   isLoading: false,
@@ -81,7 +80,7 @@ class Project extends Component {
 
     return (
       <FilterContext uniqueOwnerIds={uniqueOwnerIds}>
-        <Provider value={people}>
+        <PeopleProvider value={people}>
           <section className="section" style={{ paddingBottom: '4rem' }}>
             <div className="columns">
               <PendingColumn stories={stories} />
@@ -95,20 +94,15 @@ class Project extends Component {
             <Tray title="Filters">
               <FilterConsumer>
                 {consumerValue => (
-                  <Filters
-                    uniqueOwnerIds={uniqueOwnerIds}
-                    people={people}
-                    {...consumerValue}
-                  />
+                  <Filters uniqueOwnerIds={uniqueOwnerIds} {...consumerValue} />
                 )}
               </FilterConsumer>
             </Tray>
           </Footer>
-        </Provider>
+        </PeopleProvider>
       </FilterContext>
     );
   }
 }
 
 export default Project;
-export { Provider, Consumer };

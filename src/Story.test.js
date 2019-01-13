@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, within } from 'react-testing-library';
-import Story, { hasUnresolvedBlockers } from './Story';
-import { Provider } from './Project';
+import Story from './Story';
+import { PeopleProvider } from './PeopleContext';
 
 describe('Story', () => {
   const people = {
@@ -62,12 +62,15 @@ describe('Story', () => {
     ownedById: 102
   };
 
-  it('renders title as link', () => {
-    const { container } = render(
-      <Provider value={people}>
-        <Story {...story} storyType="feature" />
-      </Provider>
+  const renderSubject = props =>
+    render(
+      <PeopleProvider value={people}>
+        <Story {...story} {...props} />
+      </PeopleProvider>
     );
+
+  it('renders title as link', () => {
+    const { container } = renderSubject({ storyType: 'feature' });
 
     expect(container).toHaveTextContent(
       'Test the Expeditionary Battle Planetoid'
@@ -81,42 +84,26 @@ describe('Story', () => {
 
   describe('estimate', () => {
     it('renders estimate tag', () => {
-      const { queryByTestId } = render(
-        <Provider value={people}>
-          <Story {...story} estimate={5} />
-        </Provider>
-      );
+      const { queryByTestId } = renderSubject({ estimate: 5 });
 
       expect(queryByTestId('estimate-tag')).toHaveTextContent(5);
     });
 
     it('does not render if estimate is not present', () => {
-      const { queryByTestId } = render(
-        <Provider value={people}>
-          <Story {...story} estimate={null} />
-        </Provider>
-      );
+      const { queryByTestId } = renderSubject({ estimate: undefined });
 
       expect(queryByTestId('estimate-tag')).not.toBeInTheDocument();
     });
 
     it('does not render if estimate is zero', () => {
-      const { queryByTestId } = render(
-        <Provider value={people}>
-          <Story {...story} estimate={0} />
-        </Provider>
-      );
+      const { queryByTestId } = renderSubject({ estimate: 0 });
 
       expect(queryByTestId('estimate-tag')).not.toBeInTheDocument();
     });
   });
 
   it('renders feature tag for feature story', () => {
-    const { queryByTestId } = render(
-      <Provider value={people}>
-        <Story {...story} storyType="feature" />
-      </Provider>
-    );
+    const { queryByTestId } = renderSubject({ storyType: 'feature' });
 
     expect(queryByTestId('feature-tag')).toBeInTheDocument();
     expect(queryByTestId('bug-tag')).not.toBeInTheDocument();
@@ -124,11 +111,7 @@ describe('Story', () => {
   });
 
   it('renders bug tag for bug story', () => {
-    const { queryByTestId } = render(
-      <Provider value={people}>
-        <Story {...story} storyType="bug" />
-      </Provider>
-    );
+    const { queryByTestId } = renderSubject({ storyType: 'bug' });
 
     expect(queryByTestId('feature-tag')).not.toBeInTheDocument();
     expect(queryByTestId('bug-tag')).toBeInTheDocument();
@@ -136,11 +119,7 @@ describe('Story', () => {
   });
 
   it('renders chore tag for chore story', () => {
-    const { queryByTestId } = render(
-      <Provider value={people}>
-        <Story {...story} storyType="chore" />
-      </Provider>
-    );
+    const { queryByTestId } = renderSubject({ storyType: 'chore' });
 
     expect(queryByTestId('feature-tag')).not.toBeInTheDocument();
     expect(queryByTestId('bug-tag')).not.toBeInTheDocument();
@@ -148,11 +127,7 @@ describe('Story', () => {
   });
 
   it('renders labels', () => {
-    const { container, queryAllByTestId } = render(
-      <Provider value={people}>
-        <Story {...story} />
-      </Provider>
-    );
+    const { container, queryAllByTestId } = renderSubject();
 
     expect(queryAllByTestId('label-tag')).toHaveLength(2);
     expect(container).toHaveTextContent('first label');
@@ -160,11 +135,7 @@ describe('Story', () => {
   });
 
   it('renders owners', () => {
-    const { queryByTestId, getByTestId } = render(
-      <Provider value={people}>
-        <Story {...story} />
-      </Provider>
-    );
+    const { queryByTestId, getByTestId } = renderSubject();
 
     expect(queryByTestId('owners')).toBeInTheDocument();
     expect(within(getByTestId('owners')).getByText('DV')).toBeInTheDocument();
@@ -173,46 +144,29 @@ describe('Story', () => {
 
   describe('blocked tag', () => {
     it('renders visible blocked tag if blocked', () => {
-      const { queryByTestId } = render(
-        <Provider value={people}>
-          <Story {...story} blockers={[{ resolved: false }]} />
-        </Provider>
-      );
+      const { queryByTestId } = renderSubject({
+        blockers: [{ resolved: false }]
+      });
 
       expect(queryByTestId('blocked-tag')).toBeVisible();
     });
 
     it('renders invisible blocked tag if not blocked', () => {
-      const { queryByTestId } = render(
-        <Provider value={people}>
-          <Story {...story} blockers={[{ resolved: true }]} />
-        </Provider>
-      );
+      const { queryByTestId } = renderSubject({
+        blockers: [{ resolved: true }]
+      });
 
       expect(queryByTestId('blocked-tag')).toBeInTheDocument();
       expect(queryByTestId('blocked-tag')).not.toBeVisible();
     });
-  });
-});
 
-describe('hasUnresolvedBlockers', () => {
-  it('returns true when array has a single item that is not resolved', () => {
-    const blockers = [
-      { resolved: true },
-      { resolved: true },
-      { resolved: false }
-    ];
+    it('renders invisible blocked tag if no blockers', () => {
+      const { queryByTestId } = renderSubject({
+        blockers: []
+      });
 
-    expect(hasUnresolvedBlockers(blockers)).toBe(true);
-  });
-
-  it('returns false when all items are resolved', () => {
-    const blockers = [
-      { resolved: true },
-      { resolved: true },
-      { resolved: true }
-    ];
-
-    expect(hasUnresolvedBlockers(blockers)).toBe(false);
+      expect(queryByTestId('blocked-tag')).toBeInTheDocument();
+      expect(queryByTestId('blocked-tag')).not.toBeVisible();
+    });
   });
 });

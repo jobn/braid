@@ -1,15 +1,17 @@
 import React from 'react';
 import { render, fireEvent } from 'react-testing-library';
 import Filters from './Filters';
+import { PeopleProvider } from './PeopleContext';
 
 describe('Filters', () => {
-  const uniqueOwnerIds = [1, 2, 3];
-  const selectedOwners = [];
   const people = {
     1: { initials: 'AA' },
     2: { initials: 'BB' },
     3: { initials: 'CC' }
   };
+
+  const uniqueOwnerIds = [1, 2, 3];
+  const selectedOwners = [];
   const selectedTypes = [];
   const clearOwners = jest.fn();
   const toggleOwner = jest.fn();
@@ -20,7 +22,6 @@ describe('Filters', () => {
   const props = {
     uniqueOwnerIds,
     selectedOwners,
-    people,
     selectedTypes,
     clearOwners,
     toggleOwner,
@@ -30,7 +31,11 @@ describe('Filters', () => {
   };
 
   const renderSubject = (extraProps = {}) =>
-    render(<Filters {...props} {...extraProps} />);
+    render(
+      <PeopleProvider value={people}>
+        <Filters {...props} {...extraProps} />
+      </PeopleProvider>
+    );
 
   it('renders as per snapthot', () => {
     const { container } = renderSubject();

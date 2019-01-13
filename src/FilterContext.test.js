@@ -4,7 +4,8 @@ import FilterContainer, {
   FilterConsumer,
   filterByType,
   filterByOwner,
-  filterByStoryStates
+  filterByStoryStates,
+  hasUnresolvedBlockers
 } from './FilterContext';
 
 describe('filterByStoryStates', () => {
@@ -100,6 +101,28 @@ describe('filterByType', () => {
         ['chore', 'feature']
       )
     ).toBe(true);
+  });
+});
+
+describe('hasUnresolvedBlockers', () => {
+  it('returns true when array has a single item that is not resolved', () => {
+    const blockers = [
+      { resolved: true },
+      { resolved: true },
+      { resolved: false }
+    ];
+
+    expect(hasUnresolvedBlockers(blockers)).toBe(true);
+  });
+
+  it('returns false when all items are resolved', () => {
+    const blockers = [
+      { resolved: true },
+      { resolved: true },
+      { resolved: true }
+    ];
+
+    expect(hasUnresolvedBlockers(blockers)).toBe(false);
   });
 });
 

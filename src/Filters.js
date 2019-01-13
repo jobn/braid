@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react';
+import { string, number, func, arrayOf } from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBackward,
   faForward,
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
+import WithPerson from './WithPerson';
 
 const storyTypes = [
   {
@@ -50,7 +52,6 @@ class Filters extends Component {
     const {
       uniqueOwnerIds,
       selectedOwners,
-      people,
       selectedTypes,
       clearOwners
     } = this.props;
@@ -75,7 +76,7 @@ class Filters extends Component {
                     }`}
                     onClick={this.handleOwnerClick}
                   >
-                    {people[id].initials}
+                    <WithPerson id={id}>{person => person.initials}</WithPerson>
                   </button>
                 </p>
               ))}
@@ -154,5 +155,16 @@ class Filters extends Component {
     );
   }
 }
+
+Filters.propTypes = {
+  uniqueOwnerIds: arrayOf(number).isRequired,
+  selectedOwners: arrayOf(number).isRequired,
+  selectedTypes: arrayOf(string).isRequired,
+  clearOwners: func.isRequired,
+  toggleOwner: func.isRequired,
+  toggleType: func.isRequired,
+  selectNextOwner: func.isRequired,
+  selectPrevOwner: func.isRequired
+};
 
 export default Filters;
