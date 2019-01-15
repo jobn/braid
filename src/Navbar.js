@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import icon from './icon.svg';
 
 const Navbar = ({ name, projects, onLogout }) => (
@@ -68,6 +70,9 @@ const Navbar = ({ name, projects, onLogout }) => (
       </div>
 
       <div className="navbar-end">
+        <a className="navbar-item" href="https://github.com/jobn/braid">
+          <FontAwesomeIcon icon={faGithub} />
+        </a>
         <div className="navbar-item">Signed in as {name}</div>
         <div className="navbar-item">
           <button className="button is-small" onClick={onLogout}>
