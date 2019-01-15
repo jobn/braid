@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { func, string } from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import icon from './icon.svg';
 
 class Login extends Component {
@@ -105,7 +107,7 @@ class Login extends Component {
                       <a
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="has-text-info"
+                        className="has-text-link"
                         href="https://www.pivotaltracker.com/profile"
                       >
                         PivotalTracker profile page
@@ -117,6 +119,25 @@ class Login extends Component {
                       PivotalTracker. It is stored here in your browser. Neither
                       your token or any of your PivotalTracker information is
                       sent to Braid.
+                    </p>
+
+                    <p style={{ marginTop: '2rem' }}>
+                      Braid is open source. Licensed under the{' '}
+                      <a
+                        className="has-text-link"
+                        href="https://github.com/jobn/braid/blob/master/LICENSE"
+                      >
+                        MIT License
+                      </a>
+                      .
+                      <a
+                        className="button"
+                        href="https://github.com/jobn/braid"
+                        style={{ marginLeft: '1rem', verticalAlign: 'middle' }}
+                      >
+                        <FontAwesomeIcon icon={faGithub} className="icon" />
+                        <span>Github</span>
+                      </a>
                     </p>
                   </form>
                 </section>
