@@ -61,10 +61,13 @@ describe('ProjectContainer', () => {
       <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
     );
 
-    const { iteration, ...rest } = normalizationResult;
-
     await wait();
-    expect(mockRender.mock.calls[1][0]).toEqual(rest);
+    await wait();
+    expect(mockRender.mock.calls[1][0]).toEqual({
+      ...normalizationResult,
+      error: null,
+      isFetching: false
+    });
   });
 
   it('third call to render function has blockers', async () => {
@@ -73,20 +76,11 @@ describe('ProjectContainer', () => {
     );
 
     await wait();
+    await wait();
+    await wait();
     expect(
       mockRender.mock.calls[2][0].stories.map(story => story.blockers)
     ).toEqual([{ resolved: false }, { resolved: true }]);
-  });
-
-  it('renders Spinner while fetching', async () => {
-    const { queryByTestId } = render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
-    );
-
-    expect(queryByTestId('spinner')).toBeInTheDocument();
-
-    await wait();
-    expect(queryByTestId('spinner')).not.toBeInTheDocument();
   });
 
   it('renders error on request error', async () => {
