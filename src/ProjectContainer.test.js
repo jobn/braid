@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, wait } from 'react-testing-library';
-import ProjectContainer from './ProjectContainer';
+import { ProjectContainer } from './ProjectContainer';
 import * as api from './api';
 import {
   iterationResponse,
@@ -27,39 +27,28 @@ describe('ProjectContainer', () => {
   });
 
   it('fetches current iteration', async () => {
-    render(
-      <ProjectContainer
-        match={{ params: { id: '1' } }}
-        render={() => <div />}
-      />
-    );
+    render(<ProjectContainer id="1" render={() => <div />} />);
 
     await wait();
     expect(api.getCurrentIteration).toHaveBeenCalledWith('1');
   });
 
   it('fetches memberships', async () => {
-    render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
-    );
+    render(<ProjectContainer id="1" render={mockRender} />);
 
     await wait();
     expect(api.getCurrentIteration).toHaveBeenCalledWith('1');
   });
 
   it('fetches blockers', async () => {
-    render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
-    );
+    render(<ProjectContainer id="1" render={mockRender} />);
 
     await wait();
     expect(api.getBlockers).toHaveBeenCalledWith('1', [563, 564]);
   });
 
   it('second call to render function has fetched and normalized data', async () => {
-    render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
-    );
+    render(<ProjectContainer id="1" render={mockRender} />);
 
     await wait();
     await wait();
@@ -71,9 +60,7 @@ describe('ProjectContainer', () => {
   });
 
   it('third call to render function has blockers', async () => {
-    render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
-    );
+    render(<ProjectContainer id="1" render={mockRender} />);
 
     await wait();
     await wait();
@@ -89,7 +76,7 @@ describe('ProjectContainer', () => {
     );
 
     const { container } = render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
+      <ProjectContainer id="1" render={mockRender} />
     );
 
     await wait();

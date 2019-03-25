@@ -40,7 +40,7 @@ function reducer(state, action) {
   }
 }
 
-function ProjectContainer(props) {
+function ProjectContainer({ id, render }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -66,8 +66,8 @@ function ProjectContainer(props) {
       }
     };
 
-    fetchData(props.match.params.id);
-  }, [props.match.params.id]);
+    fetchData(id);
+  }, [id]);
 
   if (state.isFetching) {
     return <Spinner />;
@@ -76,16 +76,12 @@ function ProjectContainer(props) {
     return <div>Error</div>;
   }
 
-  return props.render(state);
+  return render(state);
 }
 
 ProjectContainer.propTypes = {
   render: func.isRequired,
-  match: shape({
-    params: shape({
-      id: string.isRequired
-    }).isRequired
-  }).isRequired
+  id: string.isRequired
 };
 
-export default ProjectContainer;
+export { ProjectContainer };

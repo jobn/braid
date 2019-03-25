@@ -6,7 +6,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import { getMe } from './api';
-import ProjectContainer from './ProjectContainer';
+import { ProjectContainer } from './ProjectContainer';
 import Project from './Project';
 import ProjectList from './ProjectList';
 import Login from './Login';
@@ -107,7 +107,7 @@ class App extends Component {
               path="/projects/:id"
               render={props => (
                 <ProjectContainer
-                  {...props}
+                  id={props.match.params.id}
                   render={projectData => <Project {...projectData} />}
                 />
               )}
