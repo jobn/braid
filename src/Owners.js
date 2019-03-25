@@ -1,11 +1,11 @@
 import React from 'react';
-import WithPerson from './WithPerson';
+import { Initials } from './Initials';
 
 const Owners = ({ ownerIds }) => (
   <div className="tags is-marginless" data-testid="owners">
     {ownerIds.map(ownerId => (
-      <div className="tag is-rounded is-uppercase" key={ownerId}>
-        <WithPerson id={ownerId}>{person => person.initials}</WithPerson>
+      <div className="tag is-rounded" key={ownerId}>
+        <Initials id={ownerId} />
       </div>
     ))}
   </div>

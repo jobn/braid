@@ -10,11 +10,11 @@ import Footer from './Footer';
 import Tray from './Tray';
 import Filters from './Filters';
 import FilterContext, { FilterConsumer } from './FilterContext';
-import { PeopleProvider } from './PeopleContext';
+import { PeopleContext } from './PeopleContext';
 
 const Project = ({ uniqueOwnerIds, people, stories }) => (
-  <FilterContext uniqueOwnerIds={uniqueOwnerIds}>
-    <PeopleProvider value={people}>
+  <PeopleContext.Provider value={people}>
+    <FilterContext uniqueOwnerIds={uniqueOwnerIds}>
       <section className="section" style={{ paddingBottom: '4rem' }}>
         <div className="columns">
           <PendingColumn stories={stories} />
@@ -33,8 +33,8 @@ const Project = ({ uniqueOwnerIds, people, stories }) => (
           </FilterConsumer>
         </Tray>
       </Footer>
-    </PeopleProvider>
-  </FilterContext>
+    </FilterContext>
+  </PeopleContext.Provider>
 );
 
 Project.propTypes = {

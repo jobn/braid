@@ -6,7 +6,7 @@ import {
   faForward,
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
-import WithPerson from './WithPerson';
+import { Initials } from './Initials';
 
 const storyTypes = [
   {
@@ -71,12 +71,12 @@ class Filters extends Component {
                   <button
                     key={id}
                     value={id}
-                    className={`button is-rounded is-uppercase ${
+                    className={`button is-rounded ${
                       selectedOwners.indexOf(id) !== -1 ? 'is-primary' : ''
                     }`}
                     onClick={this.handleOwnerClick}
                   >
-                    <WithPerson id={id}>{person => person.initials}</WithPerson>
+                    <Initials id={id} />
                   </button>
                 </p>
               ))}
