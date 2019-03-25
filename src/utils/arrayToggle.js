@@ -11,4 +11,4 @@ const arrayToggle = (array, item) => {
   return clone;
 };
 
-export default arrayToggle;
+export { arrayToggle };

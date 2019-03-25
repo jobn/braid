@@ -24,30 +24,42 @@ exports[`Filters renders as per snapthot 1`] = `
         class="control"
       >
         <button
-          class="button is-rounded is-uppercase "
+          class="button is-rounded "
           value="1"
         >
-          AA
+          <span
+            class="is-uppercase"
+          >
+            AA
+          </span>
         </button>
       </p>
       <p
         class="control"
       >
         <button
-          class="button is-rounded is-uppercase "
+          class="button is-rounded "
           value="2"
         >
-          BB
+          <span
+            class="is-uppercase"
+          >
+            BB
+          </span>
         </button>
       </p>
       <p
         class="control"
       >
         <button
-          class="button is-rounded is-uppercase "
+          class="button is-rounded "
           value="3"
         >
-          CC
+          <span
+            class="is-uppercase"
+          >
+            CC
+          </span>
         </button>
       </p>
       <div
@@ -68,6 +80,7 @@ exports[`Filters renders as per snapthot 1`] = `
                 class="svg-inline--fa fa-backward fa-w-16 "
                 data-icon="backward"
                 data-prefix="fas"
+                focusable="false"
                 role="img"
                 viewBox="0 0 512 512"
                 xmlns="http://www.w3.org/2000/svg"
@@ -97,6 +110,7 @@ exports[`Filters renders as per snapthot 1`] = `
                 class="svg-inline--fa fa-forward fa-w-16 "
                 data-icon="forward"
                 data-prefix="fas"
+                focusable="false"
                 role="img"
                 viewBox="0 0 512 512"
                 xmlns="http://www.w3.org/2000/svg"
@@ -128,6 +142,7 @@ exports[`Filters renders as per snapthot 1`] = `
                 class="svg-inline--fa fa-times fa-w-11 "
                 data-icon="times"
                 data-prefix="fas"
+                focusable="false"
                 role="img"
                 viewBox="0 0 352 512"
                 xmlns="http://www.w3.org/2000/svg"

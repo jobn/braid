@@ -28,9 +28,7 @@ const normalize = ({ iterationResponse, membershipsResponse }) => {
   const people = normalizeArray(membershipsResponse.map(item => item.person));
 
   const uniqueOwnerIds = arrayShuffle(
-    uniqueArray(
-      [].concat.apply([], currentIteration.stories.map(story => story.ownerIds))
-    ),
+    uniqueArray([].concat.apply([], stories.map(story => story.ownerIds))),
     getDayOfYear(new Date())
   );
 
@@ -42,4 +40,7 @@ const normalize = ({ iterationResponse, membershipsResponse }) => {
   };
 };
 
-export default normalize;
+const getStoryIds = iterationResponse =>
+  iterationResponse[0].stories.map(story => story.id);
+
+export { normalize, getStoryIds };

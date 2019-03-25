@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from 'react-testing-library';
-import Tray from './Tray';
+import { Tray } from './Tray';
 
 describe('Tray', () => {
   const TestChild = () => <div data-testid="test-child" />;

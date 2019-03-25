@@ -6,13 +6,13 @@ import {
   Redirect
 } from 'react-router-dom';
 import { getMe } from './api';
-import ProjectContainer from './ProjectContainer';
-import Project from './Project';
-import ProjectList from './ProjectList';
-import Login from './Login';
-import PageNotFound from './PageNotFound';
-import Navbar from './Navbar';
-import Spinner from './Spinner';
+import { ProjectContainer } from './ProjectContainer';
+import { Project } from './Project';
+import { ProjectList } from './ProjectList';
+import { Login } from './Login';
+import { PageNotFound } from './PageNotFound';
+import { Navbar } from './Navbar';
+import { Spinner } from './Spinner';
 
 class App extends Component {
   state = {
@@ -107,7 +107,7 @@ class App extends Component {
               path="/projects/:id"
               render={props => (
                 <ProjectContainer
-                  {...props}
+                  id={props.match.params.id}
                   render={projectData => <Project {...projectData} />}
                 />
               )}
@@ -120,4 +120,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export { App };

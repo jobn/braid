@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, within } from 'react-testing-library';
-import Story from './Story';
-import { PeopleProvider } from './PeopleContext';
+import { Story } from './Story';
+import { PeopleContext } from './PeopleContext';
 
 describe('Story', () => {
   const people = {
@@ -64,9 +64,9 @@ describe('Story', () => {
 
   const renderSubject = props =>
     render(
-      <PeopleProvider value={people}>
+      <PeopleContext.Provider value={people}>
         <Story {...story} {...props} />
-      </PeopleProvider>
+      </PeopleContext.Provider>
     );
 
   it('renders title as link', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, wait } from 'react-testing-library';
-import ProjectContainer from './ProjectContainer';
+import { ProjectContainer } from './ProjectContainer';
 import * as api from './api';
 import {
   iterationResponse,
@@ -27,66 +27,47 @@ describe('ProjectContainer', () => {
   });
 
   it('fetches current iteration', async () => {
-    render(
-      <ProjectContainer
-        match={{ params: { id: '1' } }}
-        render={() => <div />}
-      />
-    );
+    render(<ProjectContainer id="1" render={() => <div />} />);
 
     await wait();
     expect(api.getCurrentIteration).toHaveBeenCalledWith('1');
   });
 
   it('fetches memberships', async () => {
-    render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
-    );
+    render(<ProjectContainer id="1" render={mockRender} />);
 
     await wait();
     expect(api.getCurrentIteration).toHaveBeenCalledWith('1');
   });
 
   it('fetches blockers', async () => {
-    render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
-    );
+    render(<ProjectContainer id="1" render={mockRender} />);
 
     await wait();
     expect(api.getBlockers).toHaveBeenCalledWith('1', [563, 564]);
   });
 
   it('second call to render function has fetched and normalized data', async () => {
-    render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
-    );
-
-    const { iteration, ...rest } = normalizationResult;
+    render(<ProjectContainer id="1" render={mockRender} />);
 
     await wait();
-    expect(mockRender.mock.calls[1][0]).toEqual(rest);
+    await wait();
+    expect(mockRender.mock.calls[1][0]).toEqual({
+      ...normalizationResult,
+      error: null,
+      isFetching: false
+    });
   });
 
   it('third call to render function has blockers', async () => {
-    render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
-    );
+    render(<ProjectContainer id="1" render={mockRender} />);
 
+    await wait();
+    await wait();
     await wait();
     expect(
       mockRender.mock.calls[2][0].stories.map(story => story.blockers)
     ).toEqual([{ resolved: false }, { resolved: true }]);
-  });
-
-  it('renders Spinner while fetching', async () => {
-    const { queryByTestId } = render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
-    );
-
-    expect(queryByTestId('spinner')).toBeInTheDocument();
-
-    await wait();
-    expect(queryByTestId('spinner')).not.toBeInTheDocument();
   });
 
   it('renders error on request error', async () => {
@@ -95,7 +76,7 @@ describe('ProjectContainer', () => {
     );
 
     const { container } = render(
-      <ProjectContainer match={{ params: { id: '1' } }} render={mockRender} />
+      <ProjectContainer id="1" render={mockRender} />
     );
 
     await wait();

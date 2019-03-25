@@ -56,4 +56,4 @@ const PageNotFound = () => (
   </section>
 );
 
-export default PageNotFound;
+export { PageNotFound };

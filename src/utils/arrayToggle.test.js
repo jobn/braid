@@ -1,4 +1,4 @@
-import arrayToggle from './arrayToggle';
+import { arrayToggle } from './arrayToggle';
 
 describe('arrayToggle', () => {
   const array = ['a', 'b', 'c', 'd'];

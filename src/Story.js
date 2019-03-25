@@ -1,5 +1,5 @@
 import React from 'react';
-import Owners from './Owners';
+import { Owners } from './Owners';
 import {
   BlockedTag,
   BugTag,
@@ -8,7 +8,7 @@ import {
   FeatureTag,
   LabelTag
 } from './Tags';
-import { hasUnresolvedBlockers } from './FilterContext';
+import { hasUnresolvedBlockers } from './FilterContainer';
 
 const renderTypeTag = type => {
   switch (type) {
@@ -68,4 +68,4 @@ const Story = ({
   </div>
 );
 
-export default Story;
+export { Story };

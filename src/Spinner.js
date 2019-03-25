@@ -17,4 +17,4 @@ const Spinner = () => (
   </span>
 );
 
-export default Spinner;
+export { Spinner };

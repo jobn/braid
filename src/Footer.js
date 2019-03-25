@@ -13,4 +13,4 @@ const Footer = ({ children }) => (
   </div>
 );
 
-export default Footer;
+export { Footer };

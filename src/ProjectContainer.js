@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { shape, string, func } from 'prop-types';
+import React, { useReducer, useEffect } from 'react';
+import { string, func } from 'prop-types';
 import { getCurrentIteration, getMemberships, getBlockers } from './api';
-import Spinner from './Spinner';
-import normalize from './normalize';
+import { Spinner } from './Spinner';
+import { normalize, getStoryIds } from './normalize';
 
 const initialState = {
-  isLoading: false,
+  isFetching: false,
   error: null,
   iteration: {},
   stories: [],
@@ -13,71 +13,75 @@ const initialState = {
   uniqueOwnerIds: []
 };
 
-class ProjectContainer extends Component {
-  state = { ...initialState };
+function reducer(state, action) {
+  const { type, payload } = action;
 
-  componentDidMount() {
-    this.fetchData(this.props.match.params.id);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.match.params.id !== prevProps.match.params.id) {
-      this.fetchData(this.props.match.params.id);
+  switch (type) {
+    case 'FETCH_ITERATION': {
+      return { ...state, isFetching: true };
     }
-  }
 
-  fetchData = async id => {
-    this.setState({
-      isLoading: true
-    });
+    case 'FETCH_ITERATION_SUCCESS': {
+      return { ...state, isFetching: false, ...normalize(payload) };
+    }
 
-    try {
-      const [iterationResponse, membershipsResponse] = await Promise.all([
-        getCurrentIteration(id),
-        getMemberships(id)
-      ]);
-
-      this.setState({
-        ...initialState,
-        ...normalize({ iterationResponse, membershipsResponse }),
-        isLoading: false
-      });
-
-      const { stories } = this.state;
-      const blockers = await getBlockers(id, stories.map(story => story.id));
-
-      const storiesWithBlockers = stories.map(story => ({
+    case 'FETCH_BLOCKERS_SUCCESS': {
+      const storiesWithBlockers = state.stories.map(story => ({
         ...story,
-        blockers: blockers.find(item => item.id === story.id).blockers
+        blockers: payload.find(blocker => blocker.id === story.id).blockers
       }));
 
-      this.setState({ stories: storiesWithBlockers });
-    } catch (error) {
-      this.setState({ ...initialState, error, isLoading: false });
-    }
-  };
-
-  render() {
-    const { isLoading, error, stories, people, uniqueOwnerIds } = this.state;
-
-    if (isLoading) {
-      return <Spinner />;
-    }
-    if (error) {
-      return <div>Error</div>;
+      return { ...state, stories: storiesWithBlockers };
     }
 
-    return this.props.render({ uniqueOwnerIds, stories, people });
+    case 'FETCH_REQUEST_ERROR': {
+      return { ...initialState, error: payload };
+    }
   }
+}
+
+function ProjectContainer({ id, render }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    const fetchData = async id => {
+      try {
+        dispatch({ type: 'FETCH_ITERATION' });
+
+        const [iterationResponse, membershipsResponse] = await Promise.all([
+          getCurrentIteration(id),
+          getMemberships(id)
+        ]);
+
+        dispatch({
+          type: 'FETCH_ITERATION_SUCCESS',
+          payload: { iterationResponse, membershipsResponse }
+        });
+
+        const blockers = await getBlockers(id, getStoryIds(iterationResponse));
+
+        dispatch({ type: 'FETCH_BLOCKERS_SUCCESS', payload: blockers });
+      } catch (error) {
+        dispatch({ type: 'FETCH_REQUEST_ERROR', payload: error });
+      }
+    };
+
+    fetchData(id);
+  }, [id]);
+
+  if (state.isFetching) {
+    return <Spinner />;
+  }
+  if (state.error) {
+    return <div>Error</div>;
+  }
+
+  return render(state);
 }
 
 ProjectContainer.propTypes = {
   render: func.isRequired,
-  match: shape({
-    params: shape({
-      id: string.isRequired
-    }).isRequired
-  }).isRequired
+  id: string.isRequired
 };
 
-export default ProjectContainer;
+export { ProjectContainer };

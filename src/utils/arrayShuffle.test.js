@@ -1,4 +1,4 @@
-import arrayShuffle from './arrayShuffle';
+import { arrayShuffle } from './arrayShuffle';
 
 describe('shuffle', () => {
   it('shuffles array using given seed 22', () => {

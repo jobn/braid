@@ -24,4 +24,4 @@ const arrayShuffle = (origArray, origSeed) => {
   return array;
 };
 
-export default arrayShuffle;
+export { arrayShuffle };
