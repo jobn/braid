@@ -70,7 +70,6 @@ function ProjectContainer(props) {
   }, [props.match.params.id]);
 
   if (state.isFetching) {
-    console.log('is fetching -----------------------');
     return <Spinner />;
   }
   if (state.error) {
