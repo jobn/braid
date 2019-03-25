@@ -8,13 +8,13 @@ import {
 } from './Columns';
 import Footer from './Footer';
 import Tray from './Tray';
-import Filters from './Filters';
-import FilterContext, { FilterConsumer } from './FilterContext';
+import { Filters } from './Filters';
+import { FilterContainer } from './FilterContainer';
 import { PeopleContext } from './PeopleContext';
 
 const Project = ({ uniqueOwnerIds, people, stories }) => (
   <PeopleContext.Provider value={people}>
-    <FilterContext uniqueOwnerIds={uniqueOwnerIds}>
+    <FilterContainer uniqueOwnerIds={uniqueOwnerIds}>
       <section className="section" style={{ paddingBottom: '4rem' }}>
         <div className="columns">
           <PendingColumn stories={stories} />
@@ -26,14 +26,10 @@ const Project = ({ uniqueOwnerIds, people, stories }) => (
 
       <Footer>
         <Tray title="Filters">
-          <FilterConsumer>
-            {consumerValue => (
-              <Filters uniqueOwnerIds={uniqueOwnerIds} {...consumerValue} />
-            )}
-          </FilterConsumer>
+          <Filters />
         </Tray>
       </Footer>
-    </FilterContext>
+    </FilterContainer>
   </PeopleContext.Provider>
 );
 

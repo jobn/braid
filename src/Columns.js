@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Story from './Story';
-import { FilterConsumer } from './FilterContext';
+import { FilterContext } from './FilterContainer';
 
-const Column = ({ title, stories, storyStates }) => (
-  <FilterConsumer>
-    {({ filter }) => (
-      <div className="column">
-        <h4 className="title is-4 has-text-centered">{title}</h4>
-        {filter(stories, storyStates).map(story => (
-          <Story key={story.id} {...story} />
-        ))}
-      </div>
-    )}
-  </FilterConsumer>
-);
+const Column = ({ title, stories, storyStates }) => {
+  const { filter } = useContext(FilterContext);
+
+  return (
+    <div className="column">
+      <h4 className="title is-4 has-text-centered">{title}</h4>
+      {filter(stories, storyStates).map(story => (
+        <Story key={story.id} {...story} />
+      ))}
+    </div>
+  );
+};
 
 const PendingColumn = ({ stories }) => (
   <Column

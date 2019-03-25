@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from 'react-testing-library';
-import Filters from './Filters';
-import { PeopleProvider } from './PeopleContext';
+import { Filters } from './Filters';
+import { PeopleContext } from './PeopleContext';
+import { FilterContainer } from './FilterContainer';
 
 describe('Filters', () => {
   const people = {
@@ -11,30 +12,14 @@ describe('Filters', () => {
   };
 
   const uniqueOwnerIds = [1, 2, 3];
-  const selectedOwners = [];
-  const selectedTypes = [];
-  const clearOwners = jest.fn();
-  const toggleOwner = jest.fn();
-  const toggleType = jest.fn();
-  const selectNextOwner = jest.fn();
-  const selectPrevOwner = jest.fn();
-
-  const props = {
-    uniqueOwnerIds,
-    selectedOwners,
-    selectedTypes,
-    clearOwners,
-    toggleOwner,
-    toggleType,
-    selectNextOwner,
-    selectPrevOwner
-  };
 
   const renderSubject = (extraProps = {}) =>
     render(
-      <PeopleProvider value={people}>
-        <Filters {...props} {...extraProps} />
-      </PeopleProvider>
+      <PeopleContext.Provider value={people}>
+        <FilterContainer uniqueOwnerIds={uniqueOwnerIds} {...extraProps}>
+          <Filters />
+        </FilterContainer>
+      </PeopleContext.Provider>
     );
 
   it('renders as per snapthot', () => {
@@ -44,38 +29,40 @@ describe('Filters', () => {
   });
 
   describe('owners', () => {
-    it('triggers toggleOwner with id on click', () => {
+    it('toggles owner on click', () => {
       const { getByText } = renderSubject();
+
+      expect(getByText('AA').parentElement).not.toHaveClass('is-primary');
 
       fireEvent.click(getByText('AA'));
 
-      expect(toggleOwner).toHaveBeenCalledWith(1);
-    });
-
-    it('renders activeClass when active', () => {
-      const { getByText } = renderSubject({ selectedOwners: [2] });
-
-      expect(getByText('BB')).toHaveClass('is-primary');
+      expect(getByText('AA').parentElement).toHaveClass('is-primary');
     });
   });
 
   describe('next owner', () => {
-    it('triggers selectNextOwner on click', () => {
-      const { getByText } = renderSubject();
+    it('selects next owner on click', () => {
+      const { getByText } = renderSubject({ selectedOwners: [2] });
+
+      expect(getByText('BB').parentElement).toHaveClass('is-primary');
 
       fireEvent.click(getByText('Next'));
 
-      expect(selectNextOwner).toHaveBeenCalled();
+      expect(getByText('BB').parentElement).not.toHaveClass('is-primary');
+      expect(getByText('CC').parentElement).toHaveClass('is-primary');
     });
   });
 
   describe('previous owner', () => {
     it('triggers selectPrevOwner on click', () => {
-      const { getByText } = renderSubject();
+      const { getByText } = renderSubject({ selectedOwners: [2] });
+
+      expect(getByText('BB').parentElement).toHaveClass('is-primary');
 
       fireEvent.click(getByText('Prev'));
 
-      expect(selectPrevOwner).toHaveBeenCalled();
+      expect(getByText('BB').parentElement).not.toHaveClass('is-primary');
+      expect(getByText('AA').parentElement).toHaveClass('is-primary');
     });
   });
 
@@ -86,40 +73,45 @@ describe('Filters', () => {
       expect(getByTestId('clear-button')).toHaveAttribute('disabled');
     });
 
-    it('triggers clearOwners on click', () => {
-      const { getByText } = renderSubject({ selectedOwners: [1] });
+    it('clears owners on click', () => {
+      const { getByText } = renderSubject({ selectedOwners: [1, 2] });
 
       fireEvent.click(getByText('Clear'));
 
-      expect(clearOwners).toHaveBeenCalled();
+      expect(getByText('AA').parentElement).not.toHaveClass('is-primary');
+      expect(getByText('BB').parentElement).not.toHaveClass('is-primary');
     });
   });
 
   describe('types', () => {
-    it('triggers toggleType with type on click', () => {
+    it('toggles bug on click', () => {
       const { getByText } = renderSubject();
 
       fireEvent.click(getByText('bug'));
-      expect(toggleType).toHaveBeenCalledWith('bug');
 
-      fireEvent.click(getByText('feature'));
-      expect(toggleType).toHaveBeenLastCalledWith('feature');
-
-      fireEvent.click(getByText('chore'));
-      expect(toggleType).toHaveBeenLastCalledWith('chore');
-
-      fireEvent.click(getByText('blocked'));
-      expect(toggleType).toHaveBeenLastCalledWith('blocked');
+      expect(getByText('bug')).toHaveClass('is-danger');
     });
 
-    it('renders active activeClass when enabled', () => {
-      const { getByText } = renderSubject({
-        selectedTypes: ['feature', 'chore', 'bug', 'blocked']
-      });
+    it('toggles feature on click', () => {
+      const { getByText } = renderSubject();
+
+      fireEvent.click(getByText('feature'));
 
       expect(getByText('feature')).toHaveClass('is-primary');
+    });
+
+    it('toggles chore on click', () => {
+      const { getByText } = renderSubject();
+
+      fireEvent.click(getByText('chore'));
+
       expect(getByText('chore')).toHaveClass('is-info');
-      expect(getByText('bug')).toHaveClass('is-danger');
+    });
+    it('toggles blocked on click', () => {
+      const { getByText } = renderSubject();
+
+      fireEvent.click(getByText('blocked'));
+
       expect(getByText('blocked')).toHaveClass('is-warning');
     });
   });

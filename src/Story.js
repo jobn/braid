@@ -8,7 +8,7 @@ import {
   FeatureTag,
   LabelTag
 } from './Tags';
-import { hasUnresolvedBlockers } from './FilterContext';
+import { hasUnresolvedBlockers } from './FilterContainer';
 
 const renderTypeTag = type => {
   switch (type) {
