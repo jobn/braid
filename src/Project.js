@@ -6,8 +6,8 @@ import {
   ReviewColumn,
   DoneColumn
 } from './Columns';
-import Footer from './Footer';
-import Tray from './Tray';
+import { Footer } from './Footer';
+import { Tray } from './Tray';
 import { Filters } from './Filters';
 import { FilterContainer } from './FilterContainer';
 import { PeopleContext } from './PeopleContext';
@@ -39,4 +39,4 @@ Project.propTypes = {
   uniqueOwnerIds: arrayOf(number)
 };
 
-export default Project;
+export { Project };

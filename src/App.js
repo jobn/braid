@@ -7,12 +7,12 @@ import {
 } from 'react-router-dom';
 import { getMe } from './api';
 import { ProjectContainer } from './ProjectContainer';
-import Project from './Project';
-import ProjectList from './ProjectList';
-import Login from './Login';
-import PageNotFound from './PageNotFound';
-import Navbar from './Navbar';
-import Spinner from './Spinner';
+import { Project } from './Project';
+import { ProjectList } from './ProjectList';
+import { Login } from './Login';
+import { PageNotFound } from './PageNotFound';
+import { Navbar } from './Navbar';
+import { Spinner } from './Spinner';
 
 class App extends Component {
   state = {
@@ -120,4 +120,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export { App };

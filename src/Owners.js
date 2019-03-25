@@ -11,4 +11,4 @@ const Owners = ({ ownerIds }) => (
   </div>
 );
 
-export default Owners;
+export { Owners };

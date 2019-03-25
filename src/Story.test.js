@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, within } from 'react-testing-library';
-import Story from './Story';
+import { Story } from './Story';
 import { PeopleContext } from './PeopleContext';
 
 describe('Story', () => {

@@ -43,4 +43,4 @@ const Tray = ({ title, children, rightAlign }) => {
   );
 };
 
-export default Tray;
+export { Tray };

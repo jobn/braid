@@ -84,4 +84,4 @@ const Navbar = ({ name, projects, onLogout }) => (
   </nav>
 );
 
-export default Navbar;
+export { Navbar };

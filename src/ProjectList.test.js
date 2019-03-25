@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from 'react-testing-library';
-import ProjectList from './ProjectList';
+import { ProjectList } from './ProjectList';
 
 describe('ProjectList', () => {
   const projects = [

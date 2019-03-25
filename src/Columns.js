@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Story from './Story';
+import { Story } from './Story';
 import { FilterContext } from './FilterContainer';
 
 const Column = ({ title, stories, storyStates }) => {

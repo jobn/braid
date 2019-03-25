@@ -144,4 +144,4 @@ Login.defaultProps = {
   onClearError: () => {}
 };
 
-export default Login;
+export { Login };

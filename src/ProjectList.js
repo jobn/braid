@@ -30,4 +30,4 @@ const ProjectList = ({ projects }) => (
   </div>
 );
 
-export default ProjectList;
+export { ProjectList };

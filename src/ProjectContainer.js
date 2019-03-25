@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
-import { shape, string, func } from 'prop-types';
+import { string, func } from 'prop-types';
 import { getCurrentIteration, getMemberships, getBlockers } from './api';
-import Spinner from './Spinner';
+import { Spinner } from './Spinner';
 import { normalize, getStoryIds } from './normalize';
 
 const initialState = {

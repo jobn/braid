@@ -1,5 +1,5 @@
 import React from 'react';
-import Owners from './Owners';
+import { Owners } from './Owners';
 import {
   BlockedTag,
   BugTag,
@@ -68,4 +68,4 @@ const Story = ({
   </div>
 );
 
-export default Story;
+export { Story };
