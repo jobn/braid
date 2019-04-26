@@ -11,6 +11,7 @@ import { Tray } from './Tray';
 import { Filters } from './Filters';
 import { FilterContainer } from './FilterContainer';
 import { PeopleContext } from './PeopleContext';
+import { FilterSummary } from './FilterSummary';
 
 const Project = ({ uniqueOwnerIds, people, stories }) => (
   <PeopleContext.Provider value={people}>
@@ -25,7 +26,7 @@ const Project = ({ uniqueOwnerIds, people, stories }) => (
       </section>
 
       <Footer>
-        <Tray title="Filters">
+        <Tray rightAlign title="Filters" renderLabel={() => <FilterSummary />}>
           <Filters />
         </Tray>
       </Footer>

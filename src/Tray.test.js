@@ -35,6 +35,17 @@ describe('Tray', () => {
 
       expect(getByTestId('tray')).toHaveStyle('transform: translateY(0)');
     });
+
+    it('renders label', () => {
+      const { queryByText } = render(
+        <Tray title="title" renderLabel={() => <div>Closed label</div>}>
+          <TestChild />
+        </Tray>
+      );
+
+      expect(queryByText('Closed label')).toBeInTheDocument();
+    });
+
     it('renders angle-up icon', () => {
       const { container } = render(
         <Tray title="title">
@@ -70,6 +81,19 @@ describe('Tray', () => {
 
       expect(container.querySelector('svg')).toHaveClass('fa-angle-down');
     });
+
+    it('does not render label', () => {
+      const { container, queryByText } = render(
+        <Tray title="title" renderLabel={() => <div>Closed label</div>}>
+          <TestChild />
+        </Tray>
+      );
+
+      fireEvent.click(container.querySelector('a'));
+
+      expect(queryByText('Closed label')).not.toBeInTheDocument();
+    });
+
     it('closes on click', () => {
       const { container, getByTestId } = render(
         <Tray title="title">
