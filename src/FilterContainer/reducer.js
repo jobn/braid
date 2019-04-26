@@ -1,6 +1,6 @@
 import { arrayToggle, arrayRotateForward, arrayRotateBackward } from '../utils';
 
-export const reducer = (state, action) => {
+export const reducer = (state, action, uniqueOwnerIds) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -22,7 +22,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         selectedOwners: [
-          arrayRotateForward(state.uniqueOwnerIds, state.selectedOwners[0])
+          arrayRotateForward(uniqueOwnerIds, state.selectedOwners[0])
         ]
       };
     }
@@ -31,7 +31,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         selectedOwners: [
-          arrayRotateBackward(state.uniqueOwnerIds, state.selectedOwners[0])
+          arrayRotateBackward(uniqueOwnerIds, state.selectedOwners[0])
         ]
       };
     }

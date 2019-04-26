@@ -11,11 +11,12 @@ import { Tray } from './Tray';
 import { Filters } from './Filters';
 import { FilterContainer } from './FilterContainer';
 import { PeopleContext } from './PeopleContext';
+import { FilterSummary } from './FilterSummary';
 
 const Project = ({ uniqueOwnerIds, people, stories }) => (
   <PeopleContext.Provider value={people}>
     <FilterContainer uniqueOwnerIds={uniqueOwnerIds}>
-      <section className="section" style={{ paddingBottom: '4rem' }}>
+      <section className="section" style={{ paddingBottom: '12rem' }}>
         <div className="columns">
           <PendingColumn stories={stories} />
           <StartedColumn stories={stories} />
@@ -25,7 +26,7 @@ const Project = ({ uniqueOwnerIds, people, stories }) => (
       </section>
 
       <Footer>
-        <Tray title="Filters">
+        <Tray rightAlign title="Filters" renderLabel={() => <FilterSummary />}>
           <Filters />
         </Tray>
       </Footer>

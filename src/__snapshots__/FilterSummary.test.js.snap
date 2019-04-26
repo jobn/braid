@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterSummary renders according to snapshot 1`] = `
+<div
+  class="tags"
+>
+  <span
+    class="tag is-primary"
+  >
+    <span
+      class="is-uppercase"
+    >
+      AA
+    </span>
+  </span>
+  <span
+    class="tag is-primary"
+  >
+    <span
+      class="is-uppercase"
+    >
+      BB
+    </span>
+  </span>
+  <span
+    class="tag is-uppercase is-primary"
+  >
+    feature
+  </span>
+  <span
+    class="tag is-uppercase is-danger"
+  >
+    bug
+  </span>
+</div>
+`;

@@ -11,7 +11,7 @@ const trayStyle = {
   boxShadow: '0 -2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1)'
 };
 
-const Tray = ({ title, children, rightAlign }) => {
+const Tray = ({ title, children, renderLabel }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,20 +27,24 @@ const Tray = ({ title, children, rightAlign }) => {
       </div>
 
       <a
-        style={{
-          justifyContent: rightAlign ? 'flex-end' : 'flex-start'
-        }}
+        style={{ justifyContent: 'flex-start' }}
         className="button is-fullwidth is-dark is-medium is-radiusless"
         onClick={() => setOpen(!open)}
       >
         <span>{title}</span>
 
-        <span className="icon is-small">
+        <span className="icon is-small" style={{ margin: '0' }}>
           <FontAwesomeIcon icon={open ? faAngleDown : faAngleUp} />
         </span>
+
+        {!open && <div style={{ marginLeft: '.5rem' }}>{renderLabel()}</div>}
       </a>
     </div>
   );
+};
+
+Tray.defaultProps = {
+  renderLabel: () => {}
 };
 
 export { Tray };

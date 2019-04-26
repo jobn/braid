@@ -7,25 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Initials } from './Initials';
 import { FilterContext } from './FilterContainer';
-
-const storyTypes = [
-  {
-    key: 'feature',
-    activeClass: 'is-primary'
-  },
-  {
-    key: 'bug',
-    activeClass: 'is-danger'
-  },
-  {
-    key: 'chore',
-    activeClass: 'is-info'
-  },
-  {
-    key: 'blocked',
-    activeClass: 'is-warning'
-  }
-];
+import { storyTypes } from './storyTypes';
 
 const Filters = () => {
   const {
