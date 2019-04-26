@@ -16,7 +16,7 @@ import { FilterSummary } from './FilterSummary';
 const Project = ({ uniqueOwnerIds, people, stories }) => (
   <PeopleContext.Provider value={people}>
     <FilterContainer uniqueOwnerIds={uniqueOwnerIds}>
-      <section className="section" style={{ paddingBottom: '4rem' }}>
+      <section className="section" style={{ paddingBottom: '12rem' }}>
         <div className="columns">
           <PendingColumn stories={stories} />
           <StartedColumn stories={stories} />
