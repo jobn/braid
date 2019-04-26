@@ -3,8 +3,15 @@ import { render, fireEvent } from 'react-testing-library';
 import { Filters } from './Filters';
 import { PeopleContext } from './PeopleContext';
 import { FilterContainer } from './FilterContainer';
+import { window } from './services';
+
+jest.mock('./services/window');
 
 describe('Filters', () => {
+  afterEach(() => {
+    window.cleanup();
+  });
+
   const people = {
     1: { initials: 'AA' },
     2: { initials: 'BB' },
@@ -13,10 +20,10 @@ describe('Filters', () => {
 
   const uniqueOwnerIds = [1, 2, 3];
 
-  const renderSubject = (extraProps = {}) =>
+  const renderSubject = () =>
     render(
       <PeopleContext.Provider value={people}>
-        <FilterContainer uniqueOwnerIds={uniqueOwnerIds} {...extraProps}>
+        <FilterContainer uniqueOwnerIds={uniqueOwnerIds}>
           <Filters />
         </FilterContainer>
       </PeopleContext.Provider>
@@ -28,6 +35,21 @@ describe('Filters', () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 
+  it('reads state from window.location.search', () => {
+    window.location.search = 'selectedOwners=2,3&selectedTypes=bug,feature';
+
+    const { getByText } = renderSubject();
+
+    expect(getByText('AA').parentElement).not.toHaveClass('is-primary');
+    expect(getByText('BB').parentElement).toHaveClass('is-primary');
+    expect(getByText('CC').parentElement).toHaveClass('is-primary');
+
+    expect(getByText('chore')).not.toHaveClass('is-info');
+    expect(getByText('blocked')).not.toHaveClass('is-warning');
+    expect(getByText('bug')).toHaveClass('is-danger');
+    expect(getByText('feature')).toHaveClass('is-primary');
+  });
+
   describe('owners', () => {
     it('toggles owner on click', () => {
       const { getByText } = renderSubject();
@@ -37,12 +59,14 @@ describe('Filters', () => {
       fireEvent.click(getByText('AA'));
 
       expect(getByText('AA').parentElement).toHaveClass('is-primary');
+      expect(window.location.search).toEqual('selectedOwners=1');
     });
   });
 
   describe('next owner', () => {
     it('selects next owner on click', () => {
-      const { getByText } = renderSubject({ selectedOwners: [2] });
+      window.location.search = 'selectedOwners=2';
+      const { getByText } = renderSubject();
 
       expect(getByText('BB').parentElement).toHaveClass('is-primary');
 
@@ -50,12 +74,15 @@ describe('Filters', () => {
 
       expect(getByText('BB').parentElement).not.toHaveClass('is-primary');
       expect(getByText('CC').parentElement).toHaveClass('is-primary');
+      expect(window.location.search).toEqual('selectedOwners=3');
     });
   });
 
   describe('previous owner', () => {
     it('triggers selectPrevOwner on click', () => {
-      const { getByText } = renderSubject({ selectedOwners: [2] });
+      window.location.search = 'selectedOwners=2';
+
+      const { getByText } = renderSubject();
 
       expect(getByText('BB').parentElement).toHaveClass('is-primary');
 
@@ -63,6 +90,7 @@ describe('Filters', () => {
 
       expect(getByText('BB').parentElement).not.toHaveClass('is-primary');
       expect(getByText('AA').parentElement).toHaveClass('is-primary');
+      expect(window.location.search).toEqual('selectedOwners=1');
     });
   });
 
@@ -80,6 +108,7 @@ describe('Filters', () => {
 
       expect(getByText('AA').parentElement).not.toHaveClass('is-primary');
       expect(getByText('BB').parentElement).not.toHaveClass('is-primary');
+      expect(window.location.search).toEqual('');
     });
   });
 
@@ -90,6 +119,7 @@ describe('Filters', () => {
       fireEvent.click(getByText('bug'));
 
       expect(getByText('bug')).toHaveClass('is-danger');
+      expect(window.location.search).toEqual('selectedTypes=bug');
     });
 
     it('toggles feature on click', () => {
@@ -98,6 +128,7 @@ describe('Filters', () => {
       fireEvent.click(getByText('feature'));
 
       expect(getByText('feature')).toHaveClass('is-primary');
+      expect(window.location.search).toEqual('selectedTypes=feature');
     });
 
     it('toggles chore on click', () => {
@@ -106,13 +137,16 @@ describe('Filters', () => {
       fireEvent.click(getByText('chore'));
 
       expect(getByText('chore')).toHaveClass('is-info');
+      expect(window.location.search).toEqual('selectedTypes=chore');
     });
+
     it('toggles blocked on click', () => {
       const { getByText } = renderSubject();
 
       fireEvent.click(getByText('blocked'));
 
       expect(getByText('blocked')).toHaveClass('is-warning');
+      expect(window.location.search).toEqual('selectedTypes=blocked');
     });
   });
 });

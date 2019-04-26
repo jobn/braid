@@ -1,17 +1,33 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import { arrayOf, number, node } from 'prop-types';
+import { window } from '../services';
 import { filterByOwner, filterByType, filterByStoryStates } from './filters';
 import { reducer } from './reducer';
+import { getQueryState, setQueryState } from './queryState';
 
 const FilterContext = createContext();
 
-const FilterContainer = ({ uniqueOwnerIds, children, ...rest }) => {
-  const [state, dispatch] = useReducer(reducer, {
-    uniqueOwnerIds,
-    selectedOwners: [],
-    selectedTypes: [],
-    ...rest
-  });
+const FilterContainer = ({ uniqueOwnerIds, children }) => {
+  const [state, setState] = useState(getQueryState(uniqueOwnerIds));
+
+  const dispatch = action => {
+    const nextState = reducer(state, action, uniqueOwnerIds);
+
+    setState(nextState);
+    setQueryState(nextState);
+  };
+
+  useEffect(() => {
+    const syncStates = () => {
+      setState(getQueryState(uniqueOwnerIds));
+    };
+
+    window.addEventListener('popstate', syncStates);
+
+    return () => {
+      window.removeEventListener('popstate', syncStates);
+    };
+  }, [uniqueOwnerIds]);
 
   const filter = (stories, storyStates) =>
     stories.filter(
@@ -22,7 +38,9 @@ const FilterContainer = ({ uniqueOwnerIds, children, ...rest }) => {
     );
 
   return (
-    <FilterContext.Provider value={{ ...state, dispatch, filter }}>
+    <FilterContext.Provider
+      value={{ ...state, uniqueOwnerIds, dispatch, filter }}
+    >
       {children}
     </FilterContext.Provider>
   );
