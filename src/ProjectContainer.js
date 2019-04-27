@@ -8,6 +8,7 @@ import {
 } from './api';
 import { Spinner } from './Spinner';
 import { normalize, getStoryIds } from './normalize';
+import { Project } from './Project';
 
 const initialState = {
   isFetching: false,
@@ -154,7 +155,7 @@ function ProjectContainer({ id, render }) {
     return <div>Error</div>;
   }
 
-  return render(state, dispatch);
+  return <Project {...state} dispatch={dispatch} />;
 }
 
 ProjectContainer.propTypes = {

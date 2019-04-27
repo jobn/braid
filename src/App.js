@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import { getMe } from './api';
 import { ProjectContainer } from './ProjectContainer';
-import { Project } from './Project';
 import { ProjectList } from './ProjectList';
 import { Login } from './Login';
 import { PageNotFound } from './PageNotFound';
@@ -105,15 +104,9 @@ class App extends Component {
 
             <Route
               path="/projects/:id"
-              render={props => (
-                <ProjectContainer
-                  id={props.match.params.id}
-                  render={(projectData, dispatch) => (
-                    <Project {...projectData} dispatch={dispatch} />
-                  )}
-                />
-              )}
+              render={props => <ProjectContainer id={props.match.params.id} />}
             />
+
             <Route component={PageNotFound} />
           </Switch>
         </div>

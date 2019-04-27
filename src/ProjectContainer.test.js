@@ -2,11 +2,7 @@ import React from 'react';
 import { render, wait } from 'react-testing-library';
 import { ProjectContainer } from './ProjectContainer';
 import * as api from './api';
-import {
-  iterationResponse,
-  membershipsResponse,
-  result as normalizationResult
-} from './normalize.test';
+import { iterationResponse, membershipsResponse } from './normalize.test';
 
 jest.mock('./utils/getDayOfYear');
 
@@ -47,36 +43,12 @@ describe('ProjectContainer', () => {
     expect(api.getBlockers).toHaveBeenCalledWith('1', [563, 564]);
   });
 
-  it('last call to render function has fetched and normalized data', async () => {
-    render(<ProjectContainer id="1" render={mockRender} />);
+  it('renders fetched and normalized data', async () => {
+    const { container } = render(<ProjectContainer id="1" />);
 
     await wait();
-    expect(mockRender).toHaveBeenLastCalledWith(
-      {
-        ...normalizationResult,
-        stories: {
-          563: {
-            ...normalizationResult.stories[563],
-            blockers: [
-              {
-                resolved: false
-              }
-            ]
-          },
-          564: {
-            ...normalizationResult.stories[564],
-            blockers: [
-              {
-                resolved: true
-              }
-            ]
-          }
-        },
-        error: null,
-        isFetching: false
-      },
-      expect.anything()
-    );
+
+    expect(container.firstChild).toMatchSnapshot();
   });
 
   it('renders error on request error', async () => {
