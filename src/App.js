@@ -108,7 +108,9 @@ class App extends Component {
               render={props => (
                 <ProjectContainer
                   id={props.match.params.id}
-                  render={projectData => <Project {...projectData} />}
+                  render={(projectData, dispatch) => (
+                    <Project {...projectData} dispatch={dispatch} />
+                  )}
                 />
               )}
             />
