@@ -1,28 +1,53 @@
 import React from 'react';
 import { arrayOf, object, number } from 'prop-types';
-import {
-  PendingColumn,
-  StartedColumn,
-  ReviewColumn,
-  DoneColumn
-} from './Columns';
+import { Column } from './Column';
 import { Footer } from './Footer';
 import { Tray } from './Tray';
 import { Filters } from './Filters';
 import { FilterContainer } from './FilterContainer';
 import { PeopleContext } from './PeopleContext';
 import { FilterSummary } from './FilterSummary';
+import { ColumnContainer } from './ColumnContainer';
 
-const Project = ({ uniqueOwnerIds, people, stories }) => (
+const Project = ({ uniqueOwnerIds, people, storyIds, stories, dispatch }) => (
   <PeopleContext.Provider value={people}>
     <FilterContainer uniqueOwnerIds={uniqueOwnerIds}>
       <section className="section" style={{ paddingBottom: '12rem' }}>
-        <div className="columns">
-          <PendingColumn stories={stories} />
-          <StartedColumn stories={stories} />
-          <ReviewColumn stories={stories} />
-          <DoneColumn stories={stories} />
-        </div>
+        <ColumnContainer dispatch={dispatch}>
+          <div className="columns">
+            <Column
+              title="Pending"
+              storyIds={storyIds}
+              stories={stories}
+              storyStates={['planned', 'unstarted']}
+              dropState="unstarted"
+            />
+
+            <Column
+              title="Started"
+              storyIds={storyIds}
+              stories={stories}
+              storyStates={['started']}
+              dropState="started"
+            />
+
+            <Column
+              title="Review"
+              storyIds={storyIds}
+              stories={stories}
+              storyStates={['finished']}
+              dropState="finished"
+            />
+
+            <Column
+              title="Accepted | Done"
+              storyIds={storyIds}
+              stories={stories}
+              storyStates={['delivered', 'accepted']}
+              dropState="delivered"
+            />
+          </div>
+        </ColumnContainer>
       </section>
 
       <Footer>
@@ -36,7 +61,8 @@ const Project = ({ uniqueOwnerIds, people, stories }) => (
 
 Project.propTypes = {
   people: object,
-  stories: arrayOf(object),
+  stories: object,
+  storyIds: arrayOf(number),
   uniqueOwnerIds: arrayOf(number)
 };
 
