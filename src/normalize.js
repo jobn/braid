@@ -19,22 +19,29 @@ const normalize = ({ iterationResponse, membershipsResponse }) => {
   const currentIteration = iterationResponse[0];
 
   const { stories: allStories, ...iteration } = currentIteration;
-  const stories = allStories.filter(removeReleaseStories);
+  const userStories = allStories.filter(removeReleaseStories);
 
-  stories.forEach(story => {
-    story.blockers = [];
+  const storyIds = userStories.map(story => story.id);
+  const stories = {};
+
+  userStories.forEach(story => {
+    stories[story.id] = {
+      ...story,
+      blockers: []
+    };
   });
 
   const people = normalizeArray(membershipsResponse.map(item => item.person));
 
   const uniqueOwnerIds = arrayShuffle(
-    uniqueArray([].concat.apply([], stories.map(story => story.ownerIds))),
+    uniqueArray([].concat.apply([], userStories.map(story => story.ownerIds))),
     getDayOfYear(new Date())
   );
 
   return {
     iteration,
     stories,
+    storyIds,
     people,
     uniqueOwnerIds
   };

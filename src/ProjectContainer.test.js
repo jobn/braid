@@ -11,8 +11,8 @@ import {
 jest.mock('./utils/getDayOfYear');
 
 const mockBlockers = [
-  { id: 563, blockers: { resolved: false } },
-  { id: 564, blockers: { resolved: true } }
+  { id: 563, blockers: [{ resolved: false }] },
+  { id: 564, blockers: [{ resolved: true }] }
 ];
 
 let mockRender;
@@ -47,27 +47,36 @@ describe('ProjectContainer', () => {
     expect(api.getBlockers).toHaveBeenCalledWith('1', [563, 564]);
   });
 
-  it('second call to render function has fetched and normalized data', async () => {
+  it('last call to render function has fetched and normalized data', async () => {
     render(<ProjectContainer id="1" render={mockRender} />);
 
     await wait();
-    await wait();
-    expect(mockRender.mock.calls[1][0]).toEqual({
-      ...normalizationResult,
-      error: null,
-      isFetching: false
-    });
-  });
-
-  it('third call to render function has blockers', async () => {
-    render(<ProjectContainer id="1" render={mockRender} />);
-
-    await wait();
-    await wait();
-    await wait();
-    expect(
-      mockRender.mock.calls[2][0].stories.map(story => story.blockers)
-    ).toEqual([{ resolved: false }, { resolved: true }]);
+    expect(mockRender).toHaveBeenLastCalledWith(
+      {
+        ...normalizationResult,
+        stories: {
+          563: {
+            ...normalizationResult.stories[563],
+            blockers: [
+              {
+                resolved: false
+              }
+            ]
+          },
+          564: {
+            ...normalizationResult.stories[564],
+            blockers: [
+              {
+                resolved: true
+              }
+            ]
+          }
+        },
+        error: null,
+        isFetching: false
+      },
+      expect.anything()
+    );
   });
 
   it('renders error on request error', async () => {

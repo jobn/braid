@@ -144,8 +144,8 @@ export const result = {
       username: 'tarkin'
     }
   },
-  stories: [
-    {
+  stories: {
+    563: {
       acceptedAt: '2018-09-25T12:00:05Z',
       createdAt: '2018-09-25T12:01:00Z',
       currentState: 'accepted',
@@ -175,7 +175,7 @@ export const result = {
       updatedAt: '2018-09-25T12:01:00Z',
       url: 'http://localhost/story/show/563'
     },
-    {
+    564: {
       kind: 'chore',
       id: 564,
       createdAt: '2018-09-25T12:24:00Z',
@@ -205,7 +205,8 @@ export const result = {
       ],
       ownedById: 102
     }
-  ],
+  },
+  storyIds: [563, 564],
   uniqueOwnerIds: [102, 101]
 };
 

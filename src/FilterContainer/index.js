@@ -29,13 +29,15 @@ const FilterContainer = ({ uniqueOwnerIds, children }) => {
     };
   }, [uniqueOwnerIds]);
 
-  const filter = (stories, storyStates) =>
-    stories.filter(
-      story =>
-        filterByOwner(story, state.selectedOwners) &&
-        filterByType(story, state.selectedTypes) &&
-        filterByStoryStates(story, storyStates)
-    );
+  const filter = (storyIds, stories, storyStates) =>
+    storyIds
+      .map(id => stories[id])
+      .filter(
+        story =>
+          filterByOwner(story, state.selectedOwners) &&
+          filterByType(story, state.selectedTypes) &&
+          filterByStoryStates(story, storyStates)
+      );
 
   return (
     <FilterContext.Provider
