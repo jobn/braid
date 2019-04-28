@@ -43,15 +43,18 @@ const FilterContainer = ({ uniqueOwnerIds, children }) => {
 
   useKeyup(keyMap);
 
-  const filter = (storyIds, stories, storyStates) =>
-    storyIds
-      .map(id => stories[id])
-      .filter(
-        story =>
-          filterByOwner(story, state.selectedOwners) &&
-          filterByType(story, state.selectedTypes) &&
-          filterByStoryStates(story, storyStates)
-      );
+  const filter = useMemo(
+    () => (storyIds, stories, storyStates) =>
+      storyIds
+        .map(id => stories[id])
+        .filter(
+          story =>
+            filterByOwner(story, state.selectedOwners) &&
+            filterByType(story, state.selectedTypes) &&
+            filterByStoryStates(story, storyStates)
+        ),
+    [state.selectedOwners, state.selectedTypes]
+  );
 
   return (
     <FilterContext.Provider
