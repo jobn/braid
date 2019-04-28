@@ -83,41 +83,46 @@ const Filters = () => {
             >
               <p className="control">
                 <button
-                  key="next"
                   className="button"
+                  data-testid="prev"
                   onClick={handlePrevOwnerClick}
                 >
                   <span className="icon">
                     <FontAwesomeIcon icon={faBackward} />
                   </span>
-                  <span>Prev</span>
+                  <span>
+                    <span className="is-underline">P</span>rev
+                  </span>
                 </button>
               </p>
               <p className="control">
                 <button
-                  key="next"
                   className="button"
+                  data-testid="next"
                   onClick={handleNextOwnerClick}
                 >
                   <span className="icon">
                     <FontAwesomeIcon icon={faForward} />
                   </span>
-                  <span>Next</span>
+                  <span>
+                    <span className="is-underline">N</span>ext
+                  </span>
                 </button>
               </p>
 
               <p className="control">
                 <button
-                  key="clear"
                   className="button"
-                  data-testid="clear-button"
+                  data-testid="clear"
                   onClick={handleClearOwners}
                   disabled={selectedOwners.length === 0}
                 >
                   <span className="icon">
                     <FontAwesomeIcon icon={faTimes} />
                   </span>
-                  <span>Clear</span>
+                  <span>
+                    <span className="is-underline">C</span>lear
+                  </span>
                 </button>
               </p>
             </div>
