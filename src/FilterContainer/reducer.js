@@ -1,24 +1,30 @@
 import { arrayToggle, arrayRotateForward, arrayRotateBackward } from '../utils';
 
+export const toggleOwner = 'TOGGLE_OWNER';
+export const clearOwners = 'CLEAR_OWNERS';
+export const selectNextOwner = 'SELECT_NEXT_OWNER';
+export const selectPrevOwner = 'SELECT_PREV_OWNER';
+export const toggleType = 'TOGGLE_TYPE';
+
 export const reducer = (state, action, uniqueOwnerIds) => {
   const { type, payload } = action;
 
   switch (type) {
-    case 'TOGGLE_OWNER': {
+    case toggleOwner: {
       return {
         ...state,
         selectedOwners: arrayToggle(state.selectedOwners, payload)
       };
     }
 
-    case 'CLEAR_OWNERS': {
+    case clearOwners: {
       return {
         ...state,
         selectedOwners: []
       };
     }
 
-    case 'SELECT_NEXT_OWNER': {
+    case selectNextOwner: {
       return {
         ...state,
         selectedOwners: [
@@ -27,7 +33,7 @@ export const reducer = (state, action, uniqueOwnerIds) => {
       };
     }
 
-    case 'SELECT_PREV_OWNER': {
+    case selectPrevOwner: {
       return {
         ...state,
         selectedOwners: [
@@ -36,7 +42,7 @@ export const reducer = (state, action, uniqueOwnerIds) => {
       };
     }
 
-    case 'TOGGLE_TYPE': {
+    case toggleType: {
       return {
         ...state,
         selectedTypes: arrayToggle(state.selectedTypes, payload)

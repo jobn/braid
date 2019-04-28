@@ -55,3 +55,10 @@ FilterContainer.propTypes = {
 
 export { FilterContainer, FilterContext };
 export { hasUnresolvedBlockers } from './filters';
+export {
+  toggleOwner,
+  clearOwners,
+  selectNextOwner,
+  selectPrevOwner,
+  toggleType
+} from './reducer';

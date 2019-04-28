@@ -6,7 +6,14 @@ import {
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import { Initials } from './Initials';
-import { FilterContext } from './FilterContainer';
+import {
+  FilterContext,
+  toggleOwner,
+  clearOwners,
+  selectNextOwner,
+  selectPrevOwner,
+  toggleType
+} from './FilterContainer';
 import { storyTypes } from './storyTypes';
 
 const Filters = () => {
@@ -20,29 +27,29 @@ const Filters = () => {
   const handleOwnerClick = event => {
     event.target.focus();
     dispatch({
-      type: 'TOGGLE_OWNER',
+      type: toggleOwner,
       payload: Number(event.currentTarget.value)
     });
   };
 
   const handleTypeClick = event => {
     event.target.focus();
-    dispatch({ type: 'TOGGLE_TYPE', payload: event.currentTarget.value });
+    dispatch({ type: toggleType, payload: event.currentTarget.value });
   };
 
   const handleNextOwnerClick = event => {
     event.target.focus();
-    dispatch({ type: 'SELECT_NEXT_OWNER' });
+    dispatch({ type: selectNextOwner });
   };
 
   const handlePrevOwnerClick = event => {
     event.target.focus();
-    dispatch({ type: 'SELECT_PREV_OWNER' });
+    dispatch({ type: selectPrevOwner });
   };
 
   const handleClearOwners = event => {
     event.target.focus();
-    dispatch({ type: 'CLEAR_OWNERS' });
+    dispatch({ type: clearOwners });
   };
 
   return (
