@@ -97,6 +97,10 @@ function reducer(state, action) {
         updateStory: null
       };
     }
+
+    default: {
+      return { ...state };
+    }
   }
 }
 
