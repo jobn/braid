@@ -63,7 +63,7 @@ describe('Tray', () => {
         </Tray>
       );
 
-      fireEvent.click(container.querySelector('a'));
+      fireEvent.click(container.querySelector('button'));
 
       expect(getByTestId('tray')).toHaveStyle('transform: translateY(-100%)');
     });
@@ -77,7 +77,7 @@ describe('Tray', () => {
         </Tray>
       );
 
-      fireEvent.click(container.querySelector('a'));
+      fireEvent.click(container.querySelector('button'));
 
       expect(container.querySelector('svg')).toHaveClass('fa-angle-down');
     });
@@ -89,7 +89,7 @@ describe('Tray', () => {
         </Tray>
       );
 
-      fireEvent.click(container.querySelector('a'));
+      fireEvent.click(container.querySelector('button'));
 
       expect(queryByText('Closed label')).not.toBeInTheDocument();
     });
@@ -101,11 +101,11 @@ describe('Tray', () => {
         </Tray>
       );
 
-      fireEvent.click(container.querySelector('a'));
+      fireEvent.click(container.querySelector('button'));
 
       expect(getByTestId('tray')).toHaveStyle('transform: translateY(-100%)');
 
-      fireEvent.click(container.querySelector('a'));
+      fireEvent.click(container.querySelector('button'));
 
       expect(getByTestId('tray')).toHaveStyle('transform: translateY(0)');
     });
@@ -119,7 +119,7 @@ describe('Tray', () => {
         </Tray>
       );
 
-      expect(container.querySelector('a')).toHaveStyle(
+      expect(container.querySelector('button')).toHaveStyle(
         'justifyContent: flex-end'
       );
     });
