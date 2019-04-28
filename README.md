@@ -28,7 +28,13 @@ A replacement for the PivotalTracker interface. If you want to do searching, edi
 
 # Features
 
-- **NEW: DRAG N' DROP** Change state of stories by dragging them to other column. If a developer forgot to opdate a story, you can now easily do it right in the standup by dragging the story card to the correct collum.
+- **NEW: DRAG N' DROP** Change state of stories by dragging them to another column. If a developer has forgotten to opdate a story, you can now easily do it right in the standup by dragging the story card to the correct collum.
+
+- **NEW: KEYBOARD SHORTCUTS**
+
+  - Pres N key to move owner filter to next owner.
+  - Pres P key to move owner filter to previous owner.
+  - Pres C key to clear owner filters.
 
 - Displays your current pivotal iteration in 4 column layout: Pending, Started, Review, Done.
 
