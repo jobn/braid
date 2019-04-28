@@ -16,12 +16,15 @@ const FilterContext = createContext();
 const FilterContainer = ({ uniqueOwnerIds, children }) => {
   const [state, setState] = useState(getQueryState(uniqueOwnerIds));
 
-  const dispatch = action => {
-    const nextState = reducer(state, action, uniqueOwnerIds);
+  const dispatch = useMemo(
+    () => action => {
+      const nextState = reducer(state, action, uniqueOwnerIds);
 
-    setState(nextState);
-    setQueryState(nextState);
-  };
+      setState(nextState);
+      setQueryState(nextState);
+    },
+    [state, uniqueOwnerIds]
+  );
 
   useEffect(() => {
     const syncStates = () => {
@@ -35,11 +38,14 @@ const FilterContainer = ({ uniqueOwnerIds, children }) => {
     };
   }, [uniqueOwnerIds]);
 
-  const keyMap = useMemo(() => ({
-    n: () => dispatch({ type: selectNextOwner }),
-    p: () => dispatch({ type: selectPrevOwner }),
-    c: () => dispatch({ type: clearOwners })
-  }));
+  const keyMap = useMemo(
+    () => ({
+      n: () => dispatch({ type: selectNextOwner }),
+      p: () => dispatch({ type: selectPrevOwner }),
+      c: () => dispatch({ type: clearOwners })
+    }),
+    [dispatch]
+  );
 
   useKeyup(keyMap);
 
@@ -56,12 +62,18 @@ const FilterContainer = ({ uniqueOwnerIds, children }) => {
     [state.selectedOwners, state.selectedTypes]
   );
 
+  const value = useMemo(
+    () => ({
+      ...state,
+      uniqueOwnerIds,
+      dispatch,
+      filter
+    }),
+    [state, uniqueOwnerIds, dispatch, filter]
+  );
+
   return (
-    <FilterContext.Provider
-      value={{ ...state, uniqueOwnerIds, dispatch, filter }}
-    >
-      {children}
-    </FilterContext.Provider>
+    <FilterContext.Provider value={value}>{children}</FilterContext.Provider>
   );
 };
 
