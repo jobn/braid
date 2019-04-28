@@ -71,6 +71,7 @@ exports[`Filters renders as per snapthot 1`] = `
         >
           <button
             class="button"
+            data-testid="prev"
           >
             <span
               class="icon"
@@ -92,7 +93,12 @@ exports[`Filters renders as per snapthot 1`] = `
               </svg>
             </span>
             <span>
-              Prev
+              <span
+                class="is-underline"
+              >
+                P
+              </span>
+              rev
             </span>
           </button>
         </p>
@@ -101,6 +107,7 @@ exports[`Filters renders as per snapthot 1`] = `
         >
           <button
             class="button"
+            data-testid="next"
           >
             <span
               class="icon"
@@ -122,7 +129,12 @@ exports[`Filters renders as per snapthot 1`] = `
               </svg>
             </span>
             <span>
-              Next
+              <span
+                class="is-underline"
+              >
+                N
+              </span>
+              ext
             </span>
           </button>
         </p>
@@ -131,7 +143,7 @@ exports[`Filters renders as per snapthot 1`] = `
         >
           <button
             class="button"
-            data-testid="clear-button"
+            data-testid="clear"
             disabled=""
           >
             <span
@@ -154,7 +166,12 @@ exports[`Filters renders as per snapthot 1`] = `
               </svg>
             </span>
             <span>
-              Clear
+              <span
+                class="is-underline"
+              >
+                C
+              </span>
+              lear
             </span>
           </button>
         </p>

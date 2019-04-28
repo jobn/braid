@@ -6,7 +6,14 @@ import {
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import { Initials } from './Initials';
-import { FilterContext } from './FilterContainer';
+import {
+  FilterContext,
+  toggleOwner,
+  clearOwners,
+  selectNextOwner,
+  selectPrevOwner,
+  toggleType
+} from './FilterContainer';
 import { storyTypes } from './storyTypes';
 
 const Filters = () => {
@@ -20,29 +27,29 @@ const Filters = () => {
   const handleOwnerClick = event => {
     event.target.focus();
     dispatch({
-      type: 'TOGGLE_OWNER',
+      type: toggleOwner,
       payload: Number(event.currentTarget.value)
     });
   };
 
   const handleTypeClick = event => {
     event.target.focus();
-    dispatch({ type: 'TOGGLE_TYPE', payload: event.currentTarget.value });
+    dispatch({ type: toggleType, payload: event.currentTarget.value });
   };
 
   const handleNextOwnerClick = event => {
     event.target.focus();
-    dispatch({ type: 'SELECT_NEXT_OWNER' });
+    dispatch({ type: selectNextOwner });
   };
 
   const handlePrevOwnerClick = event => {
     event.target.focus();
-    dispatch({ type: 'SELECT_PREV_OWNER' });
+    dispatch({ type: selectPrevOwner });
   };
 
   const handleClearOwners = event => {
     event.target.focus();
-    dispatch({ type: 'CLEAR_OWNERS' });
+    dispatch({ type: clearOwners });
   };
 
   return (
@@ -76,41 +83,46 @@ const Filters = () => {
             >
               <p className="control">
                 <button
-                  key="next"
                   className="button"
+                  data-testid="prev"
                   onClick={handlePrevOwnerClick}
                 >
                   <span className="icon">
                     <FontAwesomeIcon icon={faBackward} />
                   </span>
-                  <span>Prev</span>
+                  <span>
+                    <span className="is-underline">P</span>rev
+                  </span>
                 </button>
               </p>
               <p className="control">
                 <button
-                  key="next"
                   className="button"
+                  data-testid="next"
                   onClick={handleNextOwnerClick}
                 >
                   <span className="icon">
                     <FontAwesomeIcon icon={faForward} />
                   </span>
-                  <span>Next</span>
+                  <span>
+                    <span className="is-underline">N</span>ext
+                  </span>
                 </button>
               </p>
 
               <p className="control">
                 <button
-                  key="clear"
                   className="button"
-                  data-testid="clear-button"
+                  data-testid="clear"
                   onClick={handleClearOwners}
                   disabled={selectedOwners.length === 0}
                 >
                   <span className="icon">
                     <FontAwesomeIcon icon={faTimes} />
                   </span>
-                  <span>Clear</span>
+                  <span>
+                    <span className="is-underline">C</span>lear
+                  </span>
                 </button>
               </p>
             </div>

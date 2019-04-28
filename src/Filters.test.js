@@ -66,11 +66,11 @@ describe('Filters', () => {
   describe('next owner', () => {
     it('selects next owner on click', () => {
       window.location.search = 'selectedOwners=2';
-      const { getByText } = renderSubject();
+      const { getByText, getByTestId } = renderSubject();
 
       expect(getByText('BB').parentElement).toHaveClass('is-primary');
 
-      fireEvent.click(getByText('Next'));
+      fireEvent.click(getByTestId('next'));
 
       expect(getByText('BB').parentElement).not.toHaveClass('is-primary');
       expect(getByText('CC').parentElement).toHaveClass('is-primary');
@@ -82,11 +82,11 @@ describe('Filters', () => {
     it('triggers selectPrevOwner on click', () => {
       window.location.search = 'selectedOwners=2';
 
-      const { getByText } = renderSubject();
+      const { getByText, getByTestId } = renderSubject();
 
       expect(getByText('BB').parentElement).toHaveClass('is-primary');
 
-      fireEvent.click(getByText('Prev'));
+      fireEvent.click(getByTestId('prev'));
 
       expect(getByText('BB').parentElement).not.toHaveClass('is-primary');
       expect(getByText('AA').parentElement).toHaveClass('is-primary');
@@ -98,13 +98,15 @@ describe('Filters', () => {
     it('is disabled when no owners is selected', () => {
       const { getByTestId } = renderSubject();
 
-      expect(getByTestId('clear-button')).toHaveAttribute('disabled');
+      expect(getByTestId('clear')).toHaveAttribute('disabled');
     });
 
     it('clears owners on click', () => {
-      const { getByText } = renderSubject({ selectedOwners: [1, 2] });
+      const { getByText, getByTestId } = renderSubject({
+        selectedOwners: [1, 2]
+      });
 
-      fireEvent.click(getByText('Clear'));
+      fireEvent.click(getByTestId('clear'));
 
       expect(getByText('AA').parentElement).not.toHaveClass('is-primary');
       expect(getByText('BB').parentElement).not.toHaveClass('is-primary');

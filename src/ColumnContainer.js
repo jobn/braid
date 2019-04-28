@@ -11,6 +11,7 @@ function ColumnContainer({ children, dispatch }) {
       target: e
     });
   };
+
   const handleDrop = () => {
     const { origin, target, storyId } = state;
 

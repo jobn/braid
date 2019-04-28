@@ -26,7 +26,7 @@ const Tray = ({ title, children, renderLabel }) => {
         {children}
       </div>
 
-      <a
+      <button
         style={{ justifyContent: 'flex-start' }}
         className="button is-fullwidth is-dark is-medium is-radiusless"
         onClick={() => setOpen(!open)}
@@ -38,7 +38,7 @@ const Tray = ({ title, children, renderLabel }) => {
         </span>
 
         {!open && <div style={{ marginLeft: '.5rem' }}>{renderLabel()}</div>}
-      </a>
+      </button>
     </div>
   );
 };
