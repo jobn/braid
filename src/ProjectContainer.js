@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
-import { string, func } from 'prop-types';
+import { string } from 'prop-types';
 import {
   getCurrentIteration,
   getMemberships,
@@ -159,7 +159,6 @@ function ProjectContainer({ id, render }) {
 }
 
 ProjectContainer.propTypes = {
-  render: func.isRequired,
   id: string.isRequired
 };
 
