@@ -1,14 +1,21 @@
 import React, { useReducer, useEffect } from 'react';
 import { string, func } from 'prop-types';
-import { getCurrentIteration, getMemberships, getBlockers } from './api';
+import {
+  getCurrentIteration,
+  getMemberships,
+  getBlockers,
+  putStory
+} from './api';
 import { Spinner } from './Spinner';
 import { normalize, getStoryIds } from './normalize';
+import { Project } from './Project';
 
 const initialState = {
   isFetching: false,
   error: null,
   iteration: {},
-  stories: [],
+  storyIds: [],
+  stories: {},
   people: {},
   uniqueOwnerIds: []
 };
@@ -26,16 +33,69 @@ function reducer(state, action) {
     }
 
     case 'FETCH_BLOCKERS_SUCCESS': {
-      const storiesWithBlockers = state.stories.map(story => ({
-        ...story,
-        blockers: payload.find(blocker => blocker.id === story.id).blockers
-      }));
+      const storiesWithBlockers = { ...state.stories };
+
+      payload.forEach(story => {
+        if (story.blockers.length > 0) {
+          storiesWithBlockers[story.id].blockers = story.blockers;
+        }
+      });
 
       return { ...state, stories: storiesWithBlockers };
     }
 
     case 'FETCH_REQUEST_ERROR': {
       return { ...initialState, error: payload };
+    }
+
+    case 'STORY_DROP': {
+      return {
+        ...state,
+        stories: {
+          ...state.stories,
+          [payload.storyId]: {
+            ...state.stories[payload.storyId],
+            prevState: state.stories[payload.storyId].currentState,
+            currentState: payload.target
+          }
+        },
+
+        updateStory: {
+          ...payload
+        }
+      };
+    }
+
+    case 'STORY_DROP_PERFROM': {
+      return {
+        ...state,
+        updateStory: {
+          ...state.updateStory,
+          request: true
+        }
+      };
+    }
+
+    case 'STORY_DROP_FAILURE': {
+      return {
+        ...state,
+        stories: {
+          ...state.stories,
+          [payload.storyId]: {
+            ...state.stories[payload.storyId],
+            currentState: state.stories[payload.storyId].prevState
+          }
+        },
+
+        updateStory: null
+      };
+    }
+
+    case 'STORY_DROP_SUCCESS': {
+      return {
+        ...state,
+        updateStory: null
+      };
     }
   }
 }
@@ -69,6 +129,25 @@ function ProjectContainer({ id, render }) {
     fetchData(id);
   }, [id]);
 
+  useEffect(() => {
+    const updateStorySideEffect = async ({ storyId, target }) => {
+      try {
+        dispatch({ type: 'STORY_DROP_PERFROM', payload: { storyId, target } });
+
+        await putStory(id, storyId, { current_state: target });
+
+        dispatch({ type: 'STORY_DROP_SUCCESS', payload: { storyId, target } });
+      } catch {
+        dispatch({ type: 'STORY_DROP_FAILURE', payload: { storyId, target } });
+        alert('Updating story state failed');
+      }
+    };
+
+    if (state.updateStory && !state.updateStory.request) {
+      updateStorySideEffect(state.updateStory);
+    }
+  });
+
   if (state.isFetching) {
     return <Spinner />;
   }
@@ -76,7 +155,7 @@ function ProjectContainer({ id, render }) {
     return <div>Error</div>;
   }
 
-  return render(state);
+  return <Project {...state} dispatch={dispatch} />;
 }
 
 ProjectContainer.propTypes = {

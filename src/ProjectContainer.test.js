@@ -2,17 +2,13 @@ import React from 'react';
 import { render, wait } from 'react-testing-library';
 import { ProjectContainer } from './ProjectContainer';
 import * as api from './api';
-import {
-  iterationResponse,
-  membershipsResponse,
-  result as normalizationResult
-} from './normalize.test';
+import { iterationResponse, membershipsResponse } from './normalize.test';
 
 jest.mock('./utils/getDayOfYear');
 
 const mockBlockers = [
-  { id: 563, blockers: { resolved: false } },
-  { id: 564, blockers: { resolved: true } }
+  { id: 563, blockers: [{ resolved: false }] },
+  { id: 564, blockers: [{ resolved: true }] }
 ];
 
 let mockRender;
@@ -47,27 +43,12 @@ describe('ProjectContainer', () => {
     expect(api.getBlockers).toHaveBeenCalledWith('1', [563, 564]);
   });
 
-  it('second call to render function has fetched and normalized data', async () => {
-    render(<ProjectContainer id="1" render={mockRender} />);
+  it('renders fetched and normalized data', async () => {
+    const { container } = render(<ProjectContainer id="1" />);
 
     await wait();
-    await wait();
-    expect(mockRender.mock.calls[1][0]).toEqual({
-      ...normalizationResult,
-      error: null,
-      isFetching: false
-    });
-  });
 
-  it('third call to render function has blockers', async () => {
-    render(<ProjectContainer id="1" render={mockRender} />);
-
-    await wait();
-    await wait();
-    await wait();
-    expect(
-      mockRender.mock.calls[2][0].stories.map(story => story.blockers)
-    ).toEqual([{ resolved: false }, { resolved: true }]);
+    expect(container.firstChild).toMatchSnapshot();
   });
 
   it('renders error on request error', async () => {

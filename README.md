@@ -25,3 +25,19 @@ Braid lets you filter the stories by owner so you can easily get through the sta
 ## What Braid is not
 
 A replacement for the PivotalTracker interface. If you want to do searching, editing, planning or anything else - go to the PivotalTracker webpage.
+
+# Features
+
+- **NEW: DRAG N' DROP** Change state of stories by dragging them to other column. If a developer forgot to opdate a story, you can now easily do it right in the standup by dragging the story card to the correct collum.
+
+- Displays your current pivotal iteration in 4 column layout: Pending, Started, Review, Done.
+
+- Lets you easily switch between projects.
+
+- Lets you filter the stories based on owners or type of story (bug, feature, chore) or both.
+
+- Shuffles the owner list each day, so if you are using the filters to ease the standup, you dont have the same person starting every day.
+
+- Keeps selected filters across page reloads.
+
+- Braid is entirely a client side application. There is only a static file-server the hosts the html and javascript assets. It stores your pivotal api token in your browser localstorage. Clicking logout will clear the localstorage

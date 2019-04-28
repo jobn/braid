@@ -6,18 +6,23 @@ export const getMe = token => request(axios.get('me', options({ token })));
 export const getStories = id =>
   request(axios.get(`projects/${id}/stories`, options()));
 
+export const putStory = (projectId, storyId, params) =>
+  request(
+    axios.put(`projects/${projectId}/stories/${storyId}`, params, options())
+  );
+
 export const getCurrentIteration = projectId =>
   request(
-    axios.get(`/projects/${projectId}/iterations?scope=current`, options())
+    axios.get(`projects/${projectId}/iterations?scope=current`, options())
   );
 
 export const getMemberships = projectId =>
-  request(axios.get(`/projects/${projectId}/memberships`, options()));
+  request(axios.get(`projects/${projectId}/memberships`, options()));
 
 export const getBlockers = (projectId, storyIds) =>
   request(
     axios.get(
-      `/projects/${projectId}/stories/bulk`,
+      `projects/${projectId}/stories/bulk`,
       options({ params: { ids: storyIds.join(','), fields: 'blockers' } })
     )
   );
