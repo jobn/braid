@@ -12,7 +12,8 @@ function ColumnContainer({ children, dispatch }) {
     });
   };
 
-  const handleDrop = () => {
+  const handleDrop = e => {
+    e.preventDefault();
     const { origin, target, storyId } = state;
 
     if (origin !== target) {
