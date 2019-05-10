@@ -6,7 +6,8 @@ const Footer = ({ children }) => (
       position: 'fixed',
       bottom: '0',
       width: '100vw',
-      display: 'flex'
+      display: 'flex',
+      zIndex: '50'
     }}
   >
     {children}
