@@ -5,6 +5,8 @@ export const clearOwners = 'CLEAR_OWNERS';
 export const selectNextOwner = 'SELECT_NEXT_OWNER';
 export const selectPrevOwner = 'SELECT_PREV_OWNER';
 export const toggleType = 'TOGGLE_TYPE';
+export const showModal = 'SHOW_MODAL';
+export const hideModal = 'HIDE_MODAL';
 
 export const reducer = (state, action, uniqueOwnerIds) => {
   const { type, payload } = action;
@@ -20,7 +22,8 @@ export const reducer = (state, action, uniqueOwnerIds) => {
     case clearOwners: {
       return {
         ...state,
-        selectedOwners: []
+        selectedOwners: [],
+        displayModal: false
       };
     }
 
@@ -29,7 +32,8 @@ export const reducer = (state, action, uniqueOwnerIds) => {
         ...state,
         selectedOwners: [
           arrayRotateForward(uniqueOwnerIds, state.selectedOwners[0])
-        ]
+        ],
+        displayModal: true
       };
     }
 
@@ -38,7 +42,8 @@ export const reducer = (state, action, uniqueOwnerIds) => {
         ...state,
         selectedOwners: [
           arrayRotateBackward(uniqueOwnerIds, state.selectedOwners[0])
-        ]
+        ],
+        displayModal: true
       };
     }
 
@@ -46,6 +51,20 @@ export const reducer = (state, action, uniqueOwnerIds) => {
       return {
         ...state,
         selectedTypes: arrayToggle(state.selectedTypes, payload)
+      };
+    }
+
+    case showModal: {
+      return {
+        ...state,
+        displayModal: true
+      };
+    }
+
+    case hideModal: {
+      return {
+        ...state,
+        displayModal: false
       };
     }
 

@@ -14,14 +14,19 @@ import { useKeyup } from '../useKeyup';
 const FilterContext = createContext();
 
 const FilterContainer = ({ uniqueOwnerIds, children }) => {
-  const [state, setState] = useState(getQueryState(uniqueOwnerIds));
+  const [state, setState] = useState({
+    ...getQueryState(uniqueOwnerIds),
+    displayModal: false
+  });
 
   const dispatch = useMemo(
     () => action => {
       const nextState = reducer(state, action, uniqueOwnerIds);
 
       setState(nextState);
-      setQueryState(nextState);
+
+      const { displayModal, ...nextQueryState } = nextState;
+      setQueryState(nextQueryState);
     },
     [state, uniqueOwnerIds]
   );
