@@ -8,6 +8,7 @@ import { FilterContainer } from './FilterContainer';
 import { PeopleContext } from './PeopleContext';
 import { FilterSummary } from './FilterSummary';
 import { ColumnContainer } from './ColumnContainer';
+import { FilterModal } from './FilterModal';
 
 const Project = ({ uniqueOwnerIds, people, storyIds, stories, dispatch }) => (
   <PeopleContext.Provider value={people}>
@@ -55,6 +56,8 @@ const Project = ({ uniqueOwnerIds, people, storyIds, stories, dispatch }) => (
           <Filters />
         </Tray>
       </Footer>
+
+      <FilterModal />
     </FilterContainer>
   </PeopleContext.Provider>
 );
