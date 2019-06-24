@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, within } from 'react-testing-library';
+import { render, within } from '@testing-library/react';
 import { Story } from './Story';
 import { PeopleContext } from './PeopleContext';
 

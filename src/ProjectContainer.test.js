@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, wait } from 'react-testing-library';
+import { render, wait } from '@testing-library/react';
 import { ProjectContainer } from './ProjectContainer';
 import * as api from './api';
 import { iterationResponse, membershipsResponse } from './normalize.test';
