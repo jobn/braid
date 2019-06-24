@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from 'react-testing-library';
+import { render, fireEvent } from '@testing-library/react';
 import { Filters } from './Filters';
 import { PeopleContext } from './PeopleContext';
 import { FilterContainer } from './FilterContainer';

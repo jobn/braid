@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { render } from 'react-testing-library';
+import { render } from '@testing-library/react';
 import { ProjectList } from './ProjectList';
 
 describe('ProjectList', () => {
