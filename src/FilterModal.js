@@ -7,6 +7,10 @@ function FilterModal() {
   const { selectedOwners, displayModal, dispatch } = useContext(FilterContext);
 
   useEffect(() => {
+    if (!displayModal) {
+      return;
+    }
+
     const timeout = setTimeout(() => {
       dispatch({ type: hideModal });
     }, 1500);
