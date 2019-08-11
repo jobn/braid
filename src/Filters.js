@@ -6,12 +6,17 @@ import {
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import { Initials } from './Initials';
+import { Epics } from './Epics';
 import {
   FilterContext,
   toggleOwner,
   clearOwners,
   selectNextOwner,
   selectPrevOwner,
+  toggleEpic,
+  clearEpics,
+  selectNextEpic,
+  selectPrevEpic,
   toggleType
 } from './FilterContainer';
 import { storyTypes } from './storyTypes';
@@ -20,7 +25,9 @@ const Filters = () => {
   const {
     selectedTypes,
     selectedOwners,
+    selectedEpics,
     uniqueOwnerIds,
+    uniqueEpicIds,
     dispatch
   } = useContext(FilterContext);
 
@@ -28,6 +35,14 @@ const Filters = () => {
     event.target.focus();
     dispatch({
       type: toggleOwner,
+      payload: Number(event.currentTarget.value)
+    });
+  };
+
+  const handleEpicClick = event => {
+    event.target.focus();
+    dispatch({
+      type: toggleEpic,
       payload: Number(event.currentTarget.value)
     });
   };
@@ -50,6 +65,21 @@ const Filters = () => {
   const handleClearOwners = event => {
     event.target.focus();
     dispatch({ type: clearOwners });
+  };
+
+  const handleNextEpicClick = event => {
+    event.target.focus();
+    dispatch({ type: selectNextEpic });
+  };
+
+  const handlePrevEpicClick = event => {
+    event.target.focus();
+    dispatch({ type: selectPrevEpic });
+  };
+
+  const handleClearEpics = event => {
+    event.target.focus();
+    dispatch({ type: clearEpics });
   };
 
   return (
@@ -152,6 +182,80 @@ const Filters = () => {
           </div>
         </div>
       </div>
+      <div className="media">
+        <div className="media-left">
+          <h5 className="subtitle is-5" style={{ lineHeight: '1.8' }}>
+            By epic
+          </h5>
+        </div>
+        <div className="media-content">
+          <div className="field is-grouped is-grouped-multiline">
+            {uniqueEpicIds.map(id => (
+              <p className="control" key={id}>
+                <button
+                  key={id}
+                  value={id}
+                  className={`button is-rounded ${
+                    selectedEpics.indexOf(id) !== -1 ? 'is-primary' : ''
+                    }`}
+                  onClick={handleEpicClick}
+                >
+                  <Epics id={id} />
+                </button>
+              </p>
+            ))}
+
+            <div
+              className="field has-addons"
+              style={{ marginBottom: '.75rem' }}
+            >
+              <p className="control">
+                <button
+                  className="button"
+                  data-testid="prev"
+                  onClick={handlePrevEpicClick}
+                >
+                  <span className="icon">
+                    <FontAwesomeIcon icon={faBackward} />
+                  </span>
+                  <span>
+                    <span className="is-underline">P</span>rev
+                  </span>
+                </button>
+              </p>
+              <p className="control">
+                <button
+                  className="button"
+                  data-testid="next"
+                  onClick={handleNextEpicClick}
+                >
+                  <span className="icon">
+                    <FontAwesomeIcon icon={faForward} />
+                  </span>
+                  <span>
+                    <span className="is-underline">N</span>ext
+                  </span>
+                </button>
+              </p>
+
+              <p className="control">
+                <button
+                  className="button"
+                  data-testid="clear"
+                  onClick={handleClearEpics}
+                  disabled={selectedEpics.length === 0}
+                >
+                  <span className="icon">
+                    <FontAwesomeIcon icon={faTimes} />
+                  </span>
+                  <span>
+                    <span className="is-underline">C</span>lear
+                  </span>
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>      </div>
     </Fragment>
   );
 };

@@ -11,6 +11,14 @@ export const filterByOwner = (story, ownerIds) => {
   return story.ownerIds.some(id => ownerIds.includes(id));
 };
 
+export const filterByEpic = (story, epicIds) => {
+  if (epicIds.length === 0) {
+    return true;
+  }
+
+  return story.labels.some(label => epicIds.includes(label.id));
+};
+
 export const filterByType = (story, typeNames) => {
   if (typeNames.length === 0) {
     return true;

@@ -4,11 +4,17 @@ export const toggleOwner = 'TOGGLE_OWNER';
 export const clearOwners = 'CLEAR_OWNERS';
 export const selectNextOwner = 'SELECT_NEXT_OWNER';
 export const selectPrevOwner = 'SELECT_PREV_OWNER';
+export const toggleEpic = 'TOGGLE_EPIC';
+export const clearEpics = 'CLEAR_EPICS';
+export const selectNextEpic = 'SELECT_NEXT_EPIC';
+export const selectPrevEpic = 'SELECT_PREV_EPIC';
 export const toggleType = 'TOGGLE_TYPE';
 export const showModal = 'SHOW_MODAL';
 export const hideModal = 'HIDE_MODAL';
+export const showEpicsModal = 'SHOW_EPICS_MODAL';
+export const hideEpicsModal = 'HIDE_EPICS_MODAL';
 
-export const reducer = (state, action, uniqueOwnerIds) => {
+export const reducer = (state, action, uniqueOwnerIds, uniqueEpicIds) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -47,6 +53,41 @@ export const reducer = (state, action, uniqueOwnerIds) => {
       };
     }
 
+    case toggleEpic: {
+      return {
+        ...state,
+        selectedEpics: arrayToggle(state.selectedEpics, payload)
+      };
+    }
+
+    case clearEpics: {
+      return {
+        ...state,
+        selectedEpics: [],
+        displayEpicsModal: false
+      };
+    }
+
+    case selectNextEpic: {
+      return {
+        ...state,
+        selectedEpics: [
+          arrayRotateForward(uniqueEpicIds, state.selectedEpics[0])
+        ],
+        displayEpicsModal: true
+      };
+    }
+
+    case selectPrevEpic: {
+      return {
+        ...state,
+        selectedEpics: [
+          arrayRotateBackward(uniqueEpicIds, state.selectedEpics[0])
+        ],
+        displayEpicsModal: true
+      };
+    }
+
     case toggleType: {
       return {
         ...state,
@@ -65,6 +106,20 @@ export const reducer = (state, action, uniqueOwnerIds) => {
       return {
         ...state,
         displayModal: false
+      };
+    }
+
+    case showEpicsModal: {
+      return {
+        ...state,
+        displayEpicsModal: true
+      };
+    }
+
+    case hideEpicsModal: {
+      return {
+        ...state,
+        displayEpicsModal: false
       };
     }
 

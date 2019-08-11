@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { Filters } from './Filters';
 import { PeopleContext } from './PeopleContext';
+import { EpicsContext } from './EpicsContext';
 import { FilterContainer } from './FilterContainer';
 import { window } from './services';
 
@@ -18,14 +19,22 @@ describe('Filters', () => {
     3: { initials: 'CC' }
   };
 
+  const epics = {};
+
   const uniqueOwnerIds = [1, 2, 3];
+  const uniqueEpicIds = [];
 
   const renderSubject = () =>
     render(
       <PeopleContext.Provider value={people}>
-        <FilterContainer uniqueOwnerIds={uniqueOwnerIds}>
-          <Filters />
-        </FilterContainer>
+        <EpicsContext.Provider value={epics}>
+          <FilterContainer
+            uniqueOwnerIds={uniqueOwnerIds}
+            uniqueEpicIds={uniqueEpicIds}
+          >
+            <Filters />
+          </FilterContainer>
+        </EpicsContext.Provider>
       </PeopleContext.Provider>
     );
 

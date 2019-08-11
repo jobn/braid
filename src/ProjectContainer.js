@@ -4,7 +4,8 @@ import {
   getCurrentIteration,
   getMemberships,
   getBlockers,
-  putStory
+  putStory,
+  getEpics
 } from './api';
 import { Spinner } from './Spinner';
 import { normalize, getStoryIds } from './normalize';
@@ -17,7 +18,9 @@ const initialState = {
   storyIds: [],
   stories: {},
   people: {},
-  uniqueOwnerIds: []
+  epics: {},
+  uniqueOwnerIds: [],
+  uniqueEpicIds: []
 };
 
 function reducer(state, action) {
@@ -112,14 +115,19 @@ function ProjectContainer({ id, render }) {
       try {
         dispatch({ type: 'FETCH_ITERATION' });
 
-        const [iterationResponse, membershipsResponse] = await Promise.all([
+        const [
+          iterationResponse,
+          membershipsResponse,
+          epicsResponse
+        ] = await Promise.all([
           getCurrentIteration(id),
-          getMemberships(id)
+          getMemberships(id),
+          getEpics(id)
         ]);
 
         dispatch({
           type: 'FETCH_ITERATION_SUCCESS',
-          payload: { iterationResponse, membershipsResponse }
+          payload: { iterationResponse, membershipsResponse, epicsResponse }
         });
 
         const blockers = await getBlockers(id, getStoryIds(iterationResponse));

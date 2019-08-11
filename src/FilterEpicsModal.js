@@ -1,20 +1,20 @@
 import React, { useContext, useEffect, Fragment } from 'react';
 import { FilterContext } from './FilterContainer';
-import { hideModal } from './FilterContainer/reducer';
-import { Name } from './Name';
+import { hideEpicsModal } from './FilterContainer/reducer';
+import { EpicName } from './EpicName';
 
-function FilterModal() {
+function FilterEpicsModal() {
   // TODO Remove this disable.
   // eslint-disable-next-line no-unused-vars
-  const { selectedOwners, displayModal, dispatch } = useContext(FilterContext);
+  const { selectedEpics, displayEpicsModal, dispatch } = useContext(FilterContext);
 
   useEffect(() => {
-    if (!displayModal) {
+    if (!displayEpicsModal) {
       return;
     }
 
     const timeout = setTimeout(() => {
-      dispatch({ type: hideModal });
+      dispatch({ type: hideEpicsModal });
     }, 1500);
 
     return () => {
@@ -22,7 +22,7 @@ function FilterModal() {
     };
   });
 
-  if (!displayModal) {
+  if (!displayEpicsModal) {
     return null;
   }
 
@@ -31,13 +31,13 @@ function FilterModal() {
       <div
         className="modal-background"
         style={{ background: 'none' }}
-        onClick={() => dispatch({ type: hideModal })}
+        onClick={() => dispatch({ type: hideEpicsModal })}
       />
       <div className="modal-content box has-background-grey-dark subtitle is-1 has-text-white-ter has-text-centered">
-        {selectedOwners.map((id, index) => (
+        {selectedEpics.map((id, index) => (
           <Fragment key={id}>
             {index > 0 ? <br /> : null}
-            <Name id={id} />
+            <EpicName id={id} />
           </Fragment>
         ))}
       </div>
@@ -45,4 +45,4 @@ function FilterModal() {
   );
 }
 
-export { FilterModal };
+export { FilterEpicsModal };
