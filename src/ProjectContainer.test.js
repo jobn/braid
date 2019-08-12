@@ -2,7 +2,7 @@ import React from 'react';
 import { render, wait } from '@testing-library/react';
 import { ProjectContainer } from './ProjectContainer';
 import * as api from './api';
-import { iterationResponse, membershipsResponse } from './normalize.test';
+import { iterationResponse, membershipsResponse, epicsResponse } from './normalize.test';
 
 jest.mock('./utils/getDayOfYear');
 
@@ -17,6 +17,7 @@ describe('ProjectContainer', () => {
   beforeEach(() => {
     api.getCurrentIteration = jest.fn(() => Promise.resolve(iterationResponse));
     api.getMemberships = jest.fn(() => Promise.resolve(membershipsResponse));
+    api.getEpics = jest.fn(() => Promise.resolve(epicsResponse));
     api.getBlockers = jest.fn(() => Promise.resolve(mockBlockers));
 
     mockRender = jest.fn(() => <div>mockRender</div>);
@@ -34,6 +35,13 @@ describe('ProjectContainer', () => {
 
     await wait();
     expect(api.getCurrentIteration).toHaveBeenCalledWith('1');
+  });
+
+  it('fetches epics', async () => {
+    render(<ProjectContainer id="1" render={mockRender} />);
+
+    await wait();
+    expect(api.getEpics).toHaveBeenCalledWith('1');
   });
 
   it('fetches blockers', async () => {

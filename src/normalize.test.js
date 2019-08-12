@@ -108,6 +108,43 @@ export const membershipsResponse = [
   }
 ];
 
+export const epicsResponse = [
+  {
+    id: 7,
+    kind: 'epic',
+    created_at: '2019-08-06T12:00:00Z',
+    updated_at: '2019-08-06T12:00:00Z',
+    project_id: 99,
+    name: 'Turn Luke Skywalker',
+    url: 'http://localhost/epic/show/7',
+    label: {
+      id: 2010,
+      project_id: 99,
+      kind: 'label',
+      name: 'turning luke',
+      created_at: '2019-08-06T12:00:00Z',
+      updated_at: '2019-08-06T12:00:00Z'
+    }
+  },
+  {
+    id: 6,
+    kind: 'epic',
+    created_at: '2019-08-06T12:00:00Z',
+    updated_at: '2019-08-06T12:00:00Z',
+    project_id: 99,
+    name: 'Death Star Plans',
+    url: 'http://localhost/epic/show/6',
+    label: {
+      id: 2009,
+      project_id: 99,
+      kind: 'label',
+      name: 'plans',
+      created_at: '2019-08-06T12:00:00Z',
+      updated_at: '2019-08-06T12:00:00Z'
+    }
+  }
+];
+
 export const result = {
   iteration: {
     finish: '2018-09-25T12:00:10Z',
@@ -142,6 +179,25 @@ export const result = {
       kind: 'person',
       name: 'Wilhuff Tarkin',
       username: 'tarkin'
+    }
+  },
+  epics: {
+    2009: {
+      id: 6,
+      kind: 'epic',
+      created_at: '2019-08-06T12:00:00Z',
+      updated_at: '2019-08-06T12:00:00Z',
+      project_id: 99,
+      name: 'Death Star Plans',
+      url: 'http://localhost/epic/show/6',
+      label: {
+        id: 2009,
+        project_id: 99,
+        kind: 'label',
+        name: 'plans',
+        created_at: '2019-08-06T12:00:00Z',
+        updated_at: '2019-08-06T12:00:00Z'
+      }
     }
   },
   stories: {
@@ -207,13 +263,14 @@ export const result = {
     }
   },
   storyIds: [563, 564],
-  uniqueOwnerIds: [102, 101]
+  uniqueOwnerIds: [102, 101],
+  uniqueEpicIds: [2009]
 };
 
 describe('normalize', () => {
   it('normalizes response', () => {
-    expect(normalize({ iterationResponse, membershipsResponse })).toEqual(
-      result
-    );
+    expect(
+      normalize({ iterationResponse, membershipsResponse, epicsResponse })
+    ).toEqual(result);
   });
 });

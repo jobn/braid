@@ -71,7 +71,7 @@ exports[`Filters renders as per snapthot 1`] = `
         >
           <button
             class="button"
-            data-testid="prev"
+            data-testid="prevOwner"
           >
             <span
               class="icon"
@@ -107,7 +107,7 @@ exports[`Filters renders as per snapthot 1`] = `
         >
           <button
             class="button"
-            data-testid="next"
+            data-testid="nextOwner"
           >
             <span
               class="icon"
@@ -143,7 +143,7 @@ exports[`Filters renders as per snapthot 1`] = `
         >
           <button
             class="button"
-            data-testid="clear"
+            data-testid="clearOwners"
             disabled=""
           >
             <span

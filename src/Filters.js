@@ -114,7 +114,7 @@ const Filters = () => {
               <p className="control">
                 <button
                   className="button"
-                  data-testid="prev"
+                  data-testid="prevOwner"
                   onClick={handlePrevOwnerClick}
                 >
                   <span className="icon">
@@ -128,7 +128,7 @@ const Filters = () => {
               <p className="control">
                 <button
                   className="button"
-                  data-testid="next"
+                  data-testid="nextOwner"
                   onClick={handleNextOwnerClick}
                 >
                   <span className="icon">
@@ -143,7 +143,7 @@ const Filters = () => {
               <p className="control">
                 <button
                   className="button"
-                  data-testid="clear"
+                  data-testid="clearOwners"
                   onClick={handleClearOwners}
                   disabled={selectedOwners.length === 0}
                 >
@@ -212,7 +212,7 @@ const Filters = () => {
               <p className="control">
                 <button
                   className="button"
-                  data-testid="prev"
+                  data-testid="prevEpic"
                   onClick={handlePrevEpicClick}
                 >
                   <span className="icon">
@@ -226,7 +226,7 @@ const Filters = () => {
               <p className="control">
                 <button
                   className="button"
-                  data-testid="next"
+                  data-testid="nextEpic"
                   onClick={handleNextEpicClick}
                 >
                   <span className="icon">
@@ -241,7 +241,7 @@ const Filters = () => {
               <p className="control">
                 <button
                   className="button"
-                  data-testid="clear"
+                  data-testid="clearEpics"
                   onClick={handleClearEpics}
                   disabled={selectedEpics.length === 0}
                 >
