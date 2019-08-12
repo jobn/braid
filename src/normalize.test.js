@@ -198,6 +198,12 @@ export const result = {
         created_at: '2019-08-06T12:00:00Z',
         updated_at: '2019-08-06T12:00:00Z'
       }
+    },
+    '-1': {
+      id: -1,
+      kind: 'epic',
+      name: '❔No Epic',
+      label: { id: -1 }
     }
   },
   stories: {
@@ -264,7 +270,7 @@ export const result = {
   },
   storyIds: [563, 564],
   uniqueOwnerIds: [102, 101],
-  uniqueEpicIds: [2009]
+  uniqueEpicIds: [2009, -1]
 };
 
 describe('normalize', () => {

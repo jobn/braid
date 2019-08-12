@@ -65,6 +65,13 @@ const normalize = ({
   const activeEpics = epicsResponse.filter(epic =>
     activeLabelIds.includes(epic.label.id)
   );
+  activeEpics.push({
+    id: -1,
+    kind: 'epic',
+    name: '❔No Epic',
+    label: { id: -1 }
+  });
+
   const epics = normalizeEpicsArray(activeEpics);
 
   const uniqueEpicIds = uniqueArray(

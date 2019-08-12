@@ -73,7 +73,7 @@ const FilterContainer = ({ uniqueOwnerIds, uniqueEpicIds, children }) => {
         .filter(
           story =>
             filterByOwner(story, state.selectedOwners) &&
-            filterByEpic(story, state.selectedEpics) &&
+            filterByEpic(story, uniqueEpicIds, state.selectedEpics) &&
             filterByType(story, state.selectedTypes) &&
             filterByStoryStates(story, storyStates)
         ),
