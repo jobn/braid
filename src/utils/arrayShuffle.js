@@ -6,8 +6,8 @@ const random = seed => {
 };
 
 const arrayShuffle = (origArray, origSeed) => {
+  const array = origArray.slice();
   let seed = origSeed || 1;
-  let array = origArray.slice();
   let currentIndex = array.length;
   let temporaryValue;
   let randomIndex;
