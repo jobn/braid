@@ -29,8 +29,8 @@
     "date-fns": "^2.0.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.8.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1"
   },
