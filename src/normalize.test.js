@@ -55,7 +55,7 @@ export const iterationResponse = [
         integrationId: 30,
         url: 'http://localhost/story/show/564',
         projectId: 99,
-        ownerIds: [102],
+        ownerIds: [102, 100000],
         labels: [
           {
             id: 2009,
