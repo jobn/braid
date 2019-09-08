@@ -21,20 +21,27 @@ const normalize = ({ iterationResponse, membershipsResponse }) => {
   const { stories: allStories, ...iteration } = currentIteration;
   const userStories = allStories.filter(removeReleaseStories);
 
+  const people = normalizeArray(membershipsResponse.map(item => item.person));
+  const peopleIds = Object.keys(people);
+
   const storyIds = userStories.map(story => story.id);
   const stories = {};
 
   userStories.forEach(story => {
     stories[story.id] = {
       ...story,
+      ownerIds: story.ownerIds.filter(id => peopleIds.includes(id.toString())),
       blockers: []
     };
   });
 
-  const people = normalizeArray(membershipsResponse.map(item => item.person));
-
   const uniqueOwnerIds = arrayShuffle(
-    uniqueArray([].concat.apply([], userStories.map(story => story.ownerIds))),
+    uniqueArray(
+      [].concat.apply(
+        [],
+        Object.keys(stories).map(storyId => stories[storyId].ownerIds)
+      )
+    ),
     getDayOfYear(new Date())
   );
 
