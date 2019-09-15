@@ -51,6 +51,7 @@ exports[`ProjectContainer renders fetched and normalized data 1`] = `
         class="card"
         data-current-state="accepted"
         data-story-id="563"
+        data-story-type="feature"
         data-url="http://localhost/story/show/563"
         draggable="true"
       >
@@ -159,6 +160,7 @@ exports[`ProjectContainer renders fetched and normalized data 1`] = `
         class="card"
         data-current-state="accepted"
         data-story-id="564"
+        data-story-type="feature"
         data-url="http://localhost/story/show/564"
         draggable="true"
       >

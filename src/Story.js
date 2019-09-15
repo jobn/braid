@@ -43,6 +43,7 @@ function Story({
       data-story-id={id}
       data-url={url}
       data-current-state={currentState}
+      data-story-type={storyType}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
     >
