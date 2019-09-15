@@ -21,7 +21,9 @@ const Project = ({ uniqueOwnerIds, people, storyIds, stories, dispatch }) => (
               storyIds={storyIds}
               stories={stories}
               storyStates={['planned', 'unstarted']}
-              dropState="unstarted"
+              featureDropState="unstarted"
+              bugDropState="unstarted"
+              choreDropState="unstarted"
             />
 
             <Column
@@ -29,7 +31,9 @@ const Project = ({ uniqueOwnerIds, people, storyIds, stories, dispatch }) => (
               storyIds={storyIds}
               stories={stories}
               storyStates={['started']}
-              dropState="started"
+              featureDropState="started"
+              bugDropState="started"
+              choreDropState="started"
             />
 
             <Column
@@ -37,7 +41,9 @@ const Project = ({ uniqueOwnerIds, people, storyIds, stories, dispatch }) => (
               storyIds={storyIds}
               stories={stories}
               storyStates={['finished']}
-              dropState="finished"
+              featureDropState="finished"
+              bugDropState="finished"
+              choreDropState={null}
             />
 
             <Column
@@ -45,7 +51,9 @@ const Project = ({ uniqueOwnerIds, people, storyIds, stories, dispatch }) => (
               storyIds={storyIds}
               stories={stories}
               storyStates={['delivered', 'accepted']}
-              dropState="delivered"
+              featureDropState="delivered"
+              bugDropState="delivered"
+              choreDropState="accepted"
             />
           </div>
         </ColumnContainer>
