@@ -2,13 +2,18 @@ import React, { createContext, useMemo, useState } from 'react';
 
 const ColumnContext = createContext();
 
+function dropIsLegal(origin, target) {
+  return target && target !== origin;
+}
+
 function ColumnContainer({ children, dispatch }) {
   const [state, setState] = useState({});
 
   const handleDragEnter = e => {
     setState({
       ...state,
-      target: e
+      target: e,
+      legal: dropIsLegal(state.origin, e)
     });
   };
 
@@ -16,7 +21,7 @@ function ColumnContainer({ children, dispatch }) {
     e.preventDefault();
     const { origin, target, storyId } = state;
 
-    if (origin !== target) {
+    if (dropIsLegal(origin, target)) {
       dispatch({
         type: 'STORY_DROP',
         payload: { storyId, target }
@@ -60,8 +65,9 @@ function ColumnContainer({ children, dispatch }) {
       origin: state.origin,
       storyId: state.storyId,
       storyType: state.storyType,
+      legal: state.legal
     }),
-    [state.target, state.origin, state.storyId]
+    [state.target, state.origin, state.storyId, state.storyType, state.legal]
   );
 
   return (

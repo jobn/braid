@@ -10,7 +10,13 @@ const activeTargetStyle = {
   background: 'hsl(0, 0%, 96%)'
 };
 
-const Column = ({ title, storyIds, stories, storyStates, dropState }) => {
+const illegalTargetStyle = {
+  ...activeTargetStyle,
+  borderColor: 'hsl(348, 100%, 61%)',
+  background: 'hsl(348, 100%, 95%)'
+};
+
+const Column = props => {
   const { filter } = useContext(FilterContext);
   const {
     handleDragStart,
@@ -18,18 +24,26 @@ const Column = ({ title, storyIds, stories, storyStates, dropState }) => {
     handleDragEnter,
     handleDragEnd,
     target,
-    origin
+    origin,
+    storyType,
+    legal
   } = useContext(ColumnContext);
+
+  const { title, storyIds, stories, storyStates } = props;
 
   const handleDragOver = e => {
     e.preventDefault();
   };
 
+  const dropState = props[`${storyType}DropState`] || null;
+
   const onDragEnter = () => {
     handleDragEnter(dropState);
   };
 
-  const isActiveTarget = target === dropState && origin !== dropState;
+  const isActiveTarget = target === dropState && origin !== dropState && legal;
+  const isIllegalTarget =
+    target === dropState && !storyStates.includes(origin) && !legal;
 
   return (
     <div
@@ -39,7 +53,8 @@ const Column = ({ title, storyIds, stories, storyStates, dropState }) => {
       onDrop={handleDrop}
       style={{
         minHeight: '70vh',
-        ...(isActiveTarget ? activeTargetStyle : {})
+        ...(isActiveTarget ? activeTargetStyle : {}),
+        ...(isIllegalTarget ? illegalTargetStyle : {})
       }}
     >
       <h4 className="title is-4 has-text-centered">{title}</h4>
