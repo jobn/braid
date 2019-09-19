@@ -10,7 +10,7 @@ exports[`ProjectList renders single project according to snapshot 1`] = `
     Select project
   </h1>
   <div
-    style="display: grid;"
+    style="display: grid; grid-template-columns: 1fr 1fr 1fr;"
   >
     <a
       class="notification is-primary is-marginless"
