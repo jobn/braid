@@ -35,7 +35,7 @@
     "react-scripts": "3.1.2"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.0.0",
+    "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^9.1.4",
     "eslint-config-prettier": "^6.1.0",
     "eslint-config-standard": "^14.0.1",
