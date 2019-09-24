@@ -197,7 +197,7 @@ const Filters = () => {
                   value={id}
                   className={`button is-rounded ${
                     selectedEpics.indexOf(id) !== -1 ? 'is-primary' : ''
-                    }`}
+                  }`}
                   onClick={handleEpicClick}
                 >
                   <Epics id={id} />
@@ -255,7 +255,8 @@ const Filters = () => {
               </p>
             </div>
           </div>
-        </div>      </div>
+        </div>{' '}
+      </div>
     </Fragment>
   );
 };

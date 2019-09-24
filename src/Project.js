@@ -12,10 +12,21 @@ import { ColumnContainer } from './ColumnContainer';
 import { FilterModal } from './FilterModal';
 import { FilterEpicsModal } from './FilterEpicsModal';
 
-const Project = ({ uniqueOwnerIds, people, storyIds, stories, uniqueEpicIds, epics, dispatch }) => (
+const Project = ({
+  uniqueOwnerIds,
+  people,
+  storyIds,
+  stories,
+  uniqueEpicIds,
+  epics,
+  dispatch
+}) => (
   <PeopleContext.Provider value={people}>
     <EpicsContext.Provider value={epics}>
-      <FilterContainer uniqueOwnerIds={uniqueOwnerIds} uniqueEpicIds={uniqueEpicIds}>
+      <FilterContainer
+        uniqueOwnerIds={uniqueOwnerIds}
+        uniqueEpicIds={uniqueEpicIds}
+      >
         <section className="section" style={{ paddingBottom: '12rem' }}>
           <ColumnContainer dispatch={dispatch}>
             <div className="columns">
@@ -63,7 +74,11 @@ const Project = ({ uniqueOwnerIds, people, storyIds, stories, uniqueEpicIds, epi
         </section>
 
         <Footer>
-          <Tray rightAlign title="Filters" renderLabel={() => <FilterSummary />}>
+          <Tray
+            rightAlign
+            title="Filters"
+            renderLabel={() => <FilterSummary />}
+          >
             <Filters />
           </Tray>
         </Footer>

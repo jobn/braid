@@ -2,7 +2,11 @@ import React from 'react';
 import { render, wait } from '@testing-library/react';
 import { ProjectContainer } from './ProjectContainer';
 import * as api from './api';
-import { iterationResponse, membershipsResponse, epicsResponse } from './normalize.test';
+import {
+  iterationResponse,
+  membershipsResponse,
+  epicsResponse
+} from './normalize.test';
 
 jest.mock('./utils/getDayOfYear');
 

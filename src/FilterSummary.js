@@ -5,7 +5,9 @@ import { FilterContext } from './FilterContainer';
 import { storyTypes } from './storyTypes';
 
 function FilterSummary() {
-  const { selectedTypes, selectedOwners, selectedEpics } = useContext(FilterContext);
+  const { selectedTypes, selectedOwners, selectedEpics } = useContext(
+    FilterContext
+  );
 
   return (
     <div className="tags">

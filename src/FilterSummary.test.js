@@ -25,7 +25,10 @@ describe('FilterSummary', () => {
     const { container } = render(
       <PeopleContext.Provider value={people}>
         <EpicsContext.Provider value={epics}>
-          <FilterContainer uniqueOwnerIds={uniqueOwnerIds} uniqueEpicIds={uniqueEpicIds}>
+          <FilterContainer
+            uniqueOwnerIds={uniqueOwnerIds}
+            uniqueEpicIds={uniqueEpicIds}
+          >
             <FilterSummary />
           </FilterContainer>
         </EpicsContext.Provider>
