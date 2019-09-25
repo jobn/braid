@@ -59,8 +59,9 @@ const normalize = ({
     getDayOfYear(new Date())
   );
 
-  const activeLabelIds = userStories.flatMap(story =>
-    story.labels.map(label => label.id)
+  const activeLabelIds = userStories.reduce(
+    (acc, story) => acc.concat(story.labels.map(label => label.id)),
+    []
   );
   const activeEpics = epicsResponse.filter(epic =>
     activeLabelIds.includes(epic.label.id)
