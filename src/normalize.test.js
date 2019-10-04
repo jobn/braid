@@ -202,7 +202,7 @@ export const result = {
     '-1': {
       id: -1,
       kind: 'epic',
-      name: '❔No Epic',
+      name: 'No Epic',
       label: { id: -1 }
     }
   },

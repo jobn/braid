@@ -69,7 +69,7 @@ const normalize = ({
   activeEpics.push({
     id: -1,
     kind: 'epic',
-    name: '❔No Epic',
+    name: 'No Epic',
     label: { id: -1 }
   });
 
