@@ -182,7 +182,7 @@ const Filters = () => {
           </div>
         </div>
       </div>
-      <div className="media">
+      <div className="media is-marginless" style={{ border: '0' }}>
         <div className="media-left">
           <h5 className="subtitle is-5" style={{ lineHeight: '1.8' }}>
             By epic
