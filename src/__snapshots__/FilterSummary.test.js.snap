@@ -23,6 +23,16 @@ exports[`FilterSummary renders according to snapshot 1`] = `
     </span>
   </span>
   <span
+    class="tag is-primary"
+  >
+    <span
+      class="is-uppercase"
+      title="Epic1"
+    >
+      Epic1
+    </span>
+  </span>
+  <span
     class="tag is-uppercase is-primary"
   >
     feature

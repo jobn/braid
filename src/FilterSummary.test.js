@@ -15,12 +15,16 @@ describe('FilterSummary', () => {
       2: { initials: 'BB' },
       3: { initials: 'CC' }
     };
-    const epics = {};
+    const epics = {
+      1: { name: 'Epic1' },
+      2: { name: 'Epic2' }
+    };
 
     const uniqueOwnerIds = [1, 2, 3];
-    const uniqueEpicIds = [];
+    const uniqueEpicIds = [1, 2];
 
-    window.location.search = 'selectedOwners=1,2&selectedTypes=bug,feature';
+    window.location.search =
+      'selectedOwners=1,2&selectedEpics=1&selectedTypes=bug,feature';
 
     const { container } = render(
       <PeopleContext.Provider value={people}>
