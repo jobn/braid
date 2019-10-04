@@ -73,15 +73,6 @@ const Project = ({
           </ColumnContainer>
         </section>
 
-        <Footer>
-          <Tray
-            rightAlign
-            title="Filters"
-            renderLabel={() => <FilterSummary />}
-          >
-            <Filters />
-          </Tray>
-        </Footer>
 
         <FilterModal />
         <FilterEpicsModal />
@@ -89,6 +80,19 @@ const Project = ({
     </EpicsContext.Provider>
   </PeopleContext.Provider>
 );
+          <Footer>
+            <Tray
+              title="Filters"
+              fullWidth
+              renderLabel={() => <FilterSummary />}
+            >
+              <Filters />
+            </Tray>
+
+            <Tray title="Settings" rightAlign>
+              <Settings />
+            </Tray>
+          </Footer>
 
 Project.propTypes = {
   people: object,
