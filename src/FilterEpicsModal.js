@@ -4,8 +4,6 @@ import { hideEpicsModal } from './FilterContainer/reducer';
 import { EpicName } from './EpicName';
 
 function FilterEpicsModal() {
-  // TODO Remove this disable.
-  // eslint-disable-next-line no-unused-vars
   const { selectedEpics, displayEpicsModal, dispatch } = useContext(
     FilterContext
   );

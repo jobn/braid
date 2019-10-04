@@ -4,8 +4,6 @@ import { hideModal } from './FilterContainer/reducer';
 import { Name } from './Name';
 
 function FilterModal() {
-  // TODO Remove this disable.
-  // eslint-disable-next-line no-unused-vars
   const { selectedOwners, displayModal, dispatch } = useContext(FilterContext);
 
   useEffect(() => {
