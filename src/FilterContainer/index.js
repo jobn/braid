@@ -1,39 +1,48 @@
 import React, { useState, createContext, useEffect, useMemo } from 'react';
 import { arrayOf, number, node } from 'prop-types';
 import { window } from '../services';
-import { filterByOwner, filterByType, filterByStoryStates } from './filters';
+import {
+  filterByOwner,
+  filterByType,
+  filterByStoryStates,
+  filterByEpic
+} from './filters';
 import {
   reducer,
   selectNextOwner,
   selectPrevOwner,
-  clearOwners
+  clearOwners,
+  selectNextEpic,
+  selectPrevEpic,
+  clearEpics
 } from './reducer';
 import { getQueryState, setQueryState } from './queryState';
 import { useKeyup } from '../useKeyup';
 
 const FilterContext = createContext();
 
-const FilterContainer = ({ uniqueOwnerIds, children }) => {
+const FilterContainer = ({ uniqueOwnerIds, uniqueEpicIds, children }) => {
   const [state, setState] = useState({
-    ...getQueryState(uniqueOwnerIds),
-    displayModal: false
+    ...getQueryState(uniqueOwnerIds, uniqueEpicIds),
+    displayModal: false,
+    displayEpicsModal: false
   });
 
   const dispatch = useMemo(
     () => action => {
-      const nextState = reducer(state, action, uniqueOwnerIds);
+      const nextState = reducer(state, action, uniqueOwnerIds, uniqueEpicIds);
 
       setState(nextState);
 
-      const { displayModal, ...nextQueryState } = nextState;
+      const { displayModal, displayEpicsModal, ...nextQueryState } = nextState;
       setQueryState(nextQueryState);
     },
-    [state, uniqueOwnerIds]
+    [state, uniqueOwnerIds, uniqueEpicIds]
   );
 
   useEffect(() => {
     const syncStates = () => {
-      setState(getQueryState(uniqueOwnerIds));
+      setState(getQueryState(uniqueOwnerIds, uniqueEpicIds));
     };
 
     window.addEventListener('popstate', syncStates);
@@ -41,13 +50,16 @@ const FilterContainer = ({ uniqueOwnerIds, children }) => {
     return () => {
       window.removeEventListener('popstate', syncStates);
     };
-  }, [uniqueOwnerIds]);
+  }, [uniqueOwnerIds, uniqueEpicIds]);
 
   const keyMap = useMemo(
     () => ({
       n: () => dispatch({ type: selectNextOwner }),
       p: () => dispatch({ type: selectPrevOwner }),
-      c: () => dispatch({ type: clearOwners })
+      c: () => dispatch({ type: clearOwners }),
+      N: () => dispatch({ type: selectNextEpic }),
+      P: () => dispatch({ type: selectPrevEpic }),
+      C: () => dispatch({ type: clearEpics })
     }),
     [dispatch]
   );
@@ -61,20 +73,27 @@ const FilterContainer = ({ uniqueOwnerIds, children }) => {
         .filter(
           story =>
             filterByOwner(story, state.selectedOwners) &&
+            filterByEpic(story, uniqueEpicIds, state.selectedEpics) &&
             filterByType(story, state.selectedTypes) &&
             filterByStoryStates(story, storyStates)
         ),
-    [state.selectedOwners, state.selectedTypes]
+    [
+      state.selectedOwners,
+      uniqueEpicIds,
+      state.selectedEpics,
+      state.selectedTypes
+    ]
   );
 
   const value = useMemo(
     () => ({
       ...state,
       uniqueOwnerIds,
+      uniqueEpicIds,
       dispatch,
       filter
     }),
-    [state, uniqueOwnerIds, dispatch, filter]
+    [state, uniqueOwnerIds, uniqueEpicIds, dispatch, filter]
   );
 
   return (
@@ -84,6 +103,7 @@ const FilterContainer = ({ uniqueOwnerIds, children }) => {
 
 FilterContainer.propTypes = {
   uniqueOwnerIds: arrayOf(number),
+  uniqueEpicIds: arrayOf(number),
   children: node
 };
 
@@ -94,5 +114,9 @@ export {
   clearOwners,
   selectNextOwner,
   selectPrevOwner,
+  toggleEpic,
+  clearEpics,
+  selectNextEpic,
+  selectPrevEpic,
   toggleType
 } from './reducer';

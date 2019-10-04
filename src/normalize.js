@@ -10,12 +10,26 @@ const normalizeArray = array => {
   return obj;
 };
 
+const normalizeEpicsArray = array => {
+  const obj = {};
+
+  array.forEach(element => {
+    obj[element.label.id] = element;
+  });
+
+  return obj;
+};
+
 const uniqueArray = array =>
   array.filter((value, index, self) => self.indexOf(value) === index);
 
 const removeReleaseStories = story => story.storyType !== 'release';
 
-const normalize = ({ iterationResponse, membershipsResponse }) => {
+const normalize = ({
+  iterationResponse,
+  membershipsResponse,
+  epicsResponse
+}) => {
   const currentIteration = iterationResponse[0];
 
   const { stories: allStories, ...iteration } = currentIteration;
@@ -45,12 +59,34 @@ const normalize = ({ iterationResponse, membershipsResponse }) => {
     getDayOfYear(new Date())
   );
 
+  const activeLabelIds = userStories.reduce(
+    (acc, story) => acc.concat(story.labels.map(label => label.id)),
+    []
+  );
+  const activeEpics = epicsResponse.filter(epic =>
+    activeLabelIds.includes(epic.label.id)
+  );
+  activeEpics.push({
+    id: -1,
+    kind: 'epic',
+    name: 'No Epic',
+    label: { id: -1 }
+  });
+
+  const epics = normalizeEpicsArray(activeEpics);
+
+  const uniqueEpicIds = uniqueArray(
+    [].concat.apply([], activeEpics.map(epic => epic.label.id))
+  );
+
   return {
     iteration,
     stories,
     storyIds,
     people,
-    uniqueOwnerIds
+    epics,
+    uniqueOwnerIds,
+    uniqueEpicIds
   };
 };
 

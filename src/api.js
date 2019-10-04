@@ -16,6 +16,9 @@ export const getCurrentIteration = projectId =>
     axios.get(`projects/${projectId}/iterations?scope=current`, options())
   );
 
+export const getEpics = projectId =>
+  request(axios.get(`projects/${projectId}/epics`, options()));
+
 export const getMemberships = projectId =>
   request(axios.get(`projects/${projectId}/memberships`, options()));
 

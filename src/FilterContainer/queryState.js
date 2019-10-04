@@ -1,5 +1,5 @@
 import { window } from '../services';
-import { normalizeOwners, normalizeTypes } from './normalize';
+import { normalizeOwners, normalizeEpics, normalizeTypes } from './normalize';
 
 const queryString = require('query-string');
 
@@ -7,7 +7,7 @@ const queryStringOptions = {
   arrayFormat: 'comma'
 };
 
-function getQueryState(uniqueOwnerIds) {
+function getQueryState(uniqueOwnerIds, uniqueEpicIds) {
   const queryState = queryString.parse(
     window.location.search,
     queryStringOptions
@@ -15,6 +15,7 @@ function getQueryState(uniqueOwnerIds) {
 
   return {
     selectedOwners: normalizeOwners(queryState.selectedOwners, uniqueOwnerIds),
+    selectedEpics: normalizeEpics(queryState.selectedEpics, uniqueEpicIds),
     selectedTypes: normalizeTypes(queryState.selectedTypes)
   };
 }
