@@ -28,19 +28,26 @@ A replacement for the PivotalTracker interface. If you want to do searching, edi
 
 # Features
 
-- **NEW: DRAG N' DROP** Change state of stories by dragging them to another column. If a developer has forgotten to opdate a story, you can now easily do it right in the standup by dragging the story card to the correct collum.
+- **NEW: Filter by epic**
 
-- **NEW: KEYBOARD SHORTCUTS**
+  Kudos to @leapingfrogs for building "filter by epic"
 
-  - Pres N key to move owner filter to next owner.
-  - Pres P key to move owner filter to previous owner.
-  - Pres C key to clear owner filters.
+- KEYBOARD SHORTCUTS
+
+  - Pres n key to move owner filter to next owner.
+  - Pres p key to move owner filter to previous owner.
+  - Pres c key to clear owner filters.
+  - Pres N (shift + n) to move epic filter to next epic.
+  - Pres N (shift + p) to move epic filter to previous epic.
+  - Pres N (shift + c) to clear epic filters.
+
+* Drag n' drop stories. Change state of stories by dragging them to another column. If a developer has forgotten to opdate a story, you can now easily do it right in the standup by dragging the story card to the correct collum.
 
 - Displays your current pivotal iteration in 4 column layout: Pending, Started, Review, Done.
 
 - Lets you easily switch between projects.
 
-- Lets you filter the stories based on owners or type of story (bug, feature, chore) or both.
+- Lets you filter the stories based on epics, owners or type of story (bug, feature, chore) or combinations of these.
 
 - Shuffles the owner list each day, so if you are using the filters to ease the standup, you dont have the same person starting every day.
 
