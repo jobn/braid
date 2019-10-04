@@ -77,7 +77,12 @@ const FilterContainer = ({ uniqueOwnerIds, uniqueEpicIds, children }) => {
             filterByType(story, state.selectedTypes) &&
             filterByStoryStates(story, storyStates)
         ),
-    [state.selectedOwners, state.selectedEpics, state.selectedTypes]
+    [
+      state.selectedOwners,
+      uniqueEpicIds,
+      state.selectedEpics,
+      state.selectedTypes
+    ]
   );
 
   const value = useMemo(
