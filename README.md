@@ -30,7 +30,7 @@ A replacement for the PivotalTracker interface. If you want to do searching, edi
 
 - **NEW: Filter by epic**
 
-  Kudos to @leapingfrogs for building "filter by epic"
+  Kudos to [@leapingfrogs](https://github.com/leapingfrogs) for building "filter by epic"
 
 - KEYBOARD SHORTCUTS
 
