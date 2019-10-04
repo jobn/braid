@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { localStorage } from './services';
 
+const FALLBACK_STATE = 'null';
+
 function useLocalStorage(key) {
   const [state, setState] = useState(
-    JSON.parse(localStorage.getItem(key) || 'null')
+    JSON.parse(localStorage.getItem(key) || FALLBACK_STATE)
   );
 
   useEffect(() => {
     const handler = nextState => {
-      setState(JSON.parse(nextState || 'null'));
+      setState(JSON.parse(nextState || FALLBACK_STATE));
     };
 
     localStorage.addEventListener(key, handler);
@@ -18,7 +20,7 @@ function useLocalStorage(key) {
     };
   }, [key]);
 
-  const setStorage = (nextState = {}) => {
+  const setStorage = (nextState = FALLBACK_STATE) => {
     localStorage.setItem(key, JSON.stringify(nextState));
   };
 
