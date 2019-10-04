@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Initials } from './Initials';
-import { Epics } from './Epics';
+import { EpicName } from './EpicName';
 import { FilterContext } from './FilterContainer';
 import { storyTypes } from './storyTypes';
 
@@ -19,7 +19,7 @@ function FilterSummary() {
 
       {selectedEpics.map(id => (
         <span className="tag is-primary" key={id}>
-          <Epics id={id} />
+          <EpicName id={id} />
         </span>
       ))}
 

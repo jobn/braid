@@ -58,9 +58,9 @@ describe('Filters', () => {
     expect(getByText('BB').parentElement).toHaveClass('is-primary');
     expect(getByText('CC').parentElement).toHaveClass('is-primary');
 
-    expect(getByText('E:AA').parentElement).not.toHaveClass('is-primary');
-    expect(getByText('E:BB').parentElement).toHaveClass('is-primary');
-    expect(getByText('E:CC').parentElement).toHaveClass('is-primary');
+    expect(getByText('E:AA')).not.toHaveClass('is-primary');
+    expect(getByText('E:BB')).toHaveClass('is-primary');
+    expect(getByText('E:CC')).toHaveClass('is-primary');
 
     expect(getByText('chore')).not.toHaveClass('is-info');
     expect(getByText('blocked')).not.toHaveClass('is-warning');
@@ -136,11 +136,11 @@ describe('Filters', () => {
     it('toggles epic on click', () => {
       const { getByText } = renderSubject();
 
-      expect(getByText('E:AA').parentElement).not.toHaveClass('is-primary');
+      expect(getByText('E:AA')).not.toHaveClass('is-primary');
 
       fireEvent.click(getByText('E:AA'));
 
-      expect(getByText('E:AA').parentElement).toHaveClass('is-primary');
+      expect(getByText('E:AA')).toHaveClass('is-primary');
       expect(window.location.search).toEqual('selectedEpics=4');
     });
   });
@@ -150,12 +150,12 @@ describe('Filters', () => {
       window.location.search = 'selectedEpics=5';
       const { getByText, getByTestId } = renderSubject();
 
-      expect(getByText('E:BB').parentElement).toHaveClass('is-primary');
+      expect(getByText('E:BB')).toHaveClass('is-primary');
 
       fireEvent.click(getByTestId('nextEpic'));
 
-      expect(getByText('E:BB').parentElement).not.toHaveClass('is-primary');
-      expect(getByText('E:CC').parentElement).toHaveClass('is-primary');
+      expect(getByText('E:BB')).not.toHaveClass('is-primary');
+      expect(getByText('E:CC')).toHaveClass('is-primary');
       expect(window.location.search).toEqual('selectedEpics=6');
     });
   });
@@ -166,12 +166,12 @@ describe('Filters', () => {
 
       const { getByText, getByTestId } = renderSubject();
 
-      expect(getByText('E:BB').parentElement).toHaveClass('is-primary');
+      expect(getByText('E:BB')).toHaveClass('is-primary');
 
       fireEvent.click(getByTestId('prevEpic'));
 
-      expect(getByText('E:BB').parentElement).not.toHaveClass('is-primary');
-      expect(getByText('E:AA').parentElement).toHaveClass('is-primary');
+      expect(getByText('E:BB')).not.toHaveClass('is-primary');
+      expect(getByText('E:AA')).toHaveClass('is-primary');
       expect(window.location.search).toEqual('selectedEpics=4');
     });
   });

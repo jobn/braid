@@ -6,7 +6,6 @@ import {
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import { Initials } from './Initials';
-import { Epics } from './Epics';
 import {
   FilterContext,
   toggleOwner,
@@ -20,6 +19,7 @@ import {
   toggleType
 } from './FilterContainer';
 import { storyTypes } from './storyTypes';
+import { EpicName } from './EpicName';
 
 const Filters = () => {
   const {
@@ -200,7 +200,7 @@ const Filters = () => {
                   }`}
                   onClick={handleEpicClick}
                 >
-                  <Epics id={id} />
+                  <EpicName id={id} />
                 </button>
               </p>
             ))}
