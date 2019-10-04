@@ -255,7 +255,7 @@ const Filters = () => {
               </p>
             </div>
           </div>
-        </div>{' '}
+        </div>
       </div>
     </Fragment>
   );
