@@ -32,7 +32,11 @@ A replacement for the PivotalTracker interface. If you want to do searching, edi
 
   Kudos to [@leapingfrogs](https://github.com/leapingfrogs) for building "filter by epic"
 
-- KEYBOARD SHORTCUTS
+- **NEW: Option to disable squashing of Done and Accepted columns**
+
+  Change the setting in the settings-tray in the lower right corner. The setting is persisted in localStorage.
+
+* KEYBOARD SHORTCUTS
 
   - Pres n key to move owner filter to next owner.
   - Pres p key to move owner filter to previous owner.
@@ -41,16 +45,16 @@ A replacement for the PivotalTracker interface. If you want to do searching, edi
   - Pres N (shift + p) to move epic filter to previous epic.
   - Pres N (shift + c) to clear epic filters.
 
-* Drag n' drop stories. Change state of stories by dragging them to another column. If a developer has forgotten to opdate a story, you can now easily do it right in the standup by dragging the story card to the correct collum.
+- Drag n' drop stories. Change state of stories by dragging them to another column. If a developer has forgotten to opdate a story, you can now easily do it right in the standup by dragging the story card to the correct collum.
 
-- Displays your current pivotal iteration in 4 column layout: Pending, Started, Review, Done.
+* Displays your current pivotal iteration in 4 column layout: Pending, Started, Review, Done.
 
-- Lets you easily switch between projects.
+* Lets you easily switch between projects.
 
-- Lets you filter the stories based on epics, owners or type of story (bug, feature, chore) or combinations of these.
+* Lets you filter the stories based on epics, owners or type of story (bug, feature, chore) or combinations of these.
 
-- Shuffles the owner list each day, so if you are using the filters to ease the standup, you dont have the same person starting every day.
+* Shuffles the owner list each day, so if you are using the filters to ease the standup, you dont have the same person starting every day.
 
-- Keeps selected filters across page reloads.
+* Keeps selected filters across page reloads.
 
-- Braid is entirely a client side application. There is only a static file-server the hosts the html and javascript assets. It stores your pivotal api token in your browser localstorage. Clicking logout will clear the localstorage
+* Braid is entirely a client side application. There is only a static file-server the hosts the html and javascript assets. It stores your pivotal api token in your browser localstorage. Clicking logout will clear the localstorage
