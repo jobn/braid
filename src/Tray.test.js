@@ -1,12 +1,17 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { Tray } from './Tray';
+import { Footer } from './Footer';
 
 describe('Tray', () => {
   const TestChild = () => <div data-testid="test-child" />;
 
+  const renderWithContext = subject => {
+    return render(<Footer>{subject}</Footer>);
+  };
+
   it('renders children', () => {
-    const { queryByTestId } = render(
+    const { queryByTestId } = renderWithContext(
       <Tray title="title">
         <TestChild />
       </Tray>
@@ -16,7 +21,7 @@ describe('Tray', () => {
   });
 
   it('renders title', () => {
-    const { queryByText } = render(
+    const { queryByText } = renderWithContext(
       <Tray title="title">
         <TestChild />
       </Tray>
@@ -27,7 +32,7 @@ describe('Tray', () => {
 
   describe('when closed', () => {
     it('render closed style', () => {
-      const { getByTestId } = render(
+      const { getByTestId } = renderWithContext(
         <Tray title="title">
           <TestChild />
         </Tray>
@@ -37,7 +42,7 @@ describe('Tray', () => {
     });
 
     it('renders label', () => {
-      const { queryByText } = render(
+      const { queryByText } = renderWithContext(
         <Tray title="title" renderLabel={() => <div>Closed label</div>}>
           <TestChild />
         </Tray>
@@ -47,7 +52,7 @@ describe('Tray', () => {
     });
 
     it('renders angle-up icon', () => {
-      const { container } = render(
+      const { container } = renderWithContext(
         <Tray title="title">
           <TestChild />
         </Tray>
@@ -57,7 +62,7 @@ describe('Tray', () => {
     });
 
     it('opens on click', () => {
-      const { container, getByTestId } = render(
+      const { container, getByTestId } = renderWithContext(
         <Tray title="title">
           <TestChild />
         </Tray>
@@ -71,7 +76,7 @@ describe('Tray', () => {
 
   describe('when open', () => {
     it('renders angle-down icon', () => {
-      const { container } = render(
+      const { container } = renderWithContext(
         <Tray title="title">
           <TestChild />
         </Tray>
@@ -83,7 +88,7 @@ describe('Tray', () => {
     });
 
     it('does not render label', () => {
-      const { container, queryByText } = render(
+      const { container, queryByText } = renderWithContext(
         <Tray title="title" renderLabel={() => <div>Closed label</div>}>
           <TestChild />
         </Tray>
@@ -95,7 +100,7 @@ describe('Tray', () => {
     });
 
     it('closes on click', () => {
-      const { container, getByTestId } = render(
+      const { container, getByTestId } = renderWithContext(
         <Tray title="title">
           <TestChild />
         </Tray>
@@ -113,7 +118,7 @@ describe('Tray', () => {
 
   describe('rightAlign', () => {
     it('pulls link to the right', () => {
-      const { container } = render(
+      const { container } = renderWithContext(
         <Tray title="title" rightAlign>
           <TestChild />
         </Tray>

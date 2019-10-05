@@ -11,6 +11,8 @@ import { FilterSummary } from './FilterSummary';
 import { ColumnContainer } from './ColumnContainer';
 import { FilterModal } from './FilterModal';
 import { FilterEpicsModal } from './FilterEpicsModal';
+import { useLocalStorage } from './useLocalStorage';
+import { Settings } from './Settings';
 
 const Project = ({
   uniqueOwnerIds,
@@ -20,75 +22,107 @@ const Project = ({
   uniqueEpicIds,
   epics,
   dispatch
-}) => (
-  <PeopleContext.Provider value={people}>
-    <EpicsContext.Provider value={epics}>
-      <FilterContainer
-        uniqueOwnerIds={uniqueOwnerIds}
-        uniqueEpicIds={uniqueEpicIds}
-      >
-        <section className="section" style={{ paddingBottom: '12rem' }}>
-          <ColumnContainer dispatch={dispatch}>
-            <div className="columns">
-              <Column
-                title="Pending"
-                storyIds={storyIds}
-                stories={stories}
-                storyStates={['planned', 'unstarted']}
-                featureDropState="unstarted"
-                bugDropState="unstarted"
-                choreDropState="unstarted"
-              />
+}) => {
+  const [splitFinalColumns] = useLocalStorage('splitColumns');
 
-              <Column
-                title="Started"
-                storyIds={storyIds}
-                stories={stories}
-                storyStates={['started']}
-                featureDropState="started"
-                bugDropState="started"
-                choreDropState="started"
-              />
+  return (
+    <PeopleContext.Provider value={people}>
+      <EpicsContext.Provider value={epics}>
+        <FilterContainer
+          uniqueOwnerIds={uniqueOwnerIds}
+          uniqueEpicIds={uniqueEpicIds}
+        >
+          <section className="section" style={{ paddingBottom: '12rem' }}>
+            <ColumnContainer dispatch={dispatch}>
+              <div className="columns">
+                <Column
+                  title="Pending"
+                  storyIds={storyIds}
+                  stories={stories}
+                  storyStates={['planned', 'unstarted']}
+                  featureDropState="unstarted"
+                  bugDropState="unstarted"
+                  choreDropState="unstarted"
+                />
 
-              <Column
-                title="Review"
-                storyIds={storyIds}
-                stories={stories}
-                storyStates={['finished']}
-                featureDropState="finished"
-                bugDropState="finished"
-                choreDropState={null}
-              />
+                <Column
+                  title="Started"
+                  storyIds={storyIds}
+                  stories={stories}
+                  storyStates={['started']}
+                  featureDropState="started"
+                  bugDropState="started"
+                  choreDropState="started"
+                />
 
-              <Column
-                title="Accepted | Done"
-                storyIds={storyIds}
-                stories={stories}
-                storyStates={['delivered', 'accepted']}
-                featureDropState="delivered"
-                bugDropState="delivered"
-                choreDropState="accepted"
-              />
-            </div>
-          </ColumnContainer>
-        </section>
+                <Column
+                  title="Review"
+                  storyIds={storyIds}
+                  stories={stories}
+                  storyStates={['finished']}
+                  featureDropState="finished"
+                  bugDropState="finished"
+                  choreDropState={null}
+                />
 
-        <Footer>
-          <Tray
-            rightAlign
-            title="Filters"
-            renderLabel={() => <FilterSummary />}
-          >
-            <Filters />
-          </Tray>
-        </Footer>
+                {splitFinalColumns ? (
+                  <>
+                    <Column
+                      title="Done"
+                      storyIds={storyIds}
+                      stories={stories}
+                      storyStates={['delivered']}
+                      featureDropState="delivered"
+                      bugDropState="delivered"
+                      choreDropState={null}
+                    />
 
-        <FilterModal />
-        <FilterEpicsModal />
-      </FilterContainer>
-    </EpicsContext.Provider>
-  </PeopleContext.Provider>
-);
+                    <Column
+                      title="Accepted"
+                      storyIds={storyIds}
+                      stories={stories}
+                      storyStates={['accepted']}
+                      featureDropState="accepted"
+                      bugDropState="accepted"
+                      choreDropState="accepted"
+                    />
+                  </>
+                ) : (
+                  <Column
+                    title="Accepted | Done"
+                    storyIds={storyIds}
+                    stories={stories}
+                    storyStates={['delivered', 'accepted']}
+                    featureDropState="delivered"
+                    bugDropState="delivered"
+                    choreDropState="accepted"
+                  />
+                )}
+              </div>
+            </ColumnContainer>
+          </section>
+
+          <Footer>
+            <Tray
+              title="Filters"
+              fullWidth
+              renderLabel={() => <FilterSummary />}
+            >
+              <Filters />
+            </Tray>
+
+            <Tray title="Settings" rightAlign>
+              <Settings />
+            </Tray>
+          </Footer>
+
+          <FilterModal />
+          <FilterEpicsModal />
+        </FilterContainer>
+      </EpicsContext.Provider>
+    </PeopleContext.Provider>
+  );
+};
 
 Project.propTypes = {
   people: object,
