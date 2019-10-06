@@ -32,7 +32,7 @@ A replacement for the PivotalTracker interface. If you want to do searching, edi
 
   Kudos to [@leapingfrogs](https://github.com/leapingfrogs) for building "filter by epic"
 
-- **NEW: Option to disable squashing of Done and Accepted columns**
+- **NEW: Option to disable squashing of Delivered and Accepted columns**
 
   Change the setting in the settings-tray in the lower right corner. The setting is persisted in localStorage.
 
@@ -47,7 +47,10 @@ A replacement for the PivotalTracker interface. If you want to do searching, edi
 
 - Drag n' drop stories. Change state of stories by dragging them to another column. If a developer has forgotten to opdate a story, you can now easily do it right in the standup by dragging the story card to the correct collum.
 
-* Displays your current pivotal iteration in 4 column layout: Pending, Started, Review, Done.
+* Displays your current pivotal iteration in 4 or 5 column layout:
+
+  - Pending, Started, Finished, Delivered | Accepted. Where stories with delivered and accepted state are show in the same column.
+  - Pending, Started, Finished, Delivered, Accepted. Where each state has its own column.
 
 * Lets you easily switch between projects.
 

@@ -22,11 +22,11 @@ const Settings = () => {
 
         <div className="media-content content" style={{ marginRight: '1rem' }}>
           <h4>
-            Combine &ldquo;Done&rdquo; and &ldquo;Accepted&rdquo; columns into
-            one
+            Combine &ldquo;Delivered&rdquo; and &ldquo;Accepted&rdquo; columns
+            into one
           </h4>
           <p>
-            Enable this setting to have the Done and Accepted story states
+            Enable this setting to have the Delivered and Accepted story states
             represented as a single column in the view.
             <br />
             Current state: <b>{splitFinalColumns ? 'disabled' : 'enabled'}</b>

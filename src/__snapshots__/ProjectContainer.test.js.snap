@@ -35,7 +35,7 @@ exports[`ProjectContainer renders fetched and normalized data 1`] = `
       <h4
         class="title is-4 has-text-centered"
       >
-        Review
+        Finished
       </h4>
     </div>
     <div
@@ -45,7 +45,7 @@ exports[`ProjectContainer renders fetched and normalized data 1`] = `
       <h4
         class="title is-4 has-text-centered"
       >
-        Accepted | Done
+        Delivered | Accepted
       </h4>
       <div
         class="card"
