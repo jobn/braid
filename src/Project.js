@@ -56,7 +56,7 @@ const Project = ({
                 />
 
                 <Column
-                  title="Review"
+                  title="Finished"
                   storyIds={storyIds}
                   stories={stories}
                   storyStates={['finished']}
@@ -68,7 +68,7 @@ const Project = ({
                 {splitFinalColumns ? (
                   <>
                     <Column
-                      title="Done"
+                      title="Delivered"
                       storyIds={storyIds}
                       stories={stories}
                       storyStates={['delivered']}
@@ -89,7 +89,7 @@ const Project = ({
                   </>
                 ) : (
                   <Column
-                    title="Accepted | Done"
+                    title="Delivered | Accepted"
                     storyIds={storyIds}
                     stories={stories}
                     storyStates={['delivered', 'accepted']}
