@@ -136,10 +136,6 @@ function ProjectContainer({ id, render }) {
           type: 'FETCH_ITERATION_SUCCESS',
           payload: { iterationResponse, membershipsResponse, epicsResponse }
         });
-
-        const blockers = await getBlockers(id, getStoryIds(iterationResponse));
-
-        dispatch({ type: 'FETCH_BLOCKERS_SUCCESS', payload: blockers });
       } catch (error) {
         dispatch({ type: 'FETCH_REQUEST_ERROR', payload: error });
       }
@@ -147,6 +143,22 @@ function ProjectContainer({ id, render }) {
 
     fetchData(id);
   }, [id]);
+
+  useEffect(() => {
+    const fetchBlockers = async () => {
+      try {
+        const blockers = await getBlockers(id, state.storyIds);
+
+        dispatch({ type: 'FETCH_BLOCKERS_SUCCESS', payload: blockers });
+      } catch (error) {
+        dispatch({ type: 'FETCH_REQUEST_ERROR', payload: error });
+      }
+    };
+
+    if (state.storyIds.length > 0) {
+      fetchBlockers();
+    }
+  }, [id, state.storyIds]);
 
   useEffect(() => {
     const updateStorySideEffect = async ({ storyId, target }) => {
