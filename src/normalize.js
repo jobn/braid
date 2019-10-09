@@ -25,7 +25,7 @@ const uniqueArray = array =>
 
 const removeReleaseStories = story => story.storyType !== 'release';
 
-const normalize = ({
+export const normalize = ({
   iterationResponse,
   membershipsResponse,
   epicsResponse
@@ -63,9 +63,11 @@ const normalize = ({
     (acc, story) => acc.concat(story.labels.map(label => label.id)),
     []
   );
+
   const activeEpics = epicsResponse.filter(epic =>
     activeLabelIds.includes(epic.label.id)
   );
+
   activeEpics.push({
     id: -1,
     kind: 'epic',
@@ -89,8 +91,3 @@ const normalize = ({
     uniqueEpicIds
   };
 };
-
-const getStoryIds = iterationResponse =>
-  iterationResponse[0].stories.map(story => story.id);
-
-export { normalize, getStoryIds };
