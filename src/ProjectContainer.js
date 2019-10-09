@@ -8,7 +8,7 @@ import {
   getEpics
 } from './api';
 import { Spinner } from './Spinner';
-import { normalize, getStoryIds } from './normalize';
+import { normalize } from './normalize';
 import { Project } from './Project';
 
 const initialState = {
