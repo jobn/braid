@@ -40,7 +40,14 @@ function reducer(state, action) {
 
       payload.forEach(story => {
         if (story.blockers.length > 0) {
-          storiesWithBlockers[story.id].blockers = story.blockers;
+          if (storiesWithBlockers[story.id]) {
+            storiesWithBlockers[story.id].blockers = story.blockers;
+          } else {
+            console.warn(
+              'Recieved blockers for unknow story, with id',
+              story.id
+            );
+          }
         }
       });
 
