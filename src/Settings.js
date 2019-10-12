@@ -6,6 +6,8 @@ const Settings = () => {
     'splitColumns'
   );
 
+  const [slim, setSlim] = useLocalStorage('slim');
+
   return (
     <div>
       <div className="media">
@@ -30,6 +32,31 @@ const Settings = () => {
             represented as a single column in the view.
             <br />
             Current state: <b>{splitFinalColumns ? 'disabled' : 'enabled'}</b>
+          </p>
+        </div>
+      </div>
+
+      <div className="media">
+        <div className="media-left">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={slim ? 'checked' : false}
+              onChange={() => setSlim(!slim)}
+            />
+            <div></div>
+          </label>
+        </div>
+
+        <div className="media-content content" style={{ marginRight: '1rem' }}>
+          <h4>
+            <span className="is-underline">S</span>lim theme
+          </h4>
+          <p>
+            Enable this setting to have each story take up less space on screen,
+            and see more stories at a time.
+            <br />
+            Current state: <b>{slim ? 'enabled' : 'disabled'}</b>
           </p>
         </div>
       </div>
