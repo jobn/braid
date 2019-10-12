@@ -65,7 +65,7 @@ describe('Story', () => {
   const renderSubject = props =>
     render(
       <PeopleContext.Provider value={people}>
-        <Story {...story} {...props} />
+        <Story {...story} slim={false} {...props} />
       </PeopleContext.Provider>
     );
 
@@ -167,6 +167,24 @@ describe('Story', () => {
 
       expect(queryByTestId('blocked-tag')).toBeInTheDocument();
       expect(queryByTestId('blocked-tag')).not.toBeVisible();
+    });
+  });
+
+  describe('slim theme', () => {
+    it('renders story with slim tags', () => {
+      const { queryByTestId } = renderSubject({
+        slim: true,
+        blockers: [{ resolved: false }]
+      });
+
+      expect(queryByTestId('slim-tags')).toBeInTheDocument();
+
+      expect(queryByTestId('estimate-tag')).not.toBeInTheDocument();
+      expect(queryByTestId('blocked-tag')).not.toBeInTheDocument();
+      expect(queryByTestId('owners')).not.toBeInTheDocument();
+      expect(queryByTestId('feature-tag')).not.toBeInTheDocument();
+      expect(queryByTestId('bug-tag')).not.toBeInTheDocument();
+      expect(queryByTestId('chore-tag')).not.toBeInTheDocument();
     });
   });
 });
