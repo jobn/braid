@@ -28,6 +28,10 @@ A replacement for the PivotalTracker interface. If you want to do searching, edi
 
 # Features
 
+- **NEW: Slim theme**
+
+  Want to have more stories on screen at a time? Try the slim theme. Toggle it in the settings tray or using the 's' keyboard shortcut.
+
 - **NEW: Filter by epic**
 
   Kudos to [@leapingfrogs](https://github.com/leapingfrogs) for building "filter by epic"
@@ -38,12 +42,13 @@ A replacement for the PivotalTracker interface. If you want to do searching, edi
 
 * KEYBOARD SHORTCUTS
 
-  - Pres n key to move owner filter to next owner.
-  - Pres p key to move owner filter to previous owner.
-  - Pres c key to clear owner filters.
-  - Pres N (shift + n) to move epic filter to next epic.
-  - Pres N (shift + p) to move epic filter to previous epic.
-  - Pres N (shift + c) to clear epic filters.
+  - Press n key to move owner filter to next owner.
+  - Press p key to move owner filter to previous owner.
+  - Press c key to clear owner filters.
+  - Press N (shift + n) to move epic filter to next epic.
+  - Press N (shift + p) to move epic filter to previous epic.
+  - Press N (shift + c) to clear epic filters.
+  - Press s to toggle the slim theme
 
 - Drag n' drop stories. Change state of stories by dragging them to another column. If a developer has forgotten to opdate a story, you can now easily do it right in the standup by dragging the story card to the correct collum.
 
