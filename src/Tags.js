@@ -38,6 +38,73 @@ export const EstimateTag = ({ estimate }) => {
   );
 };
 
+const getTypeColorClassName = storyType => {
+  switch (storyType) {
+    case 'feature': {
+      return 'has-background-primary';
+    }
+    case 'chore': {
+      return 'has-background-info';
+    }
+    case 'bug': {
+      return 'has-background-danger';
+    }
+    default: {
+      throw new Error('unknow storyType');
+    }
+  }
+};
+
+const getEstimateHeight = estimate => {
+  if (estimate >= 8) {
+    return '100%';
+  }
+
+  return `${estimate * 10}%`;
+};
+
+export const SlimTag = ({ estimate, storyType, blocked }) => {
+  const className = getTypeColorClassName(storyType);
+  const height = getEstimateHeight(estimate);
+
+  return (
+    <div
+      data-testid="slim-tags"
+      style={{
+        position: 'absolute',
+        top: '7px',
+        right: '7px',
+        width: '8px',
+        height: 'calc(100% - 14px)',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+    >
+      <div
+        className={className}
+        style={{
+          borderRadius: '4px',
+          flexShrink: '1',
+          flexGrow: '0',
+          flexBasis: height,
+          marginBottom: '6px',
+          minHeight: '8px'
+        }}
+      />
+
+      {blocked && (
+        <div
+          className="has-background-warning"
+          style={{
+            borderRadius: '4px',
+            flex: '0 0 8px'
+          }}
+        />
+      )}
+    </div>
+  );
+};
+
 export const LabelTag = ({ name }) => (
   <div className="tag" data-testid="label-tag">
     {name}

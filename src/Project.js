@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, object, number } from 'prop-types';
 import { Column } from './Column';
 import { Footer } from './Footer';
@@ -13,6 +13,7 @@ import { FilterModal } from './FilterModal';
 import { FilterEpicsModal } from './FilterEpicsModal';
 import { useLocalStorage } from './useLocalStorage';
 import { Settings } from './Settings';
+import { useKeyup } from './useKeyup';
 
 const Project = ({
   uniqueOwnerIds,
@@ -24,6 +25,16 @@ const Project = ({
   dispatch
 }) => {
   const [splitFinalColumns] = useLocalStorage('splitColumns');
+  const [slim, setSlim] = useLocalStorage('slim');
+
+  const keyMap = useMemo(
+    () => ({
+      s: () => setSlim(!slim)
+    }),
+    [slim, setSlim]
+  );
+
+  useKeyup(keyMap);
 
   return (
     <PeopleContext.Provider value={people}>
@@ -43,6 +54,7 @@ const Project = ({
                   featureDropState="unstarted"
                   bugDropState="unstarted"
                   choreDropState="unstarted"
+                  slim={slim}
                 />
 
                 <Column
@@ -53,6 +65,7 @@ const Project = ({
                   featureDropState="started"
                   bugDropState="started"
                   choreDropState="started"
+                  slim={slim}
                 />
 
                 <Column
@@ -63,6 +76,7 @@ const Project = ({
                   featureDropState="finished"
                   bugDropState="finished"
                   choreDropState={null}
+                  slim={slim}
                 />
 
                 {splitFinalColumns ? (
@@ -75,6 +89,7 @@ const Project = ({
                       featureDropState="delivered"
                       bugDropState="delivered"
                       choreDropState={null}
+                      slim={slim}
                     />
 
                     <Column
@@ -85,6 +100,7 @@ const Project = ({
                       featureDropState="accepted"
                       bugDropState="accepted"
                       choreDropState="accepted"
+                      slim={slim}
                     />
                   </>
                 ) : (
@@ -96,6 +112,7 @@ const Project = ({
                     featureDropState="delivered"
                     bugDropState="delivered"
                     choreDropState="accepted"
+                    slim={slim}
                   />
                 )}
               </div>

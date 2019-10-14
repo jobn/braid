@@ -6,7 +6,8 @@ import {
   ChoreTag,
   EstimateTag,
   FeatureTag,
-  LabelTag
+  LabelTag,
+  SlimTag
 } from './Tags';
 import { hasUnresolvedBlockers } from './FilterContainer';
 
@@ -34,7 +35,8 @@ function Story({
   url,
   currentState,
   onDragStart,
-  onDragEnd
+  onDragEnd,
+  slim
 }) {
   return (
     <div
@@ -47,8 +49,8 @@ function Story({
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
     >
-      <div className="card-content">
-        <div className="subtitle is-4">
+      <div className="card-content" style={slim ? { padding: '1rem' } : {}}>
+        <div className={`subtitle ${slim ? 'is-5 is-marginless' : 'is-4'}`}>
           <a
             href={url}
             className="has-text-grey-dark has-hover-underline"
@@ -59,26 +61,34 @@ function Story({
           </a>
         </div>
 
-        <div className="media">
-          <div className="media-content">
-            <div className="tags has-addons is-marginless">
-              {renderTypeTag(storyType)}
+        {slim ? (
+          <SlimTag
+            storyType={storyType}
+            estimate={estimate}
+            blocked={hasUnresolvedBlockers(blockers)}
+          />
+        ) : (
+          <div className="media">
+            <div className="media-content">
+              <div className="tags has-addons is-marginless">
+                {renderTypeTag(storyType)}
 
-              <EstimateTag estimate={estimate} />
+                <EstimateTag estimate={estimate} />
 
-              {labels.map(label => (
-                <LabelTag name={label.name} key={label.id} />
-              ))}
+                {labels.map(label => (
+                  <LabelTag name={label.name} key={label.id} />
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="media-right">
-            <Owners ownerIds={ownerIds} />
+            <div className="media-right">
+              <Owners ownerIds={ownerIds} />
+            </div>
+
+            <BlockedTag visible={hasUnresolvedBlockers(blockers)} />
           </div>
-        </div>
+        )}
       </div>
-
-      <BlockedTag visible={hasUnresolvedBlockers(blockers)} />
     </div>
   );
 }
