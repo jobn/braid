@@ -1,7 +1,6 @@
 import React from 'react';
 import { Owners } from './Owners';
 import {
-  BlockedTag,
   BugTag,
   ChoreTag,
   EstimateTag,
@@ -10,6 +9,7 @@ import {
   SlimTag
 } from './Tags';
 import { hasUnresolvedBlockers } from './FilterContainer';
+import { StoryBlockers } from './StoryBlockers';
 
 const renderTypeTag = type => {
   switch (type) {
@@ -84,10 +84,9 @@ function Story({
             <div className="media-right">
               <Owners ownerIds={ownerIds} />
             </div>
-
-            <BlockedTag visible={hasUnresolvedBlockers(blockers)} />
           </div>
         )}
+        <StoryBlockers blockers={blockers} />
       </div>
     </div>
   );
