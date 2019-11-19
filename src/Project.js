@@ -26,6 +26,7 @@ const Project = ({
 }) => {
   const [splitFinalColumns] = useLocalStorage('splitColumns');
   const [slim, setSlim] = useLocalStorage('slim');
+  const [rejected] = useLocalStorage('rejected');
 
   const keyMap = useMemo(
     () => ({
@@ -112,6 +113,18 @@ const Project = ({
                     featureDropState="delivered"
                     bugDropState="delivered"
                     choreDropState="accepted"
+                    slim={slim}
+                  />
+                )}
+                {rejected && (
+                  <Column
+                    title="Rejected"
+                    storyIds={storyIds}
+                    stories={stories}
+                    storyStates={['rejected']}
+                    featureDropState="rejected"
+                    bugDropState="rejected"
+                    choreDropState={null}
                     slim={slim}
                   />
                 )}

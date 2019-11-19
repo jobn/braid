@@ -7,6 +7,7 @@ const Settings = () => {
   );
 
   const [slim, setSlim] = useLocalStorage('slim');
+  const [rejected, setRejected] = useLocalStorage('rejected');
 
   return (
     <div>
@@ -60,6 +61,29 @@ const Settings = () => {
           </p>
         </div>
       </div>
+
+      <div className="media">
+        <div className="media-left">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={rejected ? 'checked' : false}
+              onChange={() => setRejected(!rejected)}
+            />
+            <div></div>
+          </label>
+        </div>
+
+        <div className="media-content content" style={{ marginRight: '1rem' }}>
+          <h4>Rejected state column</h4>
+          <p>
+            Enable this setting to have Rejected state column.
+            <br />
+            Current state: <b>{rejected ? 'enabled' : 'disabled'}</b>
+          </p>
+        </div>
+      </div>
+
     </div>
   );
 };
