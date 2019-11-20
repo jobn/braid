@@ -5,7 +5,7 @@ import { faBan } from '@fortawesome/free-solid-svg-icons';
 function StoryBlockers({ blockers }) {
   if (blockers && blockers.length) {
     return (
-      <div className="content is-small">
+      <div data-testid="story-blockers" className="content is-small">
         <hr style={{ margin: '0px 0 10px' }} />
         <span className="has-text-danger">
           <FontAwesomeIcon icon={faBan} size="1x" /> Blockers:

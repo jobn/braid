@@ -142,31 +142,21 @@ describe('Story', () => {
     expect(within(getByTestId('owners')).getByText('WT')).toBeInTheDocument();
   });
 
-  describe('blocked tag', () => {
-    it('renders visible blocked tag if blocked', () => {
+  describe('story blockers', () => {
+    it('renders blockers if blocked', () => {
       const { queryByTestId } = renderSubject({
         blockers: [{ resolved: false }]
       });
 
-      expect(queryByTestId('blocked-tag')).toBeVisible();
+      expect(queryByTestId('story-blockers')).toBeInTheDocument();
     });
 
-    it('renders invisible blocked tag if not blocked', () => {
-      const { queryByTestId } = renderSubject({
-        blockers: [{ resolved: true }]
-      });
-
-      expect(queryByTestId('blocked-tag')).toBeInTheDocument();
-      expect(queryByTestId('blocked-tag')).not.toBeVisible();
-    });
-
-    it('renders invisible blocked tag if no blockers', () => {
+    it('does not rnender blockers if no blockers', () => {
       const { queryByTestId } = renderSubject({
         blockers: []
       });
 
-      expect(queryByTestId('blocked-tag')).toBeInTheDocument();
-      expect(queryByTestId('blocked-tag')).not.toBeVisible();
+      expect(queryByTestId('story-blockers')).not.toBeInTheDocument();
     });
   });
 

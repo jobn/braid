@@ -146,13 +146,48 @@ exports[`ProjectContainer renders fetched and normalized data 1`] = `
                 </div>
               </div>
             </div>
+          </div>
+          <div
+            class="content is-small"
+            data-testid="story-blockers"
+          >
+            <hr
+              style="margin: 0px 0px 10px;"
+            />
             <span
-              class="tag is-warning"
-              data-testid="blocked-tag"
-              style="position: absolute; top: 10px; right: 0px; height: 1.75em; font-size: .65rem; opacity: 1; transition: opacity 1s; border-top-right-radius: 0; border-bottom-right-radius: 0;"
+              class="has-text-danger"
             >
-              Blocked
+              <svg
+                aria-hidden="true"
+                class="svg-inline--fa fa-ban fa-w-16 fa-1x "
+                data-icon="ban"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"
+                  fill="currentColor"
+                />
+              </svg>
+               Blockers:
             </span>
+            <ul
+              style="margin-top: 10px;"
+            >
+              <li>
+                <a
+                  class="is-small has-text-grey-dark has-hover-underline"
+                  href="https://www.pivotaltracker.com/story/show/Unknown"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  [Out of current iteration blocker]
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -245,13 +280,6 @@ exports[`ProjectContainer renders fetched and normalized data 1`] = `
                 </div>
               </div>
             </div>
-            <span
-              class="tag is-warning"
-              data-testid="blocked-tag"
-              style="position: absolute; top: 10px; right: 0px; height: 1.75em; font-size: .65rem; opacity: 0; transition: opacity 1s; border-top-right-radius: 0; border-bottom-right-radius: 0;"
-            >
-              Blocked
-            </span>
           </div>
         </div>
       </div>
