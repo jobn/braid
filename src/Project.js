@@ -26,12 +26,16 @@ const Project = ({
 }) => {
   const [splitFinalColumns] = useLocalStorage('splitColumns');
   const [slim, setSlim] = useLocalStorage('slim');
+  const [showTaskProgress, setShowTaskProgress] = useLocalStorage(
+    'showTaskProgress'
+  );
 
   const keyMap = useMemo(
     () => ({
-      s: () => setSlim(!slim)
+      s: () => setSlim(!slim),
+      t: () => setShowTaskProgress(!showTaskProgress)
     }),
-    [slim, setSlim]
+    [slim, setSlim, showTaskProgress, setShowTaskProgress]
   );
 
   useKeyup(keyMap);
@@ -55,6 +59,7 @@ const Project = ({
                   bugDropState="unstarted"
                   choreDropState="unstarted"
                   slim={slim}
+                  showTaskProgress={showTaskProgress}
                 />
 
                 <Column
@@ -66,6 +71,7 @@ const Project = ({
                   bugDropState="started"
                   choreDropState="started"
                   slim={slim}
+                  showTaskProgress={showTaskProgress}
                 />
 
                 <Column
@@ -77,6 +83,7 @@ const Project = ({
                   bugDropState="finished"
                   choreDropState={null}
                   slim={slim}
+                  showTaskProgress={showTaskProgress}
                 />
 
                 {splitFinalColumns ? (
@@ -90,6 +97,7 @@ const Project = ({
                       bugDropState="delivered"
                       choreDropState={null}
                       slim={slim}
+                      showTaskProgress={showTaskProgress}
                     />
 
                     <Column
@@ -101,6 +109,7 @@ const Project = ({
                       bugDropState="accepted"
                       choreDropState="accepted"
                       slim={slim}
+                      showTaskProgress={showTaskProgress}
                     />
                   </>
                 ) : (
@@ -113,6 +122,7 @@ const Project = ({
                     bugDropState="delivered"
                     choreDropState="accepted"
                     slim={slim}
+                    showTaskProgress={showTaskProgress}
                   />
                 )}
               </div>

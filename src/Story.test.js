@@ -65,7 +65,7 @@ describe('Story', () => {
   const renderSubject = props =>
     render(
       <PeopleContext.Provider value={people}>
-        <Story {...story} slim={false} {...props} />
+        <Story {...story} slim={false} showTaskProgress={false} {...props} />
       </PeopleContext.Provider>
     );
 

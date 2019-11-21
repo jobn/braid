@@ -36,7 +36,8 @@ function Story({
   currentState,
   onDragStart,
   onDragEnd,
-  slim
+  slim,
+  showTaskProgress
 }) {
   return (
     <div
