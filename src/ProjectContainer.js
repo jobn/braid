@@ -38,10 +38,37 @@ function reducer(state, action) {
     case 'FETCH_BLOCKERS_SUCCESS': {
       const storiesWithBlockers = { ...state.stories };
 
+      const matchStoryId = str =>
+        (str && str.match(/([0-9]){9}$/)[0]) || 'Unknown';
+
+      const getStoryBlockers = blockers => {
+        return blockers
+          .map(b => {
+            const storyId = matchStoryId(b.description);
+            const scopedStory = storiesWithBlockers[storyId];
+            return scopedStory
+              ? {
+                  id: scopedStory.id,
+                  url: scopedStory.url,
+                  name: scopedStory.name,
+                  resolved: b.resolved
+                }
+              : {
+                  id: storyId,
+                  url: `https://www.pivotaltracker.com/story/show/${storyId}`,
+                  name: '[Out of current iteration blocker]',
+                  resolved: b.resolved
+                };
+          })
+          .filter(b => !b.resolved);
+      };
+
       payload.forEach(story => {
         if (story.blockers.length > 0) {
           if (storiesWithBlockers[story.id]) {
-            storiesWithBlockers[story.id].blockers = story.blockers;
+            storiesWithBlockers[story.id].blockers = getStoryBlockers(
+              story.blockers
+            );
           } else {
             console.warn(
               'Recieved blockers for unknow story, with id',

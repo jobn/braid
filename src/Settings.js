@@ -7,6 +7,9 @@ const Settings = () => {
   );
 
   const [slim, setSlim] = useLocalStorage('slim');
+  const [showRejectedColumn, setShowRejectedColumn] = useLocalStorage(
+    'rejected'
+  );
 
   return (
     <div>
@@ -57,6 +60,28 @@ const Settings = () => {
             and see more stories at a time.
             <br />
             Current state: <b>{slim ? 'enabled' : 'disabled'}</b>
+          </p>
+        </div>
+      </div>
+
+      <div className="media">
+        <div className="media-left">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={showRejectedColumn ? 'checked' : false}
+              onChange={() => setShowRejectedColumn(!showRejectedColumn)}
+            />
+            <div></div>
+          </label>
+        </div>
+
+        <div className="media-content content" style={{ marginRight: '1rem' }}>
+          <h4>Rejected state column</h4>
+          <p>
+            Enable this setting to have Rejected state column.
+            <br />
+            Current state: <b>{showRejectedColumn ? 'enabled' : 'disabled'}</b>
           </p>
         </div>
       </div>
