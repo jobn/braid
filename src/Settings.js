@@ -7,7 +7,9 @@ const Settings = () => {
   );
 
   const [slim, setSlim] = useLocalStorage('slim');
-  const [rejected, setRejected] = useLocalStorage('rejected');
+  const [showRejectedColumn, setShowRejectedColumn] = useLocalStorage(
+    'rejected'
+  );
 
   return (
     <div>
@@ -67,8 +69,8 @@ const Settings = () => {
           <label className="switch">
             <input
               type="checkbox"
-              checked={rejected ? 'checked' : false}
-              onChange={() => setRejected(!rejected)}
+              checked={showRejectedColumn ? 'checked' : false}
+              onChange={() => setShowRejectedColumn(!showRejectedColumn)}
             />
             <div></div>
           </label>
@@ -79,7 +81,7 @@ const Settings = () => {
           <p>
             Enable this setting to have Rejected state column.
             <br />
-            Current state: <b>{rejected ? 'enabled' : 'disabled'}</b>
+            Current state: <b>{showRejectedColumn ? 'enabled' : 'disabled'}</b>
           </p>
         </div>
       </div>

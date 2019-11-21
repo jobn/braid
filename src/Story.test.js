@@ -151,7 +151,7 @@ describe('Story', () => {
       expect(queryByTestId('story-blockers')).toBeInTheDocument();
     });
 
-    it('does not rnender blockers if no blockers', () => {
+    it('does not render blockers if no blockers', () => {
       const { queryByTestId } = renderSubject({
         blockers: []
       });
