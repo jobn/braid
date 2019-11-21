@@ -10,9 +10,13 @@ import {
 
 jest.mock('./utils/getDayOfYear');
 
-const mockBlockers = [
-  { id: 563, blockers: [{ resolved: false }] },
-  { id: 564, blockers: [{ resolved: true }] }
+const mockBlockersAndTasks = [
+  { id: 563, blockers: [{ resolved: false }], tasks: [] },
+  {
+    id: 564,
+    blockers: [{ resolved: true }],
+    tasks: [{ complete: false }, { complete: true }]
+  }
 ];
 
 let mockRender;
@@ -22,7 +26,9 @@ describe('ProjectContainer', () => {
     api.getCurrentIteration = jest.fn(() => Promise.resolve(iterationResponse));
     api.getMemberships = jest.fn(() => Promise.resolve(membershipsResponse));
     api.getEpics = jest.fn(() => Promise.resolve(epicsResponse));
-    api.getBlockers = jest.fn(() => Promise.resolve(mockBlockers));
+    api.getBlockersAndTasks = jest.fn(() =>
+      Promise.resolve(mockBlockersAndTasks)
+    );
 
     mockRender = jest.fn(() => <div>mockRender</div>);
   });
@@ -52,7 +58,7 @@ describe('ProjectContainer', () => {
     render(<ProjectContainer id="1" render={mockRender} />);
 
     await wait();
-    expect(api.getBlockers).toHaveBeenCalledWith('1', [563, 564]);
+    expect(api.getBlockersAndTasks).toHaveBeenCalledWith('1', [563, 564]);
   });
 
   it('renders fetched and normalized data', async () => {

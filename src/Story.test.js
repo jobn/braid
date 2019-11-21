@@ -170,6 +170,15 @@ describe('Story', () => {
     });
   });
 
+  describe('renders task progress', () => {
+    const { queryByTestId } = renderSubject({
+      showTaskProgress: true,
+      tasks: [{ complete: false }]
+    });
+
+    expect(queryByTestId('progress-tag')).toBeInTheDocument();
+  });
+
   describe('slim theme', () => {
     it('renders story with slim tags', () => {
       const { queryByTestId } = renderSubject({
@@ -185,6 +194,19 @@ describe('Story', () => {
       expect(queryByTestId('feature-tag')).not.toBeInTheDocument();
       expect(queryByTestId('bug-tag')).not.toBeInTheDocument();
       expect(queryByTestId('chore-tag')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('showTaskProgress setting', () => {
+    it('renders story with task progress', () => {
+      const { queryByTestId } = renderSubject({
+        slim: false,
+        showTaskProgress: true,
+        blockers: [{ resolved: false }],
+        tasks: [{ complete: false }]
+      });
+
+      expect(queryByTestId('progress-tag')).toBeInTheDocument();
     });
   });
 });

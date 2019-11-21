@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faBug, faCog } from '@fortawesome/free-solid-svg-icons';
+import { faBug, faCog, faStar } from '@fortawesome/free-solid-svg-icons';
 
 export const FeatureTag = () => (
   <div className="tag is-primary" data-testid="feature-tag">
@@ -61,6 +61,83 @@ const getEstimateHeight = estimate => {
   }
 
   return `${estimate * 10}%`;
+};
+
+const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
+  var angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
+
+  return {
+    x: centerX + radius * Math.cos(angleInRadians),
+    y: centerY + radius * Math.sin(angleInRadians)
+  };
+};
+
+const describeArc = (x, y, radius, startAngle, endAngle) => {
+  var start = polarToCartesian(x, y, radius, endAngle);
+  var end = polarToCartesian(x, y, radius, startAngle);
+
+  var arcSweep = endAngle - startAngle <= 180 ? '0' : '1';
+
+  return [
+    'M',
+    start.x,
+    start.y,
+    'A',
+    radius,
+    radius,
+    0,
+    arcSweep,
+    0,
+    end.x,
+    end.y,
+    'L',
+    x,
+    y,
+    'L',
+    start.x,
+    start.y,
+    'Z'
+  ].join(' ');
+};
+
+export const ProgressTag = ({ tasks, width = 18, height = 18 }) => {
+  const cx = width * 0.5;
+  const cy = height * 0.5;
+  const radius = width * 0.45;
+
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(task => task.complete).length;
+  const angleInDegrees = Math.round((360 * completedTasks) / totalTasks);
+
+  return totalTasks === 0 ? null : (
+    <>
+      <span
+        className="tag is-light"
+        style={{ paddingLeft: '3px', paddingRight: '3px' }}
+        data-testid="progress-tag"
+      >
+        <svg width={width} height={height}>
+          <circle
+            cx={cx}
+            cy={cy}
+            r={radius}
+            stroke="#00d1b2"
+            strokeWidth="1"
+            fill={completedTasks === totalTasks ? '#00d1b2' : 'none'}
+          />
+          {completedTasks > 0 ? (
+            <path
+              d={describeArc(cx, cy, radius, 0, angleInDegrees)}
+              stroke="#00d1b2"
+              strokeWidth="1"
+              fill="#00d1b2"
+              strokeLinecap="round"
+            />
+          ) : null}
+        </svg>
+      </span>
+    </>
+  );
 };
 
 export const SlimTag = ({ estimate, storyType, blocked }) => {

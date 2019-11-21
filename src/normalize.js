@@ -45,7 +45,8 @@ export const normalize = ({
     stories[story.id] = {
       ...story,
       ownerIds: story.ownerIds.filter(id => peopleIds.includes(id.toString())),
-      blockers: []
+      blockers: [],
+      tasks: []
     };
   });
 
