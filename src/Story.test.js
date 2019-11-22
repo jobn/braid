@@ -172,12 +172,45 @@ describe('Story', () => {
   });
 
   describe('renders task progress', () => {
-    const { queryByTestId } = renderSubject({
-      showTaskProgress: true,
-      tasks: [{ complete: false }]
+    it('is not rendered when there are no tasks', () => {
+      const { queryByTestId } = renderSubject({
+        tasks: []
+      });
+
+      expect(queryByTestId('progress-tag')).not.toBeInTheDocument();
     });
 
-    expect(queryByTestId('progress-tag')).toBeInTheDocument();
+    it('is rendered when there are incomplete tasks', () => {
+      const { queryByTestId } = renderSubject({
+        tasks: [{ complete: false }, { complete: false }, { complete: true }]
+      });
+
+      expect(queryByTestId('progress-tag')).toBeInTheDocument();
+      expect(queryByTestId('progress-tag')).toHaveAttribute(
+        'aria-valuenow',
+        '1'
+      );
+      expect(queryByTestId('progress-tag')).toHaveAttribute(
+        'aria-valuemax',
+        '3'
+      );
+    });
+
+    it('is rendered when all tasks are complete', () => {
+      const { queryByTestId } = renderSubject({
+        tasks: [{ complete: true }, { complete: true }, { complete: true }]
+      });
+
+      expect(queryByTestId('progress-tag')).toBeInTheDocument();
+      expect(queryByTestId('progress-tag')).toHaveAttribute(
+        'aria-valuenow',
+        '3'
+      );
+      expect(queryByTestId('progress-tag')).toHaveAttribute(
+        'aria-valuemax',
+        '3'
+      );
+    });
   });
 
   describe('slim theme', () => {
