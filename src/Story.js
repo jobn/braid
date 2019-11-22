@@ -7,6 +7,7 @@ import {
   EstimateTag,
   FeatureTag,
   LabelTag,
+  ProgressTag,
   SlimTag
 } from './Tags';
 import { hasUnresolvedBlockers } from './FilterContainer';
@@ -32,6 +33,7 @@ function Story({
   estimate,
   ownerIds,
   blockers,
+  tasks,
   url,
   currentState,
   onDragStart,
@@ -74,6 +76,8 @@ function Story({
                 {renderTypeTag(storyType)}
 
                 <EstimateTag estimate={estimate} />
+
+                <ProgressTag tasks={tasks} />
 
                 {labels.map(label => (
                   <LabelTag name={label.name} key={label.id} />

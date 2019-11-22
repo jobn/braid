@@ -31,6 +31,7 @@ describe('Story', () => {
     acceptedAt: '2018-09-26T12:00:05Z',
     estimate: 3,
     blockers: [],
+    tasks: [],
     storyType: 'feature',
     name: 'Test the Expeditionary Battle Planetoid',
     description: 'Blow upp some stuff',
@@ -167,6 +168,48 @@ describe('Story', () => {
 
       expect(queryByTestId('blocked-tag')).toBeInTheDocument();
       expect(queryByTestId('blocked-tag')).not.toBeVisible();
+    });
+  });
+
+  describe('renders task progress', () => {
+    it('is not rendered when there are no tasks', () => {
+      const { queryByTestId } = renderSubject({
+        tasks: []
+      });
+
+      expect(queryByTestId('progress-tag')).not.toBeInTheDocument();
+    });
+
+    it('is rendered when there are incomplete tasks', () => {
+      const { queryByTestId } = renderSubject({
+        tasks: [{ complete: false }, { complete: false }, { complete: true }]
+      });
+
+      expect(queryByTestId('progress-tag')).toBeInTheDocument();
+      expect(queryByTestId('progress-tag')).toHaveAttribute(
+        'aria-valuenow',
+        '1'
+      );
+      expect(queryByTestId('progress-tag')).toHaveAttribute(
+        'aria-valuemax',
+        '3'
+      );
+    });
+
+    it('is rendered when all tasks are complete', () => {
+      const { queryByTestId } = renderSubject({
+        tasks: [{ complete: true }, { complete: true }, { complete: true }]
+      });
+
+      expect(queryByTestId('progress-tag')).toBeInTheDocument();
+      expect(queryByTestId('progress-tag')).toHaveAttribute(
+        'aria-valuenow',
+        '3'
+      );
+      expect(queryByTestId('progress-tag')).toHaveAttribute(
+        'aria-valuemax',
+        '3'
+      );
     });
   });
 

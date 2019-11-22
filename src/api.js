@@ -22,11 +22,11 @@ export const getEpics = projectId =>
 export const getMemberships = projectId =>
   request(axios.get(`projects/${projectId}/memberships`, options()));
 
-export const getBlockers = (projectId, storyIds) =>
+export const getBlockersAndTasks = (projectId, storyIds) =>
   request(
     axios.get(
       `projects/${projectId}/stories/bulk`,
-      options({ params: { ids: storyIds.join(','), fields: 'blockers' } })
+      options({ params: { ids: storyIds.join(','), fields: 'blockers,tasks' } })
     )
   );
 

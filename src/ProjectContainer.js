@@ -3,7 +3,7 @@ import { string } from 'prop-types';
 import {
   getCurrentIteration,
   getMemberships,
-  getBlockers,
+  getBlockersAndTasks,
   putStory,
   getEpics
 } from './api';
@@ -36,22 +36,21 @@ function reducer(state, action) {
     }
 
     case 'FETCH_BLOCKERS_SUCCESS': {
-      const storiesWithBlockers = { ...state.stories };
+      const storiesWithBlockersAndTasks = { ...state.stories };
 
       payload.forEach(story => {
-        if (story.blockers.length > 0) {
-          if (storiesWithBlockers[story.id]) {
-            storiesWithBlockers[story.id].blockers = story.blockers;
-          } else {
-            console.warn(
-              'Recieved blockers for unknow story, with id',
-              story.id
-            );
-          }
+        if (storiesWithBlockersAndTasks[story.id]) {
+          storiesWithBlockersAndTasks[story.id].blockers = story.blockers;
+          storiesWithBlockersAndTasks[story.id].tasks = story.tasks;
+        } else {
+          console.warn(
+            'Received task or blockers for unknown story, with id',
+            story.id
+          );
         }
       });
 
-      return { ...state, stories: storiesWithBlockers };
+      return { ...state, stories: storiesWithBlockersAndTasks };
     }
 
     case 'FETCH_REQUEST_ERROR': {
@@ -147,9 +146,9 @@ function ProjectContainer({ id, render }) {
   useEffect(() => {
     const fetchBlockers = async () => {
       try {
-        const blockers = await getBlockers(id, state.storyIds);
+        const blockersAndTasks = await getBlockersAndTasks(id, state.storyIds);
 
-        dispatch({ type: 'FETCH_BLOCKERS_SUCCESS', payload: blockers });
+        dispatch({ type: 'FETCH_BLOCKERS_SUCCESS', payload: blockersAndTasks });
       } catch (error) {
         dispatch({ type: 'FETCH_REQUEST_ERROR', payload: error });
       }
