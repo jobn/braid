@@ -29,14 +29,7 @@ const Column = props => {
     legal
   } = useContext(ColumnContext);
 
-  const {
-    title,
-    storyIds,
-    stories,
-    storyStates,
-    slim,
-    showTaskProgress
-  } = props;
+  const { title, storyIds, stories, storyStates, slim } = props;
 
   const handleDragOver = e => {
     e.preventDefault();
@@ -73,7 +66,6 @@ const Column = props => {
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
           slim={slim}
-          showTaskProgress={showTaskProgress}
         />
       ))}
     </div>

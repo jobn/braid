@@ -218,6 +218,32 @@ exports[`ProjectContainer renders fetched and normalized data 1`] = `
                 >
                   3
                 </span>
+                <span
+                  class="tag is-light"
+                  data-testid="progress-tag"
+                  style="padding-left: 3px; padding-right: 3px;"
+                >
+                  <svg
+                    height="18"
+                    width="18"
+                  >
+                    <circle
+                      cx="9"
+                      cy="9"
+                      fill="none"
+                      r="8.1"
+                      stroke="#00d1b2"
+                      stroke-width="1"
+                    />
+                    <path
+                      d="M 9 17.1 A 8.1 8.1 0 0 0 9 0.9000000000000004 L 9 9 L 9 17.1 Z"
+                      fill="#00d1b2"
+                      stroke="#00d1b2"
+                      stroke-linecap="round"
+                      stroke-width="1"
+                    />
+                  </svg>
+                </span>
                 <div
                   class="tag"
                   data-testid="label-tag"

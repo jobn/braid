@@ -38,8 +38,7 @@ function Story({
   currentState,
   onDragStart,
   onDragEnd,
-  slim,
-  showTaskProgress
+  slim
 }) {
   return (
     <div
@@ -78,7 +77,7 @@ function Story({
 
                 <EstimateTag estimate={estimate} />
 
-                {showTaskProgress ? <ProgressTag tasks={tasks} /> : null}
+                <ProgressTag tasks={tasks} />
 
                 {labels.map(label => (
                   <LabelTag name={label.name} key={label.id} />

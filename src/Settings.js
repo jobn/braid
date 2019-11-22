@@ -8,10 +8,6 @@ const Settings = () => {
 
   const [slim, setSlim] = useLocalStorage('slim');
 
-  const [showTaskProgress, setShowTaskProgress] = useLocalStorage(
-    'showTaskProgress'
-  );
-
   return (
     <div>
       <div className="media">
@@ -64,40 +60,6 @@ const Settings = () => {
           </p>
         </div>
       </div>
-
-      {slim ? (
-        ''
-      ) : (
-        <div className="media">
-          <div className="media-left">
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={showTaskProgress ? 'checked' : false}
-                onChange={() => setShowTaskProgress(!showTaskProgress)}
-                disabled={slim}
-              />
-              <div></div>
-            </label>
-          </div>
-
-          <div
-            className="media-content content"
-            style={{ marginRight: '1rem' }}
-          >
-            <h4>
-              <span className="is-underline">T</span>ask Progress
-            </h4>
-            <p>
-              Enable this setting to render an indicator of the progress through
-              story tasks beside the story type and estimate. Has no effect if
-              the slim theme is enabled.
-              <br />
-              Current state: <b>{showTaskProgress ? 'enabled' : 'disabled'}</b>
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

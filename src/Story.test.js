@@ -31,6 +31,7 @@ describe('Story', () => {
     acceptedAt: '2018-09-26T12:00:05Z',
     estimate: 3,
     blockers: [],
+    tasks: [],
     storyType: 'feature',
     name: 'Test the Expeditionary Battle Planetoid',
     description: 'Blow upp some stuff',
@@ -65,7 +66,7 @@ describe('Story', () => {
   const renderSubject = props =>
     render(
       <PeopleContext.Provider value={people}>
-        <Story {...story} slim={false} showTaskProgress={false} {...props} />
+        <Story {...story} slim={false} {...props} />
       </PeopleContext.Provider>
     );
 
@@ -194,19 +195,6 @@ describe('Story', () => {
       expect(queryByTestId('feature-tag')).not.toBeInTheDocument();
       expect(queryByTestId('bug-tag')).not.toBeInTheDocument();
       expect(queryByTestId('chore-tag')).not.toBeInTheDocument();
-    });
-  });
-
-  describe('showTaskProgress setting', () => {
-    it('renders story with task progress', () => {
-      const { queryByTestId } = renderSubject({
-        slim: false,
-        showTaskProgress: true,
-        blockers: [{ resolved: false }],
-        tasks: [{ complete: false }]
-      });
-
-      expect(queryByTestId('progress-tag')).toBeInTheDocument();
     });
   });
 });
