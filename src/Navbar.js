@@ -59,12 +59,21 @@ const Navbar = ({ name, projects, onLogout }) => (
                 className="navbar-item"
                 to={{
                   pathname: `/projects/${projectId}`,
-                  state: { id: projectId }
+                  state: { ids: [ projectId ] }
                 }}
               >
                 {projectName}
               </Link>
             ))}
+            <Link
+              className="navbar-item"
+              to={{
+                pathname: `/projects/combined`,
+                state: { ids: projects.map(p => p.projectId) }
+              }}
+            >
+              Combined board
+            </Link>
           </div>
         </div>
       </div>

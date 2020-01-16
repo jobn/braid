@@ -85,6 +85,8 @@ class App extends Component {
       );
     }
 
+    const allProjectIds = projects.map(p => p.projectId)
+
     return (
       <Router>
         <div>
@@ -103,8 +105,13 @@ class App extends Component {
             />
 
             <Route
+              path="/projects/combined"
+              render={props => <ProjectContainer ids={allProjectIds} />}
+            />
+
+            <Route
               path="/projects/:id"
-              render={props => <ProjectContainer id={props.match.params.id} />}
+              render={props => <ProjectContainer ids={[props.match.params.id]} />}
             />
 
             <Route component={PageNotFound} />

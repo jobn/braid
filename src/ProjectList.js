@@ -26,6 +26,14 @@ const ProjectList = ({ projects }) => (
           <p className="subtitle">{project.role}</p>
         </Link>
       ))}
+
+        <Link
+          to={`/projects/combined`}
+          className={`notification ${projectColor(projects.length)} is-marginless`}
+        >
+          <p className="title">Combined board</p>
+          <p className="subtitle"></p>
+        </Link>
     </div>
   </div>
 );

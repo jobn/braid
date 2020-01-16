@@ -28,7 +28,7 @@ export const getBlockers = (projectId, storyIds) =>
       `projects/${projectId}/stories/bulk`,
       options({ params: { ids: storyIds.join(','), fields: 'blockers' } })
     )
-  );
+  )
 
 const request = promise =>
   promise.then(response => camelCaseKeys(response.data, { deep: true }));

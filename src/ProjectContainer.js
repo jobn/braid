@@ -1,5 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
-import { string } from 'prop-types';
+import { array } from 'prop-types';
+import merge from 'lodash/merge'
+import uniq from 'lodash/uniq'
 import {
   getCurrentIteration,
   getMemberships,
@@ -32,14 +34,19 @@ function reducer(state, action) {
     }
 
     case 'FETCH_ITERATION_SUCCESS': {
-      return { ...state, isFetching: false, ...normalize(payload) };
+      return { ...state, isFetching: false, ...payload };
     }
 
     case 'FETCH_BLOCKERS_SUCCESS': {
       const storiesWithBlockers = { ...state.stories };
 
-      const matchStoryId = str =>
-        (str && str.match(/([0-9]){9}$/)[0]) || 'Unknown';
+      const matchStoryId = str => {
+        try {
+          return (str && str.match(/([0-9]){9}$/)[0]) || 'Unknown';
+        } catch (err) {
+          return 'Unknown';
+        }
+      }
 
       const getStoryBlockers = blockers => {
         return blockers
@@ -141,7 +148,7 @@ function reducer(state, action) {
   }
 }
 
-function ProjectContainer({ id, render }) {
+function ProjectContainer({ ids, render }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -158,49 +165,74 @@ function ProjectContainer({ id, render }) {
           getMemberships(id),
           getEpics(id)
         ]);
+        return normalize({
+          iterationResponse,
+          membershipsResponse,
+          epicsResponse,
+        })
 
-        dispatch({
-          type: 'FETCH_ITERATION_SUCCESS',
-          payload: { iterationResponse, membershipsResponse, epicsResponse }
-        });
       } catch (error) {
         dispatch({ type: 'FETCH_REQUEST_ERROR', payload: error });
+        throw error
       }
     };
 
-    fetchData(id);
-  }, [id]);
+    if (ids && ids.length > 0) {
+      (async function() {
+        let responses = await Promise.all(
+          ids.map(id => fetchData(id))
+        )
+
+        let storyIds = uniq(responses.reduce((into, each) => [].concat(into, each.storyIds), []))
+        let uniqueEpicIds = uniq(responses.reduce((into, each) => [].concat(into, each.uniqueEpicIds), []))
+        let uniqueOwnerIds = uniq(responses.reduce((into, each) => [].concat(into, each.uniqueOwnerIds), []))
+    
+        dispatch({
+          type: 'FETCH_ITERATION_SUCCESS',
+          payload: {
+            ...merge(...responses),
+            storyIds,
+            uniqueEpicIds,
+            uniqueOwnerIds,
+          },
+        });
+      })()
+    }
+
+  }, [ids]);
 
   useEffect(() => {
     const fetchBlockers = async () => {
       try {
-        const blockers = await getBlockers(id, state.storyIds);
-
+        const blockers = (await Promise.all(
+          ids.map(id => getBlockers(id, state.storyIds))
+        )).reduce((into, each) => [].concat(into, each), [])
+    
         dispatch({ type: 'FETCH_BLOCKERS_SUCCESS', payload: blockers });
       } catch (error) {
         dispatch({ type: 'FETCH_REQUEST_ERROR', payload: error });
       }
     };
-
+    
     if (state.storyIds.length > 0) {
       fetchBlockers();
     }
-  }, [id, state.storyIds]);
+  }, [ids, state.storyIds]);
 
   useEffect(() => {
     const updateStorySideEffect = async ({ storyId, target }) => {
       try {
         dispatch({ type: 'STORY_DROP_PERFROM', payload: { storyId, target } });
-
-        await putStory(id, storyId, { current_state: target });
-
+    
+        await putStory(state.stories[storyId].projectId, storyId, { current_state: target });
+    
         dispatch({ type: 'STORY_DROP_SUCCESS', payload: { storyId, target } });
       } catch {
         dispatch({ type: 'STORY_DROP_FAILURE', payload: { storyId, target } });
         alert('Updating story state failed');
       }
     };
-
+    
     if (state.updateStory && !state.updateStory.request) {
       updateStorySideEffect(state.updateStory);
     }
@@ -217,7 +249,7 @@ function ProjectContainer({ id, render }) {
 }
 
 ProjectContainer.propTypes = {
-  id: string.isRequired
+  ids: array.isRequired
 };
 
 export { ProjectContainer };
