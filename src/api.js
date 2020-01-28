@@ -13,7 +13,7 @@ export const putStory = (projectId, storyId, params) =>
 
 export const getCurrentIteration = projectId =>
   request(
-    axios.get(`projects/${projectId}/iterations?scope=current`, options())
+    axios.get(`projects/${projectId}/iterations?scope=current_backlog`, options())
   );
 
 export const getEpics = projectId =>

@@ -30,9 +30,15 @@ export const normalize = ({
   membershipsResponse,
   epicsResponse
 }) => {
-  const currentIteration = iterationResponse[0];
+  const allStories = [];
+  const { stories: any, ...iteration } = iterationResponse[0];
 
-  const { stories: allStories, ...iteration } = currentIteration;
+  iterationResponse.forEach(currentIteration => {
+    currentIteration.stories.forEach(story => {
+      allStories.push(story);
+    });
+  });
+
   const userStories = allStories.filter(removeReleaseStories);
 
   const people = normalizeArray(membershipsResponse.map(item => item.person));
