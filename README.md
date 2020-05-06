@@ -1,3 +1,5 @@
+NOTICE: I'm not using pivotaltracker at work anymore, so I don't have access to a test site nor the motivation to maintain or further develop braid. If you are interested contributing to the project, mail me and we'll figure something out.
+
 <h1 align="center">
   <br>
   <a href="https://braid.netlify.com">
