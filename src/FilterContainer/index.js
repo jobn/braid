@@ -18,6 +18,77 @@ import {
 } from './reducer';
 import { getQueryState, setQueryState } from './queryState';
 import { useKeyup } from '../useKeyup';
+import { teams } from '../teams';
+import pull from 'lodash/pull';
+import difference from 'lodash/difference';
+import pullAll from 'lodash/pullAll';
+
+function getEmoji() {
+  const emoji = [
+    '😎',
+    '🙌',
+    '💃',
+    '🕺',
+    '👀',
+    '🕶',
+    '💪🏻',
+    '🔥',
+    '💥',
+    '🙈',
+    '🙉',
+    '🙊',
+    '☕️',
+    '🍻',
+    '🏋️',
+    '🏆',
+    '🥇',
+    '🥁',
+    '🏅',
+    '🕹',
+    '💣',
+    '🎁',
+    '❤️',
+    '🎉',
+    '💾',
+    '🍎',
+    '🍓',
+    '🦄',
+    '🐶',
+    '🐰',
+    '🦊',
+    '🐼',
+    '🦘',
+    '🐨',
+    '🐯',
+    '🦁',
+    '🐸',
+    '😀',
+    '😁',
+    '😂',
+    '🤣',
+    '😃',
+    '😄',
+    '😅',
+    '😆',
+    '😉',
+    '😊',
+    '😋',
+    '😎',
+    '😍',
+    '😘',
+    '🥰',
+    '😗',
+    '😙',
+    '😚',
+    '☺️',
+    '🙂',
+    '🤗',
+    '🤩',
+    '👻',
+    '👽'
+  ];
+  return emoji[Math.floor(Math.random() * emoji.length)];
+}
 
 const FilterContext = createContext();
 
@@ -27,6 +98,44 @@ const FilterContainer = ({ uniqueOwnerIds, uniqueEpicIds, children }) => {
     displayModal: false,
     displayEpicsModal: false
   });
+
+  const [clTeams, setClTeams] = useState([]);
+
+  useEffect(() => {
+    const otherTeamMemebersId = [...uniqueOwnerIds];
+
+    let updatedTeam = teams.map(team => {
+      uniqueOwnerIds.forEach(ownerId => {
+        if (team.membersId.includes(ownerId)) {
+          pull(otherTeamMemebersId, ownerId);
+        }
+      });
+
+      const withoutStory = difference(team.membersId, uniqueOwnerIds);
+      const teamMembers = [...team.membersId];
+
+      if (withoutStory.length) {
+        pullAll(teamMembers, withoutStory);
+      }
+
+      return {
+        name: team.name,
+        membersId: teamMembers
+      };
+    });
+
+    if (otherTeamMemebersId.length) {
+      updatedTeam.push({
+        name: 'Other',
+        membersId: otherTeamMemebersId
+      });
+    }
+
+    updatedTeam = updatedTeam.map(t => ({ ...t, emoji: getEmoji() }));
+
+    setClTeams(updatedTeam);
+  }, [uniqueOwnerIds]);
+
 
   const dispatch = useMemo(
     () => action => {
@@ -84,16 +193,16 @@ const FilterContainer = ({ uniqueOwnerIds, uniqueEpicIds, children }) => {
       state.selectedTypes
     ]
   );
-
   const value = useMemo(
     () => ({
       ...state,
       uniqueOwnerIds,
       uniqueEpicIds,
+      teams: clTeams,
       dispatch,
       filter
     }),
-    [state, uniqueOwnerIds, uniqueEpicIds, dispatch, filter]
+    [state, uniqueOwnerIds, uniqueEpicIds, clTeams, dispatch, filter]
   );
 
   return (
@@ -118,5 +227,6 @@ export {
   clearEpics,
   selectNextEpic,
   selectPrevEpic,
-  toggleType
+  toggleType,
+  switchOwner
 } from './reducer';
