@@ -1,6 +1,6 @@
 const SPOOK = 3244710;
 const RYAN = 3331816;
-const Steve = 1114192;
+const STEVE = 1114192;
 const SAM = 3314768;
 const JB = 3327883;
 const AK = 3042981;
@@ -17,7 +17,7 @@ const LORENZ = 3320476;
 export const teams = [
   {
     name: 'Core',
-    membersId: [SPOOK, RYAN, Steve, SAM]
+    membersId: [SPOOK, RYAN, STEVE, SAM]
   },
   {
     name: 'Explore',
