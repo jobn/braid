@@ -1,22 +1,38 @@
+const SPOOK = 3244710;
+const RYAN = 3331816;
+const Steve = 1114192;
+const SAM = 3314768;
+const JB = 3327883;
+const AK = 3042981;
+const BW = 3298951;
+const JONATHAN = 3332271;
+const JOHANN = 3215002;
+const THOMAS = 3029528;
+const JONAS = 3327901;
+const JONNY = 3054093;
+const HENRY = 3289037;
+const COVENTRY = 3112135;
+const LORENZ = 3320476;
+
 export const teams = [
   {
     name: 'Core',
-    membersId: [3244710, 3331816, 1114192, 3314768] // Spook, Ryan, Steve, Sam
+    membersId: [SPOOK, RYAN, Steve, SAM]
   },
   {
     name: 'Explore',
-    membersId: [3327883, 3042981, 3298951, 3332271] // JB, AK, BW, JONATHAN
+    membersId: [JB, AK, BW, JONATHAN]
   },
   {
     name: 'Integrations',
-    membersId: [3215002, 3029528, 3327901] // Johann, Thomas, Jonas, Sam(also)
+    membersId: [JOHANN, THOMAS, JONAS]
   },
   {
     name: 'Infra',
-    membersId: [3054093, 3289037] // Huxtable, Henry
+    membersId: [JONNY, HENRY]
   },
   {
     name: 'Research',
-    membersId: [3112135, 3320476] // Coventry, Lorenz, Steve
+    membersId: [COVENTRY, LORENZ]
   }
 ];
