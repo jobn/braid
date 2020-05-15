@@ -11,6 +11,11 @@ const Settings = () => {
     'rejected'
   );
 
+  const [byOwner, setByOwner] = useLocalStorage('byOwner');
+  const [byType, setByType] = useLocalStorage('byType');
+  const [byEpic, setByEpic] = useLocalStorage('byEpic');
+  const [byTeam, setByTeam] = useLocalStorage('byTeam');
+
   return (
     <div>
       <div className="media">
@@ -83,6 +88,74 @@ const Settings = () => {
             <br />
             Current state: <b>{showRejectedColumn ? 'enabled' : 'disabled'}</b>
           </p>
+        </div>
+      </div>
+
+      <div className="media">
+        <div className="media-left">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={byTeam ? false : 'checked'}
+              onChange={() => setByTeam(!byTeam)}
+            />
+            <div></div>
+          </label>
+        </div>
+
+        <div className="media-content content" style={{ marginRight: '1rem' }}>
+          <h4>By Team</h4>
+        </div>
+      </div>
+
+      <div className="media">
+        <div className="media-left">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={byOwner ? 'checked' : false}
+              onChange={() => setByOwner(!byOwner)}
+            />
+            <div></div>
+          </label>
+        </div>
+
+        <div className="media-content content" style={{ marginRight: '1rem' }}>
+          <h4>By Owner</h4>
+        </div>
+      </div>
+
+      <div className="media">
+        <div className="media-left">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={byType ? 'checked' : false}
+              onChange={() => setByType(!byType)}
+            />
+            <div></div>
+          </label>
+        </div>
+
+        <div className="media-content content" style={{ marginRight: '1rem' }}>
+          <h4>By Type</h4>
+        </div>
+      </div>
+
+      <div className="media">
+        <div className="media-left">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={byEpic ? 'checked' : false}
+              onChange={() => setByEpic(!byEpic)}
+            />
+            <div></div>
+          </label>
+        </div>
+
+        <div className="media-content content" style={{ marginRight: '1rem' }}>
+          <h4>By Epic</h4>
         </div>
       </div>
     </div>
