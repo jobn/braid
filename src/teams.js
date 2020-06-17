@@ -13,11 +13,12 @@ const JONNY = 3054093;
 const HENRY = 3289037;
 const COVENTRY = 3112135;
 const LORENZ = 3320476;
+const DRU = 3341666;
 
 export const teams = [
   {
     name: 'Core',
-    membersId: [SPOOK, RYAN, STEVE, SAM]
+    membersId: [SPOOK, RYAN, STEVE, SAM, DRU]
   },
   {
     name: 'Explore',
