@@ -14,6 +14,8 @@ const HENRY = 3289037;
 const COVENTRY = 3112135;
 const LORENZ = 3320476;
 const DRU = 3341666;
+const KRISTIJAN = 3342799;
+const JOSH = 3343409;
 
 export const teams = [
   {
@@ -26,11 +28,11 @@ export const teams = [
   },
   {
     name: 'Integrations',
-    membersId: [JOHANN, THOMAS, JONAS]
+    membersId: [JOHANN, THOMAS, JONAS, KRISTIJAN]
   },
   {
     name: 'Infra',
-    membersId: [JONNY, HENRY]
+    membersId: [JONNY, HENRY, JOSH]
   },
   {
     name: 'Research',
