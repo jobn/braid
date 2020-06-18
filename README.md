@@ -66,3 +66,7 @@ A replacement for the PivotalTracker interface. If you want to do searching, edi
 * Keeps selected filters across page reloads.
 
 * Braid is entirely a client side application. There is only a static file-server the hosts the html and javascript assets. It stores your pivotal api token in your browser localstorage. Clicking logout will clear the localstorage
+
+# Chainlink notes
+
+Use `src/teams.js` file to add a new users and manage the teams
