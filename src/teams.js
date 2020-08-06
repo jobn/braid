@@ -16,11 +16,16 @@ const LORENZ = 3320476;
 const DRU = 3341666;
 const KRISTIJAN = 3342799;
 const JOSH = 3343409;
+const FAN = 3347351;
 
 export const teams = [
   {
     name: 'Core',
     membersId: [SPOOK, RYAN, STEVE, SAM, DRU]
+  },
+  {
+    name: 'Research',
+    membersId: [COVENTRY, LORENZ, FAN]
   },
   {
     name: 'Explore',
@@ -33,9 +38,5 @@ export const teams = [
   {
     name: 'Infra',
     membersId: [JONNY, HENRY, JOSH]
-  },
-  {
-    name: 'Research',
-    membersId: [COVENTRY, LORENZ]
   }
 ];
