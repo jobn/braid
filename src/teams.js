@@ -22,7 +22,7 @@ const DAN = 3357824;
 export const teams = [
   {
     name: 'Core',
-    membersId: [SPOOK, RYAN, STEVE, SAM, DRU]
+    membersId: [SPOOK, RYAN, STEVE, SAM, DRU, JB]
   },
   {
     name: 'Research',
@@ -30,7 +30,7 @@ export const teams = [
   },
   {
     name: 'Explore',
-    membersId: [JB, AK, BW, JONATHAN]
+    membersId: [AK, BW, JONATHAN]
   },
   {
     name: 'Integrations',
