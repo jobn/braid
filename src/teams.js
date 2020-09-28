@@ -18,6 +18,7 @@ const KRISTIJAN = 3342799;
 const JOSH = 3343409;
 const FAN = 3347351;
 const DAN = 3357824;
+const YOS_RIADY = 3347513;
 
 export const teams = [
   {
@@ -34,7 +35,7 @@ export const teams = [
   },
   {
     name: 'Integrations',
-    membersId: [JOHANN, THOMAS, JONAS, KRISTIJAN]
+    membersId: [JOHANN, THOMAS, JONAS, KRISTIJAN, YOS_RIADY]
   },
   {
     name: 'Infra',
