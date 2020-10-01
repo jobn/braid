@@ -19,11 +19,12 @@ const JOSH = 3343409;
 const FAN = 3347351;
 const DAN = 3357824;
 const YOS_RIADY = 3347513;
+const BRANDON_WEST = 3360541;
 
 export const teams = [
   {
     name: 'Core',
-    membersId: [SPOOK, RYAN, STEVE, SAM, DRU, JB]
+    membersId: [SPOOK, RYAN, STEVE, SAM, DRU, JB, BRANDON_WEST]
   },
   {
     name: 'Research',
