@@ -20,15 +20,16 @@ const FAN = 3347351;
 const DAN = 3357824;
 const YOS_RIADY = 3347513;
 const BRANDON_WEST = 3360541;
+const ALEX_ROAN = 3362817;
 
 export const teams = [
   {
     name: 'Core',
-    membersId: [SPOOK, RYAN, STEVE, SAM, DRU, JB, BRANDON_WEST]
+    membersId: [SPOOK, RYAN, STEVE, SAM, JB, BRANDON_WEST, ALEX_ROAN]
   },
   {
     name: 'Research',
-    membersId: [LORENZ, COVENTRY, FAN, DAN]
+    membersId: [LORENZ, COVENTRY, FAN, DAN, DRU]
   },
   {
     name: 'Explore',
