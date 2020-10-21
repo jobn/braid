@@ -21,6 +21,7 @@ const DAN = 3357824;
 const YOS_RIADY = 3347513;
 const BRANDON_WEST = 3360541;
 const ALEX_ROAN = 3362817;
+const JUSTIN_KASEMAN = 3364271;
 
 export const teams = [
   {
@@ -37,7 +38,7 @@ export const teams = [
   },
   {
     name: 'Integrations',
-    membersId: [JOHANN, THOMAS, JONAS, KRISTIJAN, YOS_RIADY]
+    membersId: [JOHANN, THOMAS, JONAS, KRISTIJAN, YOS_RIADY, JUSTIN_KASEMAN]
   },
   {
     name: 'Infra',
