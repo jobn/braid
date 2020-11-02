@@ -22,11 +22,24 @@ const YOS_RIADY = 3347513;
 const BRANDON_WEST = 3360541;
 const ALEX_ROAN = 3362817;
 const JUSTIN_KASEMAN = 3364271;
+const ADIL_IMROZ = 3362996;
+const PETER = 3327109;
+const DEIVIDAS = 3353568;
+const RODRIGO = 3366482;
 
 export const teams = [
   {
     name: 'Core',
-    membersId: [SPOOK, RYAN, STEVE, SAM, JB, BRANDON_WEST, ALEX_ROAN]
+    membersId: [
+      SPOOK,
+      RYAN,
+      STEVE,
+      SAM,
+      JB,
+      BRANDON_WEST,
+      ALEX_ROAN,
+      ADIL_IMROZ
+    ]
   },
   {
     name: 'Research',
@@ -34,14 +47,22 @@ export const teams = [
   },
   {
     name: 'Explore',
-    membersId: [AK, BW, JONATHAN]
+    membersId: [AK, BW, JONATHAN, DEIVIDAS]
   },
   {
     name: 'Integrations',
-    membersId: [JOHANN, THOMAS, JONAS, KRISTIJAN, YOS_RIADY, JUSTIN_KASEMAN]
+    membersId: [
+      JOHANN,
+      THOMAS,
+      JONAS,
+      KRISTIJAN,
+      YOS_RIADY,
+      JUSTIN_KASEMAN,
+      RODRIGO
+    ]
   },
   {
     name: 'Infra',
-    membersId: [JONNY, HENRY, JOSH]
+    membersId: [JONNY, HENRY, JOSH, PETER]
   }
 ];
