@@ -26,6 +26,7 @@ const ADIL_IMROZ = 3362996;
 const PETER = 3327109;
 const DEIVIDAS = 3353568;
 const RODRIGO = 3366482;
+const CONNOR = 3364269;
 
 export const teams = [
   {
@@ -38,7 +39,8 @@ export const teams = [
       JB,
       BRANDON_WEST,
       ALEX_ROAN,
-      ADIL_IMROZ
+      ADIL_IMROZ,
+      CONNOR
     ]
   },
   {
