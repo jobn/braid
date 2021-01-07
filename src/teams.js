@@ -28,6 +28,7 @@ const DEIVIDAS = 3353568;
 const RODRIGO = 3366482;
 const CONNOR = 3364269;
 const RYAN_EMMICK = 3371386;
+const AVNEET_SINGH = 3375202;
 
 export const teams = [
   {
@@ -41,7 +42,8 @@ export const teams = [
       BRANDON_WEST,
       ALEX_ROAN,
       ADIL_IMROZ,
-      CONNOR
+      CONNOR,
+      AVNEET_SINGH
     ]
   },
   {
