@@ -29,6 +29,7 @@ const RODRIGO = 3366482;
 const CONNOR = 3364269;
 const RYAN_EMMICK = 3371386;
 const AVNEET_SINGH = 3375202;
+const EVANGELOS = 3375272;
 
 export const teams = [
   {
@@ -64,7 +65,8 @@ export const teams = [
       YOS_RIADY,
       JUSTIN_KASEMAN,
       RODRIGO,
-      RYAN_EMMICK
+      RYAN_EMMICK,
+      EVANGELOS
     ]
   },
   {
