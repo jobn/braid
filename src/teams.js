@@ -30,6 +30,7 @@ const CONNOR = 3364269;
 const RYAN_EMMICK = 3371386;
 const AVNEET_SINGH = 3375202;
 const EVANGELOS = 3375272;
+const JAMES_KONG = 3367103;
 
 export const teams = [
   {
@@ -44,7 +45,8 @@ export const teams = [
       ALEX_ROAN,
       ADIL_IMROZ,
       CONNOR,
-      AVNEET_SINGH
+      AVNEET_SINGH,
+      JAMES_KONG
     ]
   },
   {
