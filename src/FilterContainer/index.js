@@ -5,7 +5,7 @@ import {
   filterByOwner,
   filterByType,
   filterByStoryStates,
-  filterByEpic
+  filterByEpic, filterByReviewer
 } from './filters';
 import {
   reducer,
@@ -67,12 +67,12 @@ const FilterContainer = ({ uniqueOwnerIds, uniqueEpicIds, children }) => {
   useKeyup(keyMap);
 
   const filter = useMemo(
-    () => (storyIds, stories, storyStates) =>
+    () => (storyIds, stories, storyStates, role) =>
       storyIds
         .map(id => stories[id])
         .filter(
           story =>
-            filterByOwner(story, state.selectedOwners) &&
+            (role === "owner" ? filterByOwner(story, state.selectedOwners) : filterByReviewer(story, state.selectedOwners)) &&
             filterByEpic(story, uniqueEpicIds, state.selectedEpics) &&
             filterByType(story, state.selectedTypes) &&
             filterByStoryStates(story, storyStates)
@@ -81,7 +81,7 @@ const FilterContainer = ({ uniqueOwnerIds, uniqueEpicIds, children }) => {
       state.selectedOwners,
       uniqueEpicIds,
       state.selectedEpics,
-      state.selectedTypes
+      state.selectedTypes,
     ]
   );
 

@@ -8,6 +8,10 @@ const Settings = () => {
 
   const [slim, setSlim] = useLocalStorage('slim');
 
+  const [splitFinishedAndDelivered, setSplitFinishedAndDelivered] = useLocalStorage(
+    'splitFinishedAndDelivered'
+  );
+
   return (
     <div>
       <div className="media">
@@ -32,6 +36,32 @@ const Settings = () => {
             represented as a single column in the view.
             <br />
             Current state: <b>{splitFinalColumns ? 'disabled' : 'enabled'}</b>
+          </p>
+        </div>
+      </div>
+
+      <div className="media">
+        <div className="media-left">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={splitFinishedAndDelivered ? false : 'checked'}
+              onChange={() => setSplitFinishedAndDelivered(!splitFinishedAndDelivered)}
+            />
+            <div />
+          </label>
+        </div>
+
+        <div className="media-content content" style={{ marginRight: '1rem' }}>
+          <h4>
+            Combine &ldquo;Finished&rdquo; and &ldquo;Delivered&rdquo; columns
+            into one
+          </h4>
+          <p>
+            Enable this setting to have the Finished and Delivered story states
+            represented as a single column in the view.
+            <br />
+            Current state: <b>{splitFinishedAndDelivered ? 'disabled' : 'enabled'}</b>
           </p>
         </div>
       </div>

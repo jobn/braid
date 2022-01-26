@@ -26,6 +26,7 @@ const Project = ({
 }) => {
   const [splitFinalColumns] = useLocalStorage('splitColumns');
   const [slim, setSlim] = useLocalStorage('slim');
+  const [splitFinishedAndDelivered] = useLocalStorage('splitFinishedAndDelivered');
 
   const keyMap = useMemo(
     () => ({
@@ -33,6 +34,17 @@ const Project = ({
     }),
     [slim, setSlim]
   );
+
+  const statesForDeliveredColumn = ['delivered'];
+  let titleForDeliveredColumn = 'Delivered';
+  if(!splitFinalColumns) {
+    statesForDeliveredColumn.push('accepted');
+    titleForDeliveredColumn += ' | Accepted';
+  }
+  if(!splitFinishedAndDelivered) {
+    statesForDeliveredColumn.push('finished');
+    titleForDeliveredColumn += ' | Finished';
+  }
 
   useKeyup(keyMap);
 
@@ -55,6 +67,7 @@ const Project = ({
                   bugDropState="unstarted"
                   choreDropState="unstarted"
                   slim={slim}
+                  role="owner"
                 />
 
                 <Column
@@ -66,9 +79,10 @@ const Project = ({
                   bugDropState="started"
                   choreDropState="started"
                   slim={slim}
+                  role="owner"
                 />
-
-                <Column
+                {splitFinishedAndDelivered ?
+                (<Column
                   title="Finished"
                   storyIds={storyIds}
                   stories={stories}
@@ -77,21 +91,21 @@ const Project = ({
                   bugDropState="finished"
                   choreDropState={null}
                   slim={slim}
+                  role="owner"
+                />) : null}
+                <Column
+                  title={titleForDeliveredColumn}
+                  storyIds={storyIds}
+                  stories={stories}
+                  storyStates={statesForDeliveredColumn}
+                  featureDropState="delivered"
+                  bugDropState="delivered"
+                  choreDropState={null}
+                  slim={slim}
+                  role="owner"
                 />
 
                 {splitFinalColumns ? (
-                  <>
-                    <Column
-                      title="Delivered"
-                      storyIds={storyIds}
-                      stories={stories}
-                      storyStates={['delivered']}
-                      featureDropState="delivered"
-                      bugDropState="delivered"
-                      choreDropState={null}
-                      slim={slim}
-                    />
-
                     <Column
                       title="Accepted"
                       storyIds={storyIds}
@@ -101,20 +115,20 @@ const Project = ({
                       bugDropState="accepted"
                       choreDropState="accepted"
                       slim={slim}
+                      role="owner"
                     />
-                  </>
-                ) : (
-                  <Column
-                    title="Delivered | Accepted"
-                    storyIds={storyIds}
-                    stories={stories}
-                    storyStates={['delivered', 'accepted']}
-                    featureDropState="delivered"
-                    bugDropState="delivered"
-                    choreDropState="accepted"
-                    slim={slim}
+                ) : null}
+                <Column
+                  title="To Review"
+                  storyIds={storyIds}
+                  stories={stories}
+                  storyStates={['delivered']}
+                  featureDropState=""
+                  bugDropState=""
+                  choreDropState=""
+                  slim={slim}
+                  role="reviewer"
                   />
-                )}
               </div>
             </ColumnContainer>
           </section>

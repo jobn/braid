@@ -29,7 +29,7 @@ const Column = props => {
     legal
   } = useContext(ColumnContext);
 
-  const { title, storyIds, stories, storyStates, slim } = props;
+  const { title, storyIds, stories, storyStates, slim, role } = props;
 
   const handleDragOver = e => {
     e.preventDefault();
@@ -59,7 +59,7 @@ const Column = props => {
     >
       <h4 className="title is-4 has-text-centered">{title}</h4>
 
-      {filter(storyIds, stories, storyStates).map(story => (
+      {filter(storyIds, stories, storyStates, role).map(story => (
         <Story
           key={story.id}
           {...story}

@@ -1,5 +1,5 @@
 import { window } from '../services';
-import { normalizeOwners, normalizeEpics, normalizeTypes } from './normalize';
+import { normalizeOwners, normalizeEpics, normalizeTypes, normalizeReviewers } from './normalize';
 
 const queryString = require('query-string');
 
@@ -16,7 +16,8 @@ function getQueryState(uniqueOwnerIds, uniqueEpicIds) {
   return {
     selectedOwners: normalizeOwners(queryState.selectedOwners, uniqueOwnerIds),
     selectedEpics: normalizeEpics(queryState.selectedEpics, uniqueEpicIds),
-    selectedTypes: normalizeTypes(queryState.selectedTypes)
+    selectedTypes: normalizeTypes(queryState.selectedTypes),
+    selectedReviewers: normalizeReviewers(queryState.selectedOwners, uniqueOwnerIds)
   };
 }
 

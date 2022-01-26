@@ -1,5 +1,9 @@
 import axios from 'axios';
+import retry from 'axios-retry-after';
 import { camelCaseKeys } from './utils';
+
+const client = axios.create();
+client.interceptors.response.use(null, retry(client));
 
 export const getMe = token => request(axios.get('me', options({ token })));
 
@@ -12,9 +16,20 @@ export const putStory = (projectId, storyId, params) =>
   );
 
 export const getCurrentIteration = projectId =>
-  request(
     axios.get(`projects/${projectId}/iterations?scope=current_backlog`, options())
-  );
+      .then(response => {
+        const fetchReviewTasks = [];
+          response.data.forEach(iteration =>
+            iteration.stories.forEach(story =>
+              fetchReviewTasks.push(axios.get(`projects/${projectId}/stories/${story.id}/reviews`, options())
+                .then(reviewsResponse => {
+                  reviewsResponse.data.forEach(review =>
+                    story.reviewerIds = [... (story.reviewerIds || []), review.reviewer_id])
+          }))));
+          return Promise.all(fetchReviewTasks)
+            .then(done => camelCaseKeys(response.data, { deep: true }));
+        }
+    )
 
 export const getEpics = projectId =>
   request(axios.get(`projects/${projectId}/epics`, options()));

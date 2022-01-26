@@ -20,6 +20,12 @@ function normalizeOwners(data, uniqueOwnerIds) {
     .filter(id => uniqueOwnerIds.includes(id));
 }
 
+function normalizeReviewers(data, uniqueReviewerIds) {
+  return ensureArray(data)
+    .map(id => parseInt(id))
+    .filter(id => uniqueReviewerIds.includes(id));
+}
+
 function normalizeEpics(data, uniqueEpicIds) {
   return ensureArray(data)
     .map(id => parseInt(id))
@@ -30,4 +36,4 @@ function normalizeTypes(data) {
   return ensureArray(data).filter(type => storyTypesArray.includes(type));
 }
 
-export { normalizeOwners, normalizeEpics, normalizeTypes };
+export { normalizeOwners, normalizeEpics, normalizeTypes, normalizeReviewers };

@@ -35,3 +35,12 @@ export const filterByType = (story, typeNames) => {
 
 export const filterByStoryStates = (story, storyStates) =>
   storyStates.includes(story.currentState);
+
+
+export const filterByReviewer = (story, reviewerIds) => {
+  if (reviewerIds.length === 0) {
+    return true;
+  }
+
+  return reviewerIds.includes(story.requestedById) || (story.reviewerIds || []).some(id => reviewerIds.includes(id));
+}
