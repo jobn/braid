@@ -11,6 +11,7 @@ import {
   SlimTag
 } from './Tags';
 import { hasUnresolvedBlockers } from './FilterContainer';
+import { Review } from './Review';
 
 const renderTypeTag = type => {
   switch (type) {
@@ -38,7 +39,12 @@ function Story({
   currentState,
   onDragStart,
   onDragEnd,
-  slim
+  slim,
+  showLabels,
+  role,
+  reviews,
+  filteredReviews,
+  selectedOwners
 }) {
   return (
     <div
@@ -79,14 +85,18 @@ function Story({
 
                 <ProgressTag tasks={tasks} />
 
-                {labels.map(label => (
-                  <LabelTag name={label.name} key={label.id} />
-                ))}
+                {showLabels &&
+                  labels.map(label => (
+                    <LabelTag name={label.name} key={label.id} />
+                  ))}
               </div>
             </div>
 
-            <div className="media-right">
-              <Owners ownerIds={ownerIds} />
+            <div className="media-right" style={{ maxWidth: '90%' }}>
+              {role === 'owner' && <Owners ownerIds={ownerIds} />}
+              {role === 'reviewer' && selectedOwners.length === 1 && (
+                <Review reviews={filteredReviews} />
+              )}
             </div>
 
             <BlockedTag visible={hasUnresolvedBlockers(blockers)} />

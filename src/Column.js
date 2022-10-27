@@ -17,7 +17,7 @@ const illegalTargetStyle = {
 };
 
 const Column = props => {
-  const { filter } = useContext(FilterContext);
+  const { filter, selectedOwners } = useContext(FilterContext);
   const {
     handleDragStart,
     handleDrop,
@@ -29,7 +29,15 @@ const Column = props => {
     legal
   } = useContext(ColumnContext);
 
-  const { title, storyIds, stories, storyStates, slim, role } = props;
+  const {
+    title,
+    storyIds,
+    stories,
+    storyStates,
+    slim,
+    role,
+    showLabels
+  } = props;
 
   const handleDragOver = e => {
     e.preventDefault();
@@ -66,6 +74,16 @@ const Column = props => {
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
           slim={slim}
+          showLabels={showLabels}
+          role={role}
+          filteredReviews={
+            role === 'reviewer' && story.reviews
+              ? story.reviews.filter(review =>
+                  selectedOwners.includes(review.reviewerId)
+                )
+              : []
+          }
+          selectedOwners={selectedOwners}
         />
       ))}
     </div>

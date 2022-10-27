@@ -26,7 +26,10 @@ const Project = ({
 }) => {
   const [splitFinalColumns] = useLocalStorage('splitColumns');
   const [slim, setSlim] = useLocalStorage('slim');
-  const [splitFinishedAndDelivered] = useLocalStorage('splitFinishedAndDelivered');
+  const [splitFinishedAndDelivered] = useLocalStorage(
+    'splitFinishedAndDelivered'
+  );
+  const [showLabels] = useLocalStorage('labels');
 
   const keyMap = useMemo(
     () => ({
@@ -37,11 +40,11 @@ const Project = ({
 
   const statesForDeliveredColumn = ['delivered'];
   let titleForDeliveredColumn = 'Delivered';
-  if(!splitFinalColumns) {
+  if (!splitFinalColumns) {
     statesForDeliveredColumn.push('accepted');
     titleForDeliveredColumn += ' | Accepted';
   }
-  if(!splitFinishedAndDelivered) {
+  if (!splitFinishedAndDelivered) {
     statesForDeliveredColumn.push('finished');
     titleForDeliveredColumn += ' | Finished';
   }
@@ -62,11 +65,12 @@ const Project = ({
                   title="Pending"
                   storyIds={storyIds}
                   stories={stories}
-                  storyStates={['planned', 'unstarted', "rejected"]}
+                  storyStates={['planned', 'unstarted', 'rejected']}
                   featureDropState="unstarted"
                   bugDropState="unstarted"
                   choreDropState="unstarted"
                   slim={slim}
+                  showLabels={showLabels}
                   role="owner"
                 />
 
@@ -79,20 +83,23 @@ const Project = ({
                   bugDropState="started"
                   choreDropState="started"
                   slim={slim}
+                  showLabels={showLabels}
                   role="owner"
                 />
-                {splitFinishedAndDelivered ?
-                (<Column
-                  title="Finished"
-                  storyIds={storyIds}
-                  stories={stories}
-                  storyStates={['finished']}
-                  featureDropState="finished"
-                  bugDropState="finished"
-                  choreDropState={null}
-                  slim={slim}
-                  role="owner"
-                />) : null}
+                {splitFinishedAndDelivered ? (
+                  <Column
+                    title="Finished"
+                    storyIds={storyIds}
+                    stories={stories}
+                    storyStates={['finished']}
+                    featureDropState="finished"
+                    bugDropState="finished"
+                    choreDropState={null}
+                    slim={slim}
+                    showLabels={showLabels}
+                    role="owner"
+                  />
+                ) : null}
                 <Column
                   title={titleForDeliveredColumn}
                   storyIds={storyIds}
@@ -102,21 +109,23 @@ const Project = ({
                   bugDropState="delivered"
                   choreDropState={null}
                   slim={slim}
+                  showLabels={showLabels}
                   role="owner"
                 />
 
                 {splitFinalColumns ? (
-                    <Column
-                      title="Accepted"
-                      storyIds={storyIds}
-                      stories={stories}
-                      storyStates={['accepted']}
-                      featureDropState="accepted"
-                      bugDropState="accepted"
-                      choreDropState="accepted"
-                      slim={slim}
-                      role="owner"
-                    />
+                  <Column
+                    title="Accepted"
+                    storyIds={storyIds}
+                    stories={stories}
+                    storyStates={['accepted']}
+                    featureDropState="accepted"
+                    bugDropState="accepted"
+                    choreDropState="accepted"
+                    slim={slim}
+                    showLabels={showLabels}
+                    role="owner"
+                  />
                 ) : null}
                 <Column
                   title="To Review"
@@ -127,8 +136,9 @@ const Project = ({
                   bugDropState=""
                   choreDropState=""
                   slim={slim}
+                  showLabels={showLabels}
                   role="reviewer"
-                  />
+                />
               </div>
             </ColumnContainer>
           </section>

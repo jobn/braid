@@ -16,20 +16,34 @@ export const putStory = (projectId, storyId, params) =>
   );
 
 export const getCurrentIteration = projectId =>
-    axios.get(`projects/${projectId}/iterations?scope=current_backlog`, options())
-      .then(response => {
-        const fetchReviewTasks = [];
-          response.data.forEach(iteration =>
-            iteration.stories.forEach(story =>
-              fetchReviewTasks.push(axios.get(`projects/${projectId}/stories/${story.id}/reviews`, options())
-                .then(reviewsResponse => {
-                  reviewsResponse.data.forEach(review =>
-                    story.reviewerIds = [... (story.reviewerIds || []), review.reviewer_id])
-          }))));
-          return Promise.all(fetchReviewTasks)
-            .then(done => camelCaseKeys(response.data, { deep: true }));
-        }
-    )
+  axios
+    .get(`projects/${projectId}/iterations?scope=current_backlog`, options())
+    .then(response => {
+      const fetchReviewTasks = [];
+      response.data.forEach(iteration =>
+        iteration.stories.forEach(story =>
+          fetchReviewTasks.push(
+            axios
+              .get(
+                `projects/${projectId}/stories/${story.id}/reviews`,
+                options({params: {fields: 'review_type,status,reviewer_id'}})
+              )
+              .then(reviewsResponse => {
+                reviewsResponse.data.forEach(review => {
+                  story.reviews = [...(story.reviews || []), review];
+                  story.reviewerIds = [
+                    ...(story.reviewerIds || []),
+                    review.reviewer_id
+                  ];
+                });
+              })
+          )
+        )
+      );
+      return Promise.all(fetchReviewTasks).then(done =>
+        camelCaseKeys(response.data, { deep: true })
+      );
+    });
 
 export const getEpics = projectId =>
   request(axios.get(`projects/${projectId}/epics`, options()));

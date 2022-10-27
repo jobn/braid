@@ -8,9 +8,12 @@ const Settings = () => {
 
   const [slim, setSlim] = useLocalStorage('slim');
 
-  const [splitFinishedAndDelivered, setSplitFinishedAndDelivered] = useLocalStorage(
-    'splitFinishedAndDelivered'
-  );
+  const [showLabels, setShowLabels] = useLocalStorage('labels');
+
+  const [
+    splitFinishedAndDelivered,
+    setSplitFinishedAndDelivered
+  ] = useLocalStorage('splitFinishedAndDelivered');
 
   return (
     <div>
@@ -46,7 +49,9 @@ const Settings = () => {
             <input
               type="checkbox"
               checked={splitFinishedAndDelivered ? false : 'checked'}
-              onChange={() => setSplitFinishedAndDelivered(!splitFinishedAndDelivered)}
+              onChange={() =>
+                setSplitFinishedAndDelivered(!splitFinishedAndDelivered)
+              }
             />
             <div />
           </label>
@@ -61,7 +66,8 @@ const Settings = () => {
             Enable this setting to have the Finished and Delivered story states
             represented as a single column in the view.
             <br />
-            Current state: <b>{splitFinishedAndDelivered ? 'disabled' : 'enabled'}</b>
+            Current state:{' '}
+            <b>{splitFinishedAndDelivered ? 'disabled' : 'enabled'}</b>
           </p>
         </div>
       </div>
@@ -87,6 +93,32 @@ const Settings = () => {
             and see more stories at a time.
             <br />
             Current state: <b>{slim ? 'enabled' : 'disabled'}</b>
+          </p>
+        </div>
+      </div>
+
+      <div className="media">
+        <div className="media-left">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={showLabels ? 'checked' : false}
+              onChange={() => setShowLabels(!showLabels)}
+            />
+            <div></div>
+          </label>
+        </div>
+
+        <div className="media-content content" style={{ marginRight: '1rem' }}>
+          <h4>
+            <span className="is-underline">S</span>how labels in extended view
+          </h4>
+          <p>
+            Enable this setting to have each story take up less space on screen
+            in the extended view, and see more stories at a time by hiding the
+            labels.
+            <br />
+            Current state: <b>{showLabels ? 'enabled' : 'disabled'}</b>
           </p>
         </div>
       </div>
