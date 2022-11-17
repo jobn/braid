@@ -7,6 +7,7 @@ const Settings = () => {
   );
 
   const [slim, setSlim] = useLocalStorage('slim');
+  const [useFullNames, setUseFullNames] = useLocalStorage('useFullNames');
 
   const [showLabels, setShowLabels] = useLocalStorage('labels');
 
@@ -93,6 +94,29 @@ const Settings = () => {
             and see more stories at a time.
             <br />
             Current state: <b>{slim ? 'enabled' : 'disabled'}</b>
+          </p>
+        </div>
+      </div>
+
+      <div className="media">
+        <div className="media-left">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={useFullNames ? 'checked' : false}
+              onChange={() => setUseFullNames(!useFullNames)}
+            />
+            <div></div>
+          </label>
+        </div>
+        <div className="media-content content" style={{ marginRight: '1rem' }}>
+          <h4>
+            <span className="is-underline">F</span>ull names
+          </h4>
+          <p>
+            Enable this setting to have the names in the navbar be displayed as full names instead of initials
+            <br />
+            Current state: <b>{useFullNames ? 'enabled' : 'disabled'}</b>
           </p>
         </div>
       </div>

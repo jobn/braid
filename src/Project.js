@@ -26,6 +26,7 @@ const Project = ({
 }) => {
   const [splitFinalColumns] = useLocalStorage('splitColumns');
   const [slim, setSlim] = useLocalStorage('slim');
+  const [useFullNames] = useLocalStorage('useFullNames');
   const [splitFinishedAndDelivered] = useLocalStorage(
     'splitFinishedAndDelivered'
   );
@@ -57,6 +58,7 @@ const Project = ({
         <FilterContainer
           uniqueOwnerIds={uniqueOwnerIds}
           uniqueEpicIds={uniqueEpicIds}
+          useFullNames={useFullNames}
         >
           <section className="section" style={{ paddingBottom: '12rem' }}>
             <ColumnContainer dispatch={dispatch}>
@@ -147,7 +149,7 @@ const Project = ({
             <Tray
               title="Filters"
               fullWidth
-              renderLabel={() => <FilterSummary />}
+              renderLabel={() => <FilterSummary useFullNames={useFullNames} />}
             >
               <Filters />
             </Tray>
