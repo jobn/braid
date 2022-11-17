@@ -17,7 +17,7 @@ export const putStory = (projectId, storyId, params) =>
 
 export const getCurrentIteration = projectId =>
   axios
-    .get(`projects/${projectId}/iterations?scope=current_backlog`, options())
+    .get(`projects/${projectId}/iterations?scope=current_backlog&limit=20`, options())
     .then(response => {
       const fetchReviewTasks = [];
       response.data.forEach(iteration =>
