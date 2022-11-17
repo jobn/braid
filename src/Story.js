@@ -70,11 +70,22 @@ function Story({
         </div>
 
         {slim ? (
-          <SlimTag
-            storyType={storyType}
-            estimate={estimate}
-            blocked={hasUnresolvedBlockers(blockers)}
-          />
+          <>
+            <SlimTag
+              storyType={storyType}
+              estimate={estimate}
+              blocked={hasUnresolvedBlockers(blockers)}
+            />
+            <div className="media">
+              <div className="media-content">
+                <div style={{ maxWidth: '90%', marginTop: '8px' }}>
+                  {role === 'reviewer' && selectedOwners.length === 1 && (
+                    <Review slim reviews={filteredReviews} />
+                  )}
+                </div>
+              </div>
+            </div>
+          </>
         ) : (
           <div className="media">
             <div className="media-content">
@@ -99,7 +110,7 @@ function Story({
               )}
             </div>
 
-            <BlockedTag visible={hasUnresolvedBlockers(blockers)} />
+            <BlockedTag title="Blocked" visible={hasUnresolvedBlockers(blockers)} />
           </div>
         )}
       </div>

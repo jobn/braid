@@ -148,6 +148,10 @@ export const ProgressTag = ({ tasks, width = 18, height = 18 }) => {
 export const SlimTag = ({ estimate, storyType, blocked }) => {
   const className = getTypeColorClassName(storyType);
   const height = getEstimateHeight(estimate);
+  let tagTitle = storyType;
+  if (estimate) {
+    tagTitle = `${estimate} storypoints`;
+  }
 
   return (
     <div
@@ -164,6 +168,7 @@ export const SlimTag = ({ estimate, storyType, blocked }) => {
     >
       <div
         className={className}
+        title={tagTitle}
         style={{
           borderRadius: '4px',
           flexShrink: '1',
@@ -176,6 +181,7 @@ export const SlimTag = ({ estimate, storyType, blocked }) => {
 
       {blocked && (
         <div
+          title="Blocked"
           className="has-background-warning"
           style={{
             borderRadius: '4px',

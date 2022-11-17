@@ -13,21 +13,36 @@ const colorForReview = status => {
   }
 };
 
-const Review = ({ reviews }) => (
+const Review = ({ reviews, slim }) => (
   <div className="tags has-addons is-marginless" data-testid="reviews">
     {reviews.map(review => (
-      <div key={review.id}>
-        <div className="tag" style={{ backgroundColor: 'Gray' }}>
+      <div key={review.id} style={{}}>
+        <div
+          className="tag"
+          style={{
+            backgroundColor: 'Gray',
+            paddingLeft: slim ? '.25em' : '.75em',
+            paddingRight: slim ? '.25em' : '.75em'
+          }}
+        >
           <span
             className="icon"
             style={{
-              color: colorForReview(review.status)
+              color: colorForReview(review.status),
+              fontSize: slim ? '8px' : '12px',
+
+              width: slim ? '1rem' : '1.5rem',
+              height: slim ? '1rem' : '1.5rem'
             }}
           >
             <FontAwesomeIcon icon={faCircle} />
           </span>
         </div>
-        <div className="tag">{review.reviewType.name}</div>
+        <div className="tag" style={{
+            paddingLeft: slim ? '.5em' : '.75em',
+            paddingRight: slim ? '.5em' : '.75em'}}>
+          {review.reviewType.name}
+        </div>
       </div>
     ))}
     {reviews.length === 0 && <div className="tag">Requester</div>}
