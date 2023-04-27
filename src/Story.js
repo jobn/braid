@@ -26,6 +26,10 @@ const renderTypeTag = type => {
   }
 };
 
+const columnsToShowReviews = ['Finished', 'Delivered', 'To Review'];
+const showReviewsForColumn = columnTitle =>
+  columnsToShowReviews.includes(columnTitle);
+
 function Story({
   id,
   name,
@@ -44,7 +48,9 @@ function Story({
   role,
   reviews,
   filteredReviews,
-  selectedOwners
+  selectedOwners,
+  title,
+  requestedById
 }) {
   return (
     <div
@@ -71,20 +77,25 @@ function Story({
 
         {slim ? (
           <>
+            {selectedOwners.length === 1 && showReviewsForColumn(title) && (
+              <div className="media">
+                <div className="media-content">
+                  <div style={{ maxWidth: '90%', marginTop: '8px' }}>
+                    <Review
+                      slim
+                      reviews={filteredReviews}
+                      showReviewer={role !== 'reviewer'}
+                      requester={requestedById}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
             <SlimTag
               storyType={storyType}
               estimate={estimate}
               blocked={hasUnresolvedBlockers(blockers)}
             />
-            <div className="media">
-              <div className="media-content">
-                <div style={{ maxWidth: '90%', marginTop: '8px' }}>
-                  {role === 'reviewer' && selectedOwners.length === 1 && (
-                    <Review slim reviews={filteredReviews} />
-                  )}
-                </div>
-              </div>
-            </div>
           </>
         ) : (
           <div className="media">
@@ -102,15 +113,16 @@ function Story({
                   ))}
               </div>
             </div>
-
             <div className="media-right" style={{ maxWidth: '90%' }}>
               {role === 'owner' && <Owners ownerIds={ownerIds} />}
               {role === 'reviewer' && selectedOwners.length === 1 && (
                 <Review reviews={filteredReviews} />
               )}
             </div>
-
-            <BlockedTag title="Blocked" visible={hasUnresolvedBlockers(blockers)} />
+            <BlockedTag
+              title="Blocked"
+              visible={hasUnresolvedBlockers(blockers)}
+            />
           </div>
         )}
       </div>

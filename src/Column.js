@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Story } from './Story';
 import { FilterContext } from './FilterContainer';
 import { ColumnContext } from './ColumnContainer';
+import { isCodeReview } from './FilterContainer/filters';
 
 const activeTargetStyle = {
   border: '2px dashed hsl(0, 0%, 48%)',
@@ -52,6 +53,18 @@ const Column = props => {
   const isActiveTarget = target === dropState && origin !== dropState && legal;
   const isIllegalTarget =
     target === dropState && !storyStates.includes(origin) && !legal;
+  const filteredReviewsForStory = story => {
+    if (!story.reviews) return [];
+    if (role === 'reviewer')
+      return story.reviews.filter(review =>
+        selectedOwners.includes(review.reviewerId)
+      );
+    if (title === 'Finished')
+      return story.reviews.filter(review => isCodeReview(review));
+    if (title === 'Delivered')
+      return story.reviews.filter(review => !isCodeReview(review));
+    return [];
+  };
 
   return (
     <div
@@ -76,14 +89,9 @@ const Column = props => {
           slim={slim}
           showLabels={showLabels}
           role={role}
-          filteredReviews={
-            role === 'reviewer' && story.reviews
-              ? story.reviews.filter(review =>
-                  selectedOwners.includes(review.reviewerId)
-                )
-              : []
-          }
+          filteredReviews={filteredReviewsForStory(story)}
           selectedOwners={selectedOwners}
+          title={title}
         />
       ))}
     </div>

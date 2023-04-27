@@ -36,7 +36,11 @@ export const filterByType = (story, typeNames) => {
 export const filterByStoryStates = (story, storyStates) =>
   storyStates.includes(story.currentState);
 
+
+export const isCodeReview = (review) => review.reviewType.name === 'Code';
 export const filterByReviewer = (story, reviewerIds) => {
+  const hasCodeReview = story.reviews?.find(isCodeReview);
+  const isCodeReviewDone = hasCodeReview?.status === 'pass';
   const isReviewNotFinished = reviewerId =>
     story.reviews.find(
       review => review.reviewerId === reviewerId && review.status !== 'pass'
@@ -47,11 +51,12 @@ export const filterByReviewer = (story, reviewerIds) => {
   if (reviewerIds.length === 0) {
     return true;
   }
-
-  return (
-    (reviewerIds.includes(story.requestedById) && allReviewsAreFinished) ||
-    (story.reviewerIds || []).some(
-      id => reviewerIds.includes(id) && isReviewNotFinished(id)
-    )
-  );
+  if (isCodeReviewDone)
+    return (
+      (reviewerIds.includes(story.requestedById) && allReviewsAreFinished) ||
+      (story.reviewerIds || []).some(
+        id => reviewerIds.includes(id) && isReviewNotFinished(id)
+      )
+    );
+  return reviewerIds.includes(hasCodeReview?.reviewerId);
 };
