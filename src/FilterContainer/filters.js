@@ -58,5 +58,7 @@ export const filterByReviewer = (story, reviewerIds) => {
         id => reviewerIds.includes(id) && isReviewNotFinished(id)
       )
     );
+  if (allReviewsAreFinished)
+    return reviewerIds.includes(story.requestedById);
   return reviewerIds.includes(hasCodeReview?.reviewerId);
 };
