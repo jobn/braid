@@ -48,7 +48,11 @@ const Review = ({ reviews, slim, showReviewer, requester }) => (
           {showReviewer && (
             <div style={{ marginLeft: '0.1rem' }}>
               (
-              <Initials id={review.reviewerId} />)
+              <Initials
+                id={review.reviewerId}
+                ifNotFound={() => <span className="has-text-danger">⚠️</span>}
+              />
+              )
             </div>
           )}
         </div>
