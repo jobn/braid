@@ -36,29 +36,38 @@ export const filterByType = (story, typeNames) => {
 export const filterByStoryStates = (story, storyStates) =>
   storyStates.includes(story.currentState);
 
-
 export const isCodeReview = (review) => review.reviewType.name === 'Code';
+const isProductionMergeReview = (review) => review.reviewType.name === 'Production Merge';
+const isStoryDelivered = (story) => story.currentState === 'delivered';
+const allReviewsAreFinished = (story, notIncludingFn = false) => story.reviews
+    ? story.reviews.every(review => notIncludingFn && notIncludingFn(review) || review.status === 'pass')
+    : true;
+
 export const filterByReviewer = (story, reviewerIds) => {
-  const hasCodeReview = story.reviews?.find(isCodeReview);
-  const isCodeReviewDone = hasCodeReview?.status === 'pass';
+  const hasCodeReview = story.reviews?.filter(isCodeReview);
+  const hasProductionMergeReview = story.reviews?.find(isProductionMergeReview);
+  const isCodeReviewDone =
+    hasCodeReview?.every(review => review.status === 'pass') &&
+    isStoryDelivered(story);
   const isReviewNotFinished = reviewerId =>
     story.reviews.find(
       review => review.reviewerId === reviewerId && review.status !== 'pass'
     );
-  const allReviewsAreFinished = story.reviews
-    ? story.reviews.every(review => review.status === 'pass')
-    : true;
   if (reviewerIds.length === 0) {
     return true;
   }
   if (isCodeReviewDone)
     return (
-      (reviewerIds.includes(story.requestedById) && allReviewsAreFinished) ||
+      (reviewerIds.includes(story.requestedById) && allReviewsAreFinished(story)) ||
       (story.reviewerIds || []).some(
         id => reviewerIds.includes(id) && isReviewNotFinished(id)
       )
     );
-  if (allReviewsAreFinished)
+  if (hasProductionMergeReview && allReviewsAreFinished(story, isProductionMergeReview))
+    return isStoryDelivered(story) &&
+      reviewerIds.includes(hasProductionMergeReview?.reviewerId);
+  if (allReviewsAreFinished(story))
     return reviewerIds.includes(story.requestedById);
-  return reviewerIds.includes(hasCodeReview?.reviewerId);
+  return hasCodeReview &&
+    hasCodeReview.some(codeReview => reviewerIds.includes(codeReview.reviewerId));
 };
