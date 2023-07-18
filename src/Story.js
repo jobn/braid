@@ -78,7 +78,7 @@ function Story({
         {slim ? (
           <>
             {selectedOwners.length === 1 && showReviewsForColumn(title) && (
-              <div className="media">
+              <div className="media" style={{ marginBottom: 0 }}>
                 <div className="media-content">
                   <div style={{ maxWidth: '90%', marginTop: '8px' }}>
                     <Review
